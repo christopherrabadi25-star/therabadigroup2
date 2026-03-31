@@ -1,65 +1,89 @@
-import Image from "next/image";
+import type { Metadata } from "next";
+import Hero from "@/components/Hero";
+import ServicePaths from "@/components/ServicePaths";
+import Stats from "@/components/Stats";
+import FeaturedListings from "@/components/FeaturedListings";
+import AreasServed from "@/components/AreasServed";
+import TeamSection from "@/components/TeamSection";
+import CTABanner from "@/components/CTABanner";
+import FAQ from "@/components/FAQ";
+import { BUSINESS } from "@/lib/data";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "The Rabadi Group | Southern California Luxury Real Estate",
+  description:
+    "Ramzi and Christopher Rabadi — father-and-son luxury real estate team. $100M+ closed, 5.0 Zillow rating, 20+ years. Beverly Hills, Pasadena, Hollywood Hills, Dana Point, Laguna Beach. Call (626) 203-1372.",
+};
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <Hero />
+      <ServicePaths />
+      <Stats />
+      <FeaturedListings />
+
+      <CTABanner
+        headline="Sellers: We Average 4.2% Above Asking."
+        sub="That's real money left on the table by agents who don't know how to negotiate. We do. Find out what your home is worth."
+        primaryLabel={`Call ${BUSINESS.phone}`}
+        primaryHref={BUSINESS.phoneHref}
+        secondaryLabel="Free Home Valuation"
+        secondaryHref="/sellers"
+      />
+
+      <AreasServed />
+      <TeamSection />
+
+      {/* Contact section */}
+      <section className="py-24 bg-[#0A0A0A]">
+        <div className="max-w-4xl mx-auto px-5 md:px-10 text-center">
+          <span className="eyebrow mb-5">Ready to Start?</span>
+          <h2 className="text-[clamp(2rem,4.5vw,3.5rem)] font-semibold text-[#EDE8DC] mb-5 mt-3">
+            Your Next Move Starts<br />With One Call.
+          </h2>
+          <p className="text-[#7A7570] text-lg leading-relaxed mb-10 max-w-xl mx-auto">
+            Whether you&apos;re buying, selling, or just figuring out the market — a 10-minute call with us is worth more than hours of Zillow research.
           </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href={BUSINESS.phoneHref} className="btn btn-gold btn-lg w-full sm:w-auto">
+              <PhoneIcon /> Call (626) 203-1372
+            </a>
+            <a href={BUSINESS.smsHref} className="btn btn-outline btn-lg w-full sm:w-auto">
+              <TextIcon /> Text Us Now
+            </a>
+          </div>
+          <p className="text-[#3A3834] text-xs mt-8">We respond fast. No automated responses. Ramzi or Christopher picks up.</p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      <FAQ />
+
+      <CTABanner
+        headline="15+ Cities. Two Agents. Zero Excuses."
+        sub="Wherever your deal is in Southern California, we're the call you want to make."
+        primaryLabel={`Call ${BUSINESS.phone}`}
+        primaryHref={BUSINESS.phoneHref}
+        secondaryLabel="View Properties"
+        secondaryHref="/listings"
+        dark
+      />
+    </>
+  );
+}
+
+function PhoneIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.7A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.1a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+    </svg>
+  );
+}
+
+function TextIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+    </svg>
   );
 }
