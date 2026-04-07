@@ -10,12 +10,22 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "www.therabadigroup.com",
+        pathname: "/assets/**",
+      },
+      {
+        protocol: "https",
         hostname: "www.compass.com",
         pathname: "/m/**",
       },
       {
         protocol: "https",
         hostname: "media.relahq.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "media.crmls.org",
         pathname: "/**",
       },
       {

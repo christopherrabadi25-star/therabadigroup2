@@ -4,23 +4,25 @@ import { AREAS, BUSINESS } from "@/lib/data";
 
 export default function AreasServed() {
   return (
-    <section className="py-20 md:py-28 bg-[#080808]">
+    <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: "#080808" }}>
+      <div className="absolute top-0 left-0 right-0 rule-gold" />
+
       <div className="max-w-7xl mx-auto px-5 md:px-10">
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
           <div>
-            <span className="eyebrow mb-3">Where We Work</span>
-            <h2 className="text-[clamp(2rem,4vw,3rem)] font-semibold text-[#EDE8DC] mb-3">
+            <span className="eyebrow mb-4">Where We Work</span>
+            <h2 className="text-[clamp(2rem,4.2vw,3.2rem)] font-semibold text-[#EDE8DC] mb-3">
               We Know These Markets Cold.
             </h2>
-            <p className="text-[#5A5550] max-w-md">
+            <p className="text-[#4A4844] max-w-md leading-relaxed">
               Not from Zillow — from 20 years of closed deals across every zip code.
             </p>
           </div>
           <Link href="/areas" className="btn btn-outline btn-sm shrink-0">All Markets →</Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {AREAS.map((area, i) => (
             <Link
               key={i}
@@ -32,14 +34,23 @@ export default function AreasServed() {
                 src={area.image}
                 alt={area.name}
                 fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                className="object-cover group-hover:scale-[1.08] transition-transform duration-700 ease-out"
                 sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+
+              {/* Base gradient — always visible */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/25 to-transparent" />
+
+              {/* Hover gold tint */}
+              <div className="absolute inset-0 bg-[#C4953A]/0 group-hover:bg-[#C4953A]/6 transition-colors duration-500" />
+
+              {/* Gold border on hover */}
+              <div className="absolute inset-0 rounded-xl ring-0 group-hover:ring-1 ring-[#C4953A]/30 transition-all duration-300" />
+
               <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6">
-                <span className="eyebrow text-[9px] mb-1.5">{area.startingFrom}</span>
+                <span className="eyebrow text-[0.6rem] mb-2 opacity-70">{area.startingFrom}</span>
                 <h3 className="text-xl font-semibold text-white serif leading-tight mb-1">{area.name}</h3>
-                <p className="text-[#B0ACA6] text-sm leading-snug max-h-0 overflow-hidden group-hover:max-h-20 transition-all duration-500">
+                <p className="text-[#9A9690] text-sm leading-snug max-h-0 overflow-hidden group-hover:max-h-20 transition-all duration-500 ease-in-out">
                   {area.description}
                 </p>
               </div>
@@ -48,7 +59,9 @@ export default function AreasServed() {
         </div>
 
         <div className="mt-10 text-center">
-          <p className="text-[#3A3834] text-sm mb-4">Don&apos;t see your city? We cover 15+ markets across SoCal.</p>
+          <p className="text-[#2A2826] text-sm mb-4 tracking-wide">
+            Don&apos;t see your city? We cover 15+ markets across SoCal.
+          </p>
           <a href={BUSINESS.phoneHref} className="btn btn-gold">
             <PhoneIcon /> Ask About Your Area
           </a>

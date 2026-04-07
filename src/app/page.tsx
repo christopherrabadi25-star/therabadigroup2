@@ -12,7 +12,7 @@ import { BUSINESS } from "@/lib/data";
 export const metadata: Metadata = {
   title: "The Rabadi Group | Southern California Luxury Real Estate",
   description:
-    "Ramzi and Christopher Rabadi — father-and-son luxury real estate team. $100M+ closed, 5.0 Zillow rating, 20+ years. Beverly Hills, Pasadena, Hollywood Hills, Dana Point, Laguna Beach. Call (626) 203-1372.",
+    "Ramzi and Christopher Rabadi — father-and-son luxury real estate team. $100M+ closed, 5.0 Zillow rating, 20+ years. Beverly Hills, Hollywood Hills, Dana Point, La Verne, Claremont. Call (626) 203-1372.",
 };
 
 export default function HomePage() {
@@ -25,7 +25,7 @@ export default function HomePage() {
 
       <CTABanner
         headline="Sellers: We Average 4.2% Above Asking."
-        sub="That's real money left on the table by agents who don't know how to negotiate. We do. Find out what your home is worth."
+        sub="That's real money left on the table by agents who don't know how to negotiate. We do. Find out what your home is actually worth."
         primaryLabel={`Call ${BUSINESS.phone}`}
         primaryHref={BUSINESS.phoneHref}
         secondaryLabel="Free Home Valuation"
@@ -35,25 +35,33 @@ export default function HomePage() {
       <AreasServed />
       <TeamSection />
 
-      {/* Contact section */}
-      <section className="py-24 bg-[#0A0A0A]">
-        <div className="max-w-4xl mx-auto px-5 md:px-10 text-center">
+      {/* Final contact section */}
+      <section className="relative py-24 md:py-32 overflow-hidden" style={{ background: "#060606" }}>
+        {/* Glow */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(196,149,58,0.07) 0%, transparent 70%)" }}
+        />
+        <div className="absolute top-0 left-0 right-0 rule-gold" />
+
+        <div className="relative max-w-3xl mx-auto px-5 md:px-10 text-center">
           <span className="eyebrow mb-5">Ready to Start?</span>
-          <h2 className="text-[clamp(2rem,4.5vw,3.5rem)] font-semibold text-[#EDE8DC] mb-5 mt-3">
+          <h2 className="text-[clamp(2.2rem,5vw,4rem)] font-semibold text-[#EDE8DC] mb-5 mt-4 leading-[1.1]">
             Your Next Move Starts<br />With One Call.
           </h2>
-          <p className="text-[#7A7570] text-lg leading-relaxed mb-10 max-w-xl mx-auto">
+          <p className="text-[#5A5550] text-lg leading-relaxed mb-10 max-w-xl mx-auto">
             Whether you&apos;re buying, selling, or just figuring out the market — a 10-minute call with us is worth more than hours of Zillow research.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={BUSINESS.phoneHref} className="btn btn-gold btn-lg w-full sm:w-auto">
+            <a href={BUSINESS.phoneHref} className="btn btn-gold btn-lg w-full sm:w-auto btn-pulse">
               <PhoneIcon /> Call (626) 203-1372
             </a>
             <a href={BUSINESS.smsHref} className="btn btn-outline btn-lg w-full sm:w-auto">
               <TextIcon /> Text Us Now
             </a>
           </div>
-          <p className="text-[#3A3834] text-xs mt-8">We respond fast. No automated responses. Ramzi or Christopher picks up.</p>
+          <p className="text-[#252320] text-xs mt-8 tracking-wider">
+            We respond fast. No automated responses. Ramzi or Christopher picks up.
+          </p>
         </div>
       </section>
 

@@ -54,6 +54,13 @@ export const metadata: Metadata = {
     "luxury buyer agent Southern California",
     "San Gabriel Valley real estate",
   ],
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/images/logo-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/images/logo-512.png",
+  },
   authors: [{ name: "The Rabadi Group", url: BUSINESS.url }],
   creator: "The Rabadi Group",
   publisher: "The Rabadi Group",
@@ -67,7 +74,7 @@ export const metadata: Metadata = {
       "Father-and-son luxury real estate team. $100M+ in closed transactions. La Verne, Claremont, Beverly Hills, Hollywood Hills, Dana Point. Call (626) 203-1372.",
     images: [
       {
-        url: "https://therabadigroup.com/assets/team-hero-bg-Cpz6m23g.png",
+        url: "/images/hero-bg.png",
         width: 1200,
         height: 630,
         alt: "The Rabadi Group — Southern California Luxury Real Estate",
@@ -79,7 +86,7 @@ export const metadata: Metadata = {
     title: "The Rabadi Group | Southern California Luxury Real Estate",
     description:
       "Father-and-son luxury real estate team. $100M+ in closed transactions. Call (626) 203-1372.",
-    images: ["https://therabadigroup.com/assets/team-hero-bg-Cpz6m23g.png"],
+    images: ["/images/hero-bg.png"],
   },
   robots: {
     index: true,
@@ -105,8 +112,8 @@ const organizationSchema = {
   "@type": "RealEstateAgent",
   name: "The Rabadi Group",
   url: BUSINESS.url,
-  logo: "https://therabadigroup.com/assets/team-hero-bg-Cpz6m23g.png",
-  image: "https://therabadigroup.com/assets/team-hero-bg-Cpz6m23g.png",
+  logo: "/images/hero-bg.png",
+  image: "/images/hero-bg.png",
   telephone: "+16262031372",
   email: BUSINESS.email,
   description:
@@ -157,7 +164,7 @@ const organizationSchema = {
       jobTitle: "Principal / Broker Associate",
       telephone: "+16262031372",
       email: BUSINESS.email,
-      image: "https://therabadigroup.com/assets/christopher-headshot-ByytXibX.png",
+      image: "/images/ramzi.png",
       description:
         "Ramzi Rabadi is a luxury real estate broker based in La Verne and Claremont, California with 20+ years of experience and $100M+ in closed transactions in Southern California.",
       knowsAbout: [
@@ -175,7 +182,7 @@ const organizationSchema = {
       jobTitle: "Agent / Buyer Specialist",
       telephone: "+16262031372",
       email: BUSINESS.email,
-      image: "https://therabadigroup.com/assets/ramzi-headshot-UsesxrYX.png",
+      image: "/images/christopher.png",
       description:
         "Christopher Rabadi works alongside his father Ramzi Rabadi as part of The Rabadi Group, serving buyers and sellers in La Verne, Claremont, the San Gabriel Valley, and all of Southern California.",
       knowsAbout: [

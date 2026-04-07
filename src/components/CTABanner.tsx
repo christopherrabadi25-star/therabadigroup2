@@ -21,29 +21,56 @@ export default function CTABanner({
 }: Props) {
   return (
     <section
-      className="relative overflow-hidden border-y border-[#1A1A1A] py-20 md:py-28"
-      style={{ background: dark ? "#050505" : "#0A0A0A" }}
+      className="relative overflow-hidden py-20 md:py-28"
+      style={{ background: dark ? "#040404" : "#090909" }}
     >
+      {/* Gold orb glow */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 60% 40% at 50% 50%, rgba(196,149,58,0.07) 0%, transparent 70%)" }}
+        style={{
+          background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(196,149,58,0.09) 0%, transparent 65%)",
+        }}
       />
-      <div className="relative max-w-3xl mx-auto px-5 md:px-10 text-center">
+
+      {/* Decorative large background text */}
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+        aria-hidden="true"
+      >
+        <span
+          className="text-[clamp(8rem,20vw,16rem)] font-bold serif text-[#C4953A] leading-none"
+          style={{ opacity: 0.025, letterSpacing: "-0.04em" }}
+        >
+          RG
+        </span>
+      </div>
+
+      {/* Top + bottom rules */}
+      <div className="absolute top-0 left-0 right-0 rule-gold" />
+      <div className="absolute bottom-0 left-0 right-0 rule-gold" />
+
+      <div className="relative max-w-2xl mx-auto px-5 md:px-10 text-center">
         <span className="eyebrow mb-5">The Rabadi Group · La Verne &amp; Claremont, CA</span>
-        <h2 className="text-[clamp(1.8rem,4.5vw,3.2rem)] font-semibold text-[#EDE8DC] mb-5 mt-3">
+
+        <h2
+          className="text-[clamp(2rem,5vw,3.6rem)] font-semibold text-[#EDE8DC] mb-5 mt-4 leading-[1.1]"
+        >
           {headline}
         </h2>
-        <p className="text-[#6A6560] text-lg mb-10 max-w-xl mx-auto leading-relaxed">{sub}</p>
+
+        <p className="text-[#5A5550] text-lg mb-10 max-w-lg mx-auto leading-relaxed">{sub}</p>
+
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href={primaryHref} className="btn btn-gold btn-lg w-full sm:w-auto">
+          <a href={primaryHref} className="btn btn-gold btn-lg w-full sm:w-auto btn-pulse">
             <PhoneIcon />{primaryLabel}
           </a>
           <a href={secondaryHref} className="btn btn-outline btn-lg w-full sm:w-auto">
             {secondaryLabel}
           </a>
         </div>
-        <p className="text-[#2E2B27] text-xs mt-8 tracking-wider">
-          5.0 ★ Zillow · $100M+ Closed · CA DRE #01738777 #02246356
+
+        <p className="text-[#252320] text-[0.7rem] mt-8 tracking-widest uppercase">
+          5.0 ★ Zillow &nbsp;·&nbsp; $100M+ Closed &nbsp;·&nbsp; CA DRE #01738777 &nbsp;·&nbsp; #02246356
         </p>
       </div>
     </section>

@@ -17,13 +17,13 @@ export default function FAQ() {
   };
 
   return (
-    <section className="py-24 bg-[#0A0A0A]">
+    <section className="py-24 md:py-28" style={{ background: "#0A0A0A" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      <div className="max-w-3xl mx-auto px-6">
-        <p className="text-[#C8A96A] text-xs tracking-[0.28em] uppercase mb-3">FAQ</p>
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Questions We Actually Get</h2>
-        <p className="text-[#777] mb-12">Straight answers. No realtor-speak.</p>
+      <div className="max-w-3xl mx-auto px-5 md:px-10">
+        <span className="eyebrow mb-4">FAQ</span>
+        <h2 className="text-[clamp(2rem,4.5vw,3.4rem)] font-semibold text-[#EDE8DC] mb-3 mt-3">Questions We Actually Get</h2>
+        <p className="text-[#4A4844] mb-12 leading-relaxed">Straight answers. No realtor-speak.</p>
 
         <div className="space-y-2">
           {FAQS.map((faq, i) => (

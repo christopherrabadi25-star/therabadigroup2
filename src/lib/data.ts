@@ -39,7 +39,7 @@ export const TEAM = [
     title: "Principal / Broker Associate",
     dre: "CA DRE #01738777",
     experience: "20+ years",
-    image: "https://therabadigroup.com/assets/christopher-headshot-ByytXibX.png",
+    image: "/images/ramzi.png",
     specialties: [
       "Luxury Residential",
       "Commercial",
@@ -60,7 +60,7 @@ export const TEAM = [
     title: "Agent / Buyer Specialist",
     dre: "CA DRE #02246356",
     experience: "Next generation",
-    image: "https://therabadigroup.com/assets/ramzi-headshot-UsesxrYX.png",
+    image: "/images/christopher.png",
     specialties: [
       "Buyer Representation",
       "San Gabriel Valley",
@@ -88,8 +88,7 @@ export const LISTINGS = [
     role: "Buyer Representative",
     description:
       "Hollywood Hills. Historic butterfly-roofed Mid-Century masterpiece by William Krisel. Once home to Bobby Darin & Sandra Dee, featured in Architectural Digest.",
-    image:
-      "https://www.compass.com/m/243102dcc22db564159e038057b107dc4d1f4df0_img_0/origin.webp",
+    image: "/images/hollywood-hills.webp",
     neighborhood: "Hollywood Hills",
     featured: true,
   },
@@ -102,7 +101,7 @@ export const LISTINGS = [
     role: "Buyer Representative",
     description:
       "Beachfront living on Dana Point's prestigious coastline. Direct sand access with unobstructed Pacific views.",
-    image: "https://therabadigroup.com/assets/35099-beach-rd-BdCwmhO2.png",
+    image: "/images/west-hollywood-4plex.jpg",
     neighborhood: "Dana Point Oceanfront",
     featured: true,
   },
@@ -115,8 +114,7 @@ export const LISTINGS = [
     role: "Listing Agent",
     description:
       "Designed by Foster Rhodes Jackson, a disciple of Frank Lloyd Wright. Nearly 10 acres with bell tower and panoramic canyon views. 3 Bed, 4 Bath, 3,628 SF, 9.97 Acres.",
-    image:
-      "https://media.relahq.com/public/styles/gallery_grid/s3/property-images/prop-nid-179354336/011-0011_809.jpg",
+    image: "/images/la-verne-estate.jpg",
     neighborhood: "La Verne Estates",
     featured: true,
   },
@@ -129,8 +127,7 @@ export const LISTINGS = [
     role: "Buyer Representative",
     description:
       "Prime address on the prestigious Olympic Boulevard corridor. Heart of the 90210.",
-    image:
-      "https://www.compass.com/m/3e5df21608cf45e1939694a7eabb7e1e797ce685_img_0/origin.jpg",
+    image: "/images/beverly-hills.jpg",
     neighborhood: "Beverly Hills",
     featured: false,
   },
@@ -143,8 +140,7 @@ export const LISTINGS = [
     role: "Buyer Representative",
     description:
       "West Hollywood. Charming 4-plex half a block from Melrose Place. Great curb appeal with huge private patios.",
-    image:
-      "https://dlajgvw9htjpb.cloudfront.net/cms/5aaa9488-9739-436e-a856-f098468e0a5f/23-254109/7108976295704662576.jpg",
+    image: "/images/west-hollywood-4plex.jpg",
     neighborhood: "West Hollywood",
     featured: false,
   },
@@ -157,8 +153,7 @@ export const LISTINGS = [
     role: "Buyer Representative",
     description:
       "West Hollywood. Classic 1939 multi-unit. 7 beds, 5 baths, 4,167 SF, 4-car garage.",
-    image:
-      "https://api.cotality.com/trestle/Media/Property/PHOTO-Jpeg/1073206880/1/MzM2Ny84NDU0LzIw/MjAvMTY3OTUvMTc2NzgzNDY0MQ/eI17gYq01uRln6HtYyl9fBSTbkDzYhLsY4eDwR_4774",
+    image: "/images/west-hollywood-multi.jpg",
     neighborhood: "West Hollywood",
     featured: false,
   },
@@ -166,46 +161,40 @@ export const LISTINGS = [
 
 export const AREAS = [
   {
-    name: "Pasadena",
-    description:
-      "Historic architecture, legacy estates, and one of the strongest luxury markets in the region.",
-    startingFrom: "From $1.9M",
-    image: "https://therabadigroup.com/assets/pasadena-DoCvWyxE.jpg",
+    name: "La Verne",
+    description: "Our home market. Bonita Unified schools, foothill setting, tight inventory. We know every block.",
+    startingFrom: "From $850K",
+    image: "/images/la-verne.jpg",
+  },
+  {
+    name: "Claremont",
+    description: "The Village, north foothill estates, and the Colleges corridor. Sophisticated buyers, strong appreciation.",
+    startingFrom: "From $950K",
+    image: "/images/claremont.jpg",
   },
   {
     name: "Beverly Hills",
-    description:
-      "Prestige, privacy, and trophy properties at the highest tier of Los Angeles real estate.",
+    description: "Prestige, privacy, and trophy properties at the highest tier of Los Angeles real estate.",
     startingFrom: "From $7.4M",
-    image: "https://therabadigroup.com/assets/beverly-hills-COH4ONqZ.jpg",
-  },
-  {
-    name: "La Habra Heights",
-    description:
-      "Hillside estates, larger lots, and panoramic settings with a quieter luxury feel.",
-    startingFrom: "From $2.1M",
-    image: "https://therabadigroup.com/assets/la-habra-heights-KnGYZe6W.jpg",
-  },
-  {
-    name: "Laguna Beach",
-    description:
-      "Iconic coastal living with design-forward homes and world-class ocean views.",
-    startingFrom: "From $1.8M",
-    image: "https://therabadigroup.com/assets/laguna-beach-BoRuC0pL.jpg",
-  },
-  {
-    name: "Dana Point",
-    description:
-      "Harborfront luxury, dramatic cliffs, and a refined coastal lifestyle.",
-    startingFrom: "From $6.3M",
-    image: "https://therabadigroup.com/assets/dana-point-D5lAHv2w.jpg",
+    image: "/images/beverly-hills-area.jpg",
   },
   {
     name: "Hollywood Hills",
-    description:
-      "Architectural homes, skyline views, and standout addresses above the city.",
+    description: "Architectural homes, canyon views, and standout addresses above the city.",
     startingFrom: "From $2.7M",
-    image: "https://therabadigroup.com/assets/hollywood-hills-BUOdg5MZ.jpg",
+    image: "/images/hollywood-hills-area.jpg",
+  },
+  {
+    name: "Dana Point",
+    description: "Harborfront luxury, dramatic cliffs, direct beach access. One of our largest closed deals.",
+    startingFrom: "From $6.3M",
+    image: "/images/dana-point.jpg",
+  },
+  {
+    name: "San Gabriel Valley",
+    description: "Our broader SGV coverage: San Dimas, Glendora, Upland, Rancho Cucamonga and beyond.",
+    startingFrom: "All price ranges",
+    image: "/images/sgv.jpg",
   },
 ] as const;
 
