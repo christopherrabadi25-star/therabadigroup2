@@ -1,25 +1,26 @@
 import Link from "next/link";
 import { BUSINESS } from "@/lib/data";
-import { HomeValueIcon, PhoneIcon, TextIcon } from "./Icons";
+import { PhoneIcon, TextIcon } from "./Icons";
 
-/** Thumb-reach actions on phones. Body has matching bottom padding in globals.css. */
+/** Thumb-reach contact on phones. Body has matching bottom padding in globals.css. */
 export default function MobileCallBar() {
-  const item = "flex flex-1 flex-col items-center justify-center gap-1 text-[0.8rem] font-semibold no-underline";
+  const item =
+    "flex flex-1 items-center justify-center gap-2 text-[0.72rem] font-medium uppercase tracking-[0.18em] no-underline";
   return (
     <nav
       aria-label="Quick contact"
-      className="md:hidden fixed inset-x-0 bottom-0 z-40 border-t border-oak-deep bg-oak text-paper"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-ivory/10 bg-onyx/95 text-ivory backdrop-blur-md md:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <div className="flex h-[var(--bar-h)]">
         <a href={BUSINESS.phoneHref} className={item}>
-          <PhoneIcon size={20} /> Call
+          <PhoneIcon size={16} /> Call
         </a>
-        <a href={BUSINESS.smsHref} className={`${item} border-x border-white/15`}>
-          <TextIcon size={20} /> Text
+        <a href={BUSINESS.smsHref} className={`${item} border-x border-ivory/10`}>
+          <TextIcon size={16} /> Text
         </a>
-        <Link href="/#contact" className={`${item} text-brass`}>
-          <HomeValueIcon size={20} /> Home value
+        <Link href="/#contact" className={`${item} bg-champagne text-onyx`}>
+          Inquire
         </Link>
       </div>
     </nav>

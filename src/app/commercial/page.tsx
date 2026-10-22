@@ -6,6 +6,7 @@ import Steps from "@/components/Steps";
 import SaleCard from "@/components/SaleCard";
 import ContactPanel from "@/components/ContactPanel";
 import { PhoneIcon } from "@/components/Icons";
+import { Reveal } from "@/components/Motion";
 
 export const metadata: Metadata = {
   title: "Commercial Real Estate",
@@ -16,19 +17,19 @@ export const metadata: Metadata = {
 
 const TYPES = [
   { title: "Multi-family", body: "Duplexes to apartment buildings, including West Hollywood income property." },
-  { title: "Retail and strip centers", body: "Tenant mix, lease quality, and value-add potential reviewed before you commit." },
+  { title: "Retail", body: "Strip centers and storefronts, with tenant mix and lease quality reviewed before you commit." },
   { title: "Industrial", body: "Warehouse, flex, and distribution space, with NNN leases and cap rates underwritten." },
   { title: "Gas stations", body: "Fee simple, leased fee, and leasebacks, including environmental and tank disclosures." },
-  { title: "Ground leases", body: "Acquisitions and dispositions from both the landlord and tenant side." },
-  { title: "Office and mixed-use", body: "Small professional buildings and residential-over-retail." },
+  { title: "Ground leases", body: "Acquisitions and dispositions from the landlord and the tenant side." },
+  { title: "Office and mixed-use", body: "Professional buildings and residential over retail." },
 ];
 
 const STEPS = [
-  { title: "Set the goal", body: "Buy, sell, 1031 exchange, or reposition. We agree on the strategy before any offer or listing." },
-  { title: "Value it", body: "Comps, cap rates, and the rent roll, turned into a range the market will actually pay." },
-  { title: "Find or market it", body: "Buyers: on and off-market sourcing. Sellers: an offering package sent to qualified buyers we know." },
+  { title: "The objective", body: "Buy, sell, 1031 exchange, or reposition. We agree on strategy before any offer or listing." },
+  { title: "The value", body: "Comparable sales, cap rates, and the rent roll, distilled into a range the market will pay." },
+  { title: "The market", body: "Buyers: on and off-market sourcing. Sellers: an offering package sent to qualified buyers we know." },
   { title: "Due diligence", body: "Inspections, environmental, leases, title, and zoning, coordinated so nothing surprises you." },
-  { title: "Negotiate and close", body: "Terms, credits, and timing, then escrow and lender coordination through to a clean close." },
+  { title: "Negotiation and close", body: "Terms, credits, and timing, then escrow and lender coordination to a clean close." },
 ];
 
 export default function CommercialPage() {
@@ -39,44 +40,54 @@ export default function CommercialPage() {
   return (
     <>
       <PageIntro
-        title="Commercial and investment property"
-        lead="Ramzi Rabadi has spent 20+ years on deals most agents pass on: ground leases, gas stations, multi-family, and mixed-use across Southern California."
+        title="Commercial and investment"
+        lead="Twenty years of the deals most agents pass on: ground leases, gas stations, multi-family, and mixed-use across Southern California."
+        image="/images/beverly-hills-area.jpg"
+        imageAlt="Beverly Hills"
       >
-        <a href={BUSINESS.phoneHref} className="btn btn-brass">
-          <PhoneIcon /> Call Ramzi
+        <a href={BUSINESS.phoneHref} className="btn btn-gold">
+          <PhoneIcon size={16} /> Call Ramzi
         </a>
-        <Link href="#contact" className="btn btn-line">
-          Send us your deal
+        <Link href="#contact" className="btn btn-ghost">
+          Share your deal
         </Link>
       </PageIntro>
 
-      <section className="section">
-        <div className="wrap grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-20">
-          <h2 className="h-section">Property we handle</h2>
-          <ul className="grid gap-x-10 sm:grid-cols-2">
-            {TYPES.map((t) => (
-              <li key={t.title} className="border-t border-line py-5">
-                <h3 className="text-[1.4rem]">{t.title}</h3>
-                <p className="mt-1 text-ink-soft">{t.body}</p>
-              </li>
+      <section className="light section">
+        <div className="wrap grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-24">
+          <Reveal>
+            <h2 className="h-section">What we handle</h2>
+          </Reveal>
+          <ul className="grid gap-x-12 sm:grid-cols-2">
+            {TYPES.map((t, i) => (
+              <Reveal as="li" key={t.title} delay={(i % 2) * 0.08} className="border-t border-ink/15 py-6">
+                <h3 className="text-[1.6rem]">{t.title}</h3>
+                <p className="mt-2 text-ink-soft">{t.body}</p>
+              </Reveal>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className="section bg-stone">
+      <section className="section bg-onyx">
         <div className="wrap">
-          <h2 className="h-section mb-10">How we work a commercial deal</h2>
+          <Reveal>
+            <h2 className="h-section mb-12">How a commercial deal runs</h2>
+          </Reveal>
           <Steps items={STEPS} />
         </div>
       </section>
 
-      <section className="section">
+      <section className="section !pt-0 bg-onyx">
         <div className="wrap">
-          <h2 className="h-section mb-10">Income property we&apos;ve closed</h2>
+          <Reveal>
+            <h2 className="h-section mb-12">Income property closed</h2>
+          </Reveal>
           <div className="rail">
-            {deals.map((s) => (
-              <SaleCard key={s.slug} sale={s} />
+            {deals.map((s, i) => (
+              <Reveal key={s.slug} delay={i * 0.1}>
+                <SaleCard sale={s} />
+              </Reveal>
             ))}
           </div>
         </div>
@@ -84,7 +95,7 @@ export default function CommercialPage() {
 
       <ContactPanel
         heading="Tell us about the property"
-        intro="Asset type, location, and what you want to do. Ramzi will call you back with an honest read."
+        intro="Asset type, location, and your goal. Ramzi will call you back with an honest read."
         defaultTopic="Commercial or investment"
       />
     </>

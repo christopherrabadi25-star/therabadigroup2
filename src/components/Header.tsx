@@ -3,19 +3,29 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "motion/react";
 import { BUSINESS, NAV_LINKS, MORE_LINKS } from "@/lib/data";
-import { CloseIcon, MenuIcon, PhoneIcon, TextIcon } from "./Icons";
+import { PhoneIcon } from "./Icons";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Close the menu after navigating
   const [lastPath, setLastPath] = useState(pathname);
   if (lastPath !== pathname) {
     setLastPath(pathname);
     setOpen(false);
   }
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
@@ -27,33 +37,31 @@ export default function Header() {
     };
   }, [open]);
 
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(href + "/");
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
+  const solid = scrolled || open;
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-paper/95 backdrop-blur border-b border-line">
+      <header
+        className={`fixed inset-x-0 top-0 z-50 text-ivory transition-[background-color,border-color] duration-500 ${
+          solid ? "border-b border-ivory/10 bg-onyx/92 backdrop-blur-md" : "border-b border-transparent bg-transparent"
+        }`}
+      >
         <div className="wrap flex h-[var(--header-h)] items-center justify-between gap-6">
-          <Link
-            href="/"
-            className="no-underline leading-none"
-            aria-label="The Rabadi Group, home"
-          >
-            <span className="whitespace-nowrap font-serif text-[1.3rem] tracking-[-0.01em] sm:text-[1.45rem]">
+          <Link href="/" className="no-underline" aria-label="The Rabadi Group, home">
+            <span className="block whitespace-nowrap font-display text-[1rem] uppercase leading-none tracking-[0.22em] md:text-[1.12rem]">
               The Rabadi Group
             </span>
           </Link>
 
-          <nav aria-label="Main" className="hidden lg:flex items-center gap-7">
+          <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
             {NAV_LINKS.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
-                className={`text-[0.97rem] no-underline py-2 border-b-2 ${
-                  isActive(l.href)
-                    ? "border-brass text-ink"
-                    : "border-transparent text-ink-soft hover:text-ink"
+                className={`relative py-2 text-[0.78rem] uppercase tracking-[0.18em] no-underline transition-colors ${
+                  isActive(l.href) ? "text-champagne" : "text-ivory/80 hover:text-ivory"
                 }`}
               >
                 {l.label}
@@ -61,85 +69,79 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
-            <span className="hidden lg:block">
-              <a
-                href={BUSINESS.phoneHref}
-                className="btn btn-oak !min-h-[44px] !px-5"
-              >
-                <PhoneIcon size={16} /> {BUSINESS.phone}
-              </a>
-            </span>
+          <div className="flex items-center gap-3">
             <a
               href={BUSINESS.phoneHref}
-              className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full bg-oak text-paper"
-              aria-label={`Call ${BUSINESS.phone}`}
+              className="hidden items-center gap-2 text-[0.85rem] tracking-[0.08em] text-ivory/90 no-underline hover:text-champagne lg:inline-flex"
             >
-              <PhoneIcon size={18} />
+              <PhoneIcon size={15} /> {BUSINESS.phone}
             </a>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="lg:hidden inline-flex h-11 items-center gap-2 rounded-full border border-line px-4 text-[0.95rem] font-semibold"
+              className="flex h-11 items-center gap-3 pl-2 text-[0.75rem] uppercase tracking-[0.2em] lg:hidden"
               aria-expanded={open}
               aria-controls="mobile-menu"
             >
-              {open ? <CloseIcon size={18} /> : <MenuIcon size={18} />}
               {open ? "Close" : "Menu"}
+              <span className="relative block h-3 w-6" aria-hidden>
+                <span className={`absolute left-0 h-px w-6 bg-current transition-all duration-500 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
+                <span className={`absolute left-0 h-px w-6 bg-current transition-all duration-500 ${open ? "top-1.5 -rotate-45" : "top-3"}`} />
+              </span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Outside <header>: its backdrop-filter would trap a fixed overlay */}
-      {open && (
-        <div
-          id="mobile-menu"
-          className="lg:hidden fixed inset-x-0 top-[var(--header-h)] bottom-0 z-50 overflow-y-auto overscroll-contain bg-paper"
-        >
-          <nav aria-label="Mobile" className="wrap pt-4 pb-10">
-            <ul>
-              {[{ label: "Home", href: "/" }, ...NAV_LINKS].map((l) => (
-                <li key={l.href} className="border-b border-line">
-                  <Link
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className={`block py-4 font-serif text-[2rem] leading-tight no-underline ${
-                      (l.href === "/" ? pathname === "/" : isActive(l.href))
-                        ? "text-brass-ink"
-                        : ""
-                    }`}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            id="mobile-menu"
+            className="fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-onyx pt-[var(--header-h)] text-ivory lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45, ease: EASE }}
+          >
+            <nav aria-label="Mobile" className="wrap flex min-h-full flex-col pb-10 pt-6">
+              <ul>
+                {[{ label: "Home", href: "/" }, ...NAV_LINKS].map((l, n) => (
+                  <motion.li
+                    key={l.href}
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, ease: EASE, delay: 0.06 * n + 0.1 }}
                   >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-              {MORE_LINKS.map((l) => (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="text-ink-soft text-[1.05rem]"
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8 grid grid-cols-2 gap-3">
-              <a href={BUSINESS.phoneHref} className="btn btn-oak">
-                <PhoneIcon /> Call
-              </a>
-              <a href={BUSINESS.smsHref} className="btn btn-line">
-                <TextIcon /> Text
-              </a>
-            </div>
-            <p className="mt-4 text-center text-ink-soft">{BUSINESS.phone}</p>
-          </nav>
-        </div>
-      )}
+                    <Link
+                      href={l.href}
+                      onClick={() => setOpen(false)}
+                      className={`block py-2.5 font-display text-[2.3rem] leading-tight no-underline ${
+                        (l.href === "/" ? pathname === "/" : isActive(l.href)) ? "text-champagne" : ""
+                      }`}
+                    >
+                      {l.label}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+              <ul className="mt-8 flex flex-wrap gap-x-7 gap-y-2 border-t border-ivory/10 pt-6">
+                {MORE_LINKS.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} onClick={() => setOpen(false)} className="text-[0.78rem] uppercase tracking-[0.18em] text-taupe">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-auto pt-10">
+                <a href={BUSINESS.phoneHref} className="btn btn-gold w-full">
+                  <PhoneIcon size={16} /> Call {BUSINESS.phone}
+                </a>
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

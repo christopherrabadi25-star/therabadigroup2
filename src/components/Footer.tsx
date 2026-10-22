@@ -1,32 +1,27 @@
 import Link from "next/link";
 import { BUSINESS, NAV_LINKS, MORE_LINKS, TEAM } from "@/lib/data";
-import Ridgeline from "./Ridgeline";
 
 export default function Footer() {
   return (
-    <footer className="bg-oak-deep text-paper">
-      <Ridgeline className="block h-16 w-full text-brass/70 md:h-24" />
-      <div className="wrap pb-12 pt-10 md:pt-14">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="border-t border-ivory/10 bg-onyx text-ivory">
+      <div className="wrap pb-12 pt-20 md:pt-28">
+        <p className="font-display text-[clamp(2.4rem,8vw,6rem)] uppercase leading-[0.95] tracking-[0.06em]">
+          The Rabadi Group
+        </p>
+        <div className="mt-14 grid gap-12 border-t border-ivory/10 pt-12 md:grid-cols-[1.3fr_1fr_1fr]">
           <div>
-            <p className="font-serif text-[2rem] leading-none">The Rabadi Group</p>
-            <p className="mt-4 max-w-sm text-sage">
-              Ramzi and Christopher Rabadi. Father and son real estate agents based in Claremont, working across
-              Southern California.
+            <p className="max-w-sm text-taupe">
+              Ramzi and Christopher Rabadi, a father and son team, with more than twenty years of Southern California
+              real estate behind them.
             </p>
-            <div className="mt-6 space-y-1">
-              <a href={BUSINESS.phoneHref} className="block text-[1.15rem] font-semibold no-underline hover:text-brass">
+            <div className="mt-6 space-y-1.5">
+              <a href={BUSINESS.phoneHref} className="block font-display text-[1.5rem] no-underline hover:text-champagne">
                 {BUSINESS.phone}
               </a>
-              <a href={`mailto:${BUSINESS.email}`} className="block no-underline text-sage hover:text-paper">
+              <a href={`mailto:${BUSINESS.email}`} className="block text-taupe no-underline hover:text-ivory">
                 {BUSINESS.email}
               </a>
-              <a
-                href={BUSINESS.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block no-underline text-sage hover:text-paper"
-              >
+              <a href={BUSINESS.instagram} target="_blank" rel="noopener noreferrer" className="block text-taupe no-underline hover:text-ivory">
                 Instagram {BUSINESS.instagramHandle}
               </a>
             </div>
@@ -36,7 +31,7 @@ export default function Footer() {
             <ul className="grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-1">
               {[...NAV_LINKS, ...MORE_LINKS].map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="no-underline text-sage hover:text-paper">
+                  <Link href={l.href} className="text-[0.78rem] uppercase tracking-[0.18em] text-taupe no-underline hover:text-ivory">
                     {l.label}
                   </Link>
                 </li>
@@ -44,8 +39,8 @@ export default function Footer() {
             </ul>
           </nav>
 
-          <div className="text-sage">
-            <p className="font-semibold text-paper">{BUSINESS.brokerage}</p>
+          <div className="text-taupe">
+            <p className="text-ivory">{BUSINESS.brokerage}</p>
             <p className="mt-1">{BUSINESS.address.full}</p>
             <ul className="mt-5 space-y-1">
               {TEAM.map((m) => (
@@ -57,10 +52,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <p className="mt-14 border-t border-white/10 pt-6 text-[0.85rem] text-sage/80">
+        <p className="mt-16 text-[0.8rem] leading-relaxed text-taupe/70">
           © {new Date().getFullYear()} The Rabadi Group at {BUSINESS.brokerage}. Sales shown include transactions where
-          we represented the buyer, the seller, or both. Information is deemed reliable but not guaranteed. Equal
-          Housing Opportunity.
+          we represented the buyer or the seller. Information is deemed reliable but not guaranteed. Equal Housing
+          Opportunity.
         </p>
       </div>
     </footer>

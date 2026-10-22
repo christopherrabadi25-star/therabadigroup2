@@ -3,6 +3,7 @@ import Image from "next/image";
 import { BUSINESS, STATS, TEAM } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import ContactPanel from "@/components/ContactPanel";
+import { CountUp, Reveal } from "@/components/Motion";
 
 export const metadata: Metadata = {
   title: "About Ramzi and Christopher Rabadi",
@@ -34,59 +35,63 @@ export default function AboutPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <PageIntro
-        title="A father and son, on every deal"
-        lead="Ramzi brings more than 20 years of Southern California deals. Christopher grew up in the San Gabriel Valley and works next to him on every one."
+        title="Two generations, one standard"
+        lead="Ramzi brings more than twenty years of Southern California deals. Christopher grew up in the San Gabriel Valley and works beside him on every one."
+        image="/images/claremont.jpg"
+        imageAlt="Claremont Village with the San Gabriel Mountains behind"
+        position="60% 50%"
       />
 
-      <section className="section !pt-10">
+      <section className="section bg-onyx">
         <div className="wrap">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-[18px] md:aspect-[21/9]">
-            <Image src="/images/hero-bg.png" alt="Christopher and Ramzi Rabadi" fill sizes="100vw" className="object-cover object-[50%_22%]" />
-          </div>
-          <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4">
-            {STATS.map((s) => (
-              <div key={s.label}>
+          <dl className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4">
+            {STATS.map((s, i) => (
+              <Reveal key={s.label} delay={i * 0.08}>
                 <dt className="sr-only">{s.label}</dt>
-                <dd className="num text-[2.6rem] leading-none">{s.value}</dd>
-                <dd className="mt-2 text-ink-soft">{s.label}</dd>
-              </div>
+                <dd className="num text-[clamp(2.8rem,6vw,4.6rem)] leading-none text-champagne">
+                  <CountUp value={s.value} />
+                </dd>
+                <dd className="mt-3 text-taupe">{s.label}</dd>
+              </Reveal>
             ))}
           </dl>
         </div>
       </section>
 
       {TEAM.map((m, i) => (
-        <section key={m.name} className={`section ${i === 0 ? "bg-stone" : ""}`}>
-          <div className="wrap grid gap-10 md:grid-cols-[minmax(0,340px)_1fr] md:gap-16">
-            <div className="relative aspect-[4/5] w-full max-w-[340px] overflow-hidden rounded-[16px] bg-stone">
-              <Image src={m.image} alt={m.name} fill sizes="340px" className="object-cover object-top" />
-            </div>
-            <div>
-              <h2 className="h-section">{m.name}</h2>
-              <p className="mt-2 text-ink-soft">
-                {m.title}, {m.dre}
-              </p>
-              <p className="mt-6 max-w-[38em] text-[1.1rem]">{m.bio}</p>
-              <h3 className="h-sans mt-8 text-[1rem]">Focus</h3>
-              <p className="mt-1 text-ink-soft">{m.specialties.join(", ")}</p>
-            </div>
+        <section key={m.name} className={i === 0 ? "light section" : "light-2 section"}>
+          <div className={`wrap grid items-center gap-12 md:grid-cols-2 md:gap-20`}>
+            <Reveal className={i === 1 ? "md:order-2" : ""}>
+              <div className="relative aspect-[4/5] w-full max-w-[460px] overflow-hidden bg-ink/10">
+                <Image src={m.image} alt={m.name} fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover object-top" />
+              </div>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <p className="kicker text-champagne-deep">{m.title}</p>
+              <h2 className="h-section mt-4">{m.name}</h2>
+              <p className="mt-2 text-[0.92rem] text-ink-soft">{m.dre}</p>
+              <p className="mt-8 max-w-[34em] text-[1.12rem] leading-relaxed">{m.bio}</p>
+              <p className="mt-8 text-ink-soft">{m.specialties.join(", ")}</p>
+            </Reveal>
           </div>
         </section>
       ))}
 
-      <section className="section bg-stone">
-        <div className="wrap grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
-          <h2 className="h-section">Rooted in the San Gabriel Valley</h2>
-          <div className="prose-body text-[1.1rem]">
+      <section className="section bg-onyx">
+        <div className="wrap grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-24">
+          <Reveal>
+            <h2 className="h-section">Rooted in the San Gabriel Valley</h2>
+          </Reveal>
+          <Reveal delay={0.1} className="prose-body text-[1.12rem]">
             <p>
-              The Rabadi family has lived and worked in the San Gabriel Valley for decades. That history is why so
-              much of our business is here, from Claremont and La Verne to Pasadena, Sierra Madre, and Monrovia.
+              The Rabadi family has lived and worked in the San Gabriel Valley for decades. It&apos;s why so much of our work is
+              here, from Claremont and La Verne to Pasadena, Sierra Madre, and Monrovia, and why our clients follow us to
+              Los Angeles and the coast.
             </p>
-            <p className="text-ink-soft">
-              We work out of {BUSINESS.brokerage} at {BUSINESS.address.full}. When you call, you get Ramzi or
-              Christopher, not a call center.
+            <p className="text-taupe">
+              We work from {BUSINESS.brokerage} at {BUSINESS.address.full}. When you call, Ramzi or Christopher answers.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 

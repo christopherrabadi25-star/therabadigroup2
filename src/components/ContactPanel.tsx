@@ -1,16 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { BUSINESS } from "@/lib/data";
-import { MailIcon, PhoneIcon, TextIcon } from "./Icons";
+import Image from "next/image";
+import { BUSINESS, TEAM } from "@/lib/data";
+import { MailIcon, TextIcon } from "./Icons";
+import { Reveal } from "./Motion";
 
-const TOPICS = ["Find out what my home is worth", "Sell my home", "Buy a home", "Commercial or investment", "Something else"];
+const TOPICS = ["A value for my home", "Selling my home", "Buying a home", "Commercial or investment", "Something else"];
 
 type Status = { kind: "idle" } | { kind: "sending" } | { kind: "sent" } | { kind: "fallback"; body: string } | { kind: "error"; msg: string };
 
 export default function ContactPanel({
-  heading = "Talk to Ramzi or Christopher",
-  intro = "Tell us what you're thinking about. One of us will call or text you back, usually the same day.",
+  heading = "Begin a private conversation",
+  intro = "Tell us what you have in mind. Ramzi or Christopher will reply personally, usually the same day.",
   defaultTopic = TOPICS[0],
   id = "contact",
   as: Heading = "h2",
@@ -55,104 +57,110 @@ export default function ContactPanel({
   }
 
   return (
-    <section id={id} className="bg-oak text-paper">
-      <div className="wrap section grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+    <section id={id} className="section bg-coal text-ivory">
+      <div className="wrap grid gap-16 lg:grid-cols-[1fr_1.05fr] lg:gap-24 [&>*]:min-w-0">
         <div>
-          <Heading className="h-section">{heading}</Heading>
-          <p className="lead mt-5 text-sage">{intro}</p>
-          <ul className="mt-10 space-y-5 text-[1.05rem]">
-            <li>
-              <a href={BUSINESS.phoneHref} className="flex items-center gap-3 no-underline hover:text-brass">
-                <PhoneIcon /> Call {BUSINESS.phone}
+          <Reveal>
+            <Heading className="h-section max-w-[12ch]">{heading}</Heading>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="lead mt-6 text-taupe">{intro}</p>
+          </Reveal>
+
+          <Reveal delay={0.2}>
+            <ul className="mt-12 grid gap-6 sm:grid-cols-2">
+              {TEAM.map((m) => (
+                <li key={m.name} className="flex items-center gap-4">
+                  <div className="relative h-[92px] w-[72px] shrink-0 overflow-hidden bg-ash">
+                    <Image src={m.image} alt={m.name} fill sizes="72px" className="object-cover object-top" />
+                  </div>
+                  <div>
+                    <p className="font-display text-[1.25rem] leading-tight">{m.name}</p>
+                    <p className="mt-1 text-[0.82rem] text-taupe">{m.dre}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-10 space-y-2">
+              <a href={BUSINESS.phoneHref} className="block font-display text-[2rem] leading-tight no-underline hover:text-champagne">
+                {BUSINESS.phone}
               </a>
-            </li>
-            <li>
-              <a href={BUSINESS.smsHref} className="flex items-center gap-3 no-underline hover:text-brass">
-                <TextIcon /> Text {BUSINESS.phone}
+              <a href={`mailto:${BUSINESS.email}`} className="block text-taupe no-underline hover:text-ivory">
+                {BUSINESS.email}
               </a>
-            </li>
-            <li>
-              <a href={`mailto:${BUSINESS.email}`} className="flex items-center gap-3 no-underline hover:text-brass">
-                <MailIcon /> {BUSINESS.email}
-              </a>
-            </li>
-          </ul>
-          <p className="mt-10 text-sage text-[0.95rem]">
-            {BUSINESS.brokerage}
-            <br />
-            {BUSINESS.address.full}
-          </p>
+              <p className="pt-4 text-[0.92rem] text-taupe/80">
+                {BUSINESS.brokerage}, {BUSINESS.address.full}
+              </p>
+            </div>
+          </Reveal>
         </div>
 
-        <div className="rounded-[18px] bg-paper p-6 text-ink md:p-9">
-          {status.kind === "sent" ? (
-            <div role="status" className="py-10">
-              <p className="font-serif text-[2rem] leading-tight">Message sent.</p>
-              <p className="mt-3 text-ink-soft">
-                Ramzi or Christopher will get back to you soon. If it&apos;s urgent, call {BUSINESS.phone}.
-              </p>
-            </div>
-          ) : status.kind === "fallback" ? (
-            <div role="status" className="py-4">
-              <p className="font-serif text-[1.8rem] leading-tight">One more tap to send</p>
-              <p className="mt-3 text-ink-soft">
-                Send your note as a text or email and it goes straight to Ramzi&apos;s phone.
-              </p>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                <a href={`${BUSINESS.smsHref}?&body=${encodeURIComponent(status.body)}`} className="btn btn-oak">
-                  <TextIcon /> Send as text
-                </a>
-                <a
-                  href={`mailto:${BUSINESS.email}?subject=${encodeURIComponent("Website inquiry")}&body=${encodeURIComponent(status.body)}`}
-                  className="btn btn-line"
-                >
-                  <MailIcon /> Send as email
-                </a>
-              </div>
-            </div>
-          ) : (
-            <form onSubmit={onSubmit} noValidate className="grid gap-5">
-              <label className="field">
-                <span>What can we help with?</span>
-                <select name="type" defaultValue={defaultTopic}>
-                  {TOPICS.map((t) => (
-                    <option key={t}>{t}</option>
-                  ))}
-                </select>
-              </label>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <label className="field">
-                  <span>Name</span>
-                  <input name="name" autoComplete="name" required />
-                </label>
-                <label className="field">
-                  <span>Phone</span>
-                  <input name="phone" type="tel" autoComplete="tel" inputMode="tel" required />
-                </label>
-              </div>
-              <label className="field">
-                <span>
-                  Email <em className="font-normal not-italic text-ink-soft">(optional)</em>
-                </span>
-                <input name="email" type="email" autoComplete="email" />
-              </label>
-              <label className="field">
-                <span>
-                  Address or details <em className="font-normal not-italic text-ink-soft">(optional)</em>
-                </span>
-                <textarea name="message" rows={3} />
-              </label>
-              {status.kind === "error" && (
-                <p role="alert" className="text-[#9b2c1f] font-semibold">
-                  {status.msg}
+        <Reveal delay={0.15}>
+          <div className="border border-ivory/10 bg-onyx/60 p-6 md:p-12">
+            {status.kind === "sent" ? (
+              <div role="status" className="py-12">
+                <p className="font-display text-[2.2rem] leading-tight">Thank you.</p>
+                <p className="mt-4 text-taupe">
+                  Your message is with Ramzi and Christopher. If it&apos;s urgent, call {BUSINESS.phone}.
                 </p>
-              )}
-              <button type="submit" className="btn btn-oak w-full" disabled={status.kind === "sending"}>
-                {status.kind === "sending" ? "Sending..." : "Send to Ramzi and Christopher"}
-              </button>
-            </form>
-          )}
-        </div>
+              </div>
+            ) : status.kind === "fallback" ? (
+              <div role="status" className="py-6">
+                <p className="font-display text-[2rem] leading-tight">One more step</p>
+                <p className="mt-4 text-taupe">Send your note as a text or email and it goes straight to Ramzi&apos;s phone.</p>
+                <div className="mt-8 grid gap-3">
+                  <a href={`${BUSINESS.smsHref}?&body=${encodeURIComponent(status.body)}`} className="btn btn-gold">
+                    <TextIcon size={16} /> Send as a text
+                  </a>
+                  <a
+                    href={`mailto:${BUSINESS.email}?subject=${encodeURIComponent("Website inquiry")}&body=${encodeURIComponent(status.body)}`}
+                    className="btn btn-ghost"
+                  >
+                    <MailIcon size={16} /> Send as an email
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={onSubmit} noValidate className="grid min-w-0 gap-8 [&>*]:min-w-0">
+                <label className="field">
+                  <span>I&apos;m interested in</span>
+                  <select name="type" defaultValue={defaultTopic}>
+                    {TOPICS.map((t) => (
+                      <option key={t}>{t}</option>
+                    ))}
+                  </select>
+                </label>
+                <div className="grid gap-8 sm:grid-cols-2 [&>*]:min-w-0">
+                  <label className="field">
+                    <span>Name</span>
+                    <input name="name" autoComplete="name" required />
+                  </label>
+                  <label className="field">
+                    <span>Phone</span>
+                    <input name="phone" type="tel" autoComplete="tel" inputMode="tel" required />
+                  </label>
+                </div>
+                <label className="field">
+                  <span>Email (optional)</span>
+                  <input name="email" type="email" autoComplete="email" />
+                </label>
+                <label className="field">
+                  <span>Property address or details (optional)</span>
+                  <textarea name="message" rows={2} />
+                </label>
+                {status.kind === "error" && (
+                  <p role="alert" className="text-[#e3a28f]">
+                    {status.msg}
+                  </p>
+                )}
+                <button type="submit" className="btn btn-gold mt-2 w-full" disabled={status.kind === "sending"}>
+                  {status.kind === "sending" ? "Sending" : "Request a private consultation"}
+                </button>
+                <p className="-mt-3 text-center text-[0.85rem] text-taupe/80">Your details stay with us. No newsletters.</p>
+              </form>
+            )}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

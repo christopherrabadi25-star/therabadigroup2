@@ -5,23 +5,24 @@ import { BUSINESS, TEAM } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
+import SmoothScroll from "@/components/SmoothScroll";
 
-const newsreader = localFont({
-  src: "../fonts/newsreader-latin-opsz-normal.woff2",
-  variable: "--font-newsreader",
-  weight: "200 800",
-  display: "swap",
-});
-
-const schibsted = localFont({
-  src: "../fonts/schibsted-grotesk-latin-wght-normal.woff2",
-  variable: "--font-schibsted",
+const bodoni = localFont({
+  src: "../fonts/bodoni-moda-latin-opsz-normal.woff2",
+  variable: "--font-bodoni",
   weight: "400 900",
   display: "swap",
 });
 
+const jost = localFont({
+  src: "../fonts/jost-latin-wght-normal.woff2",
+  variable: "--font-jost",
+  weight: "100 900",
+  display: "swap",
+});
+
 export const viewport: Viewport = {
-  themeColor: "#1d3a2b",
+  themeColor: "#121110",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -81,10 +82,10 @@ export const metadata: Metadata = {
       "Father-and-son luxury real estate team. $100M+ in closed transactions. La Verne, Claremont, Beverly Hills, Hollywood Hills, Dana Point. Call (626) 203-1372.",
     images: [
       {
-        url: "/images/hero-bg.png",
+        url: "/images/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Ramzi and Christopher Rabadi of The Rabadi Group",
+        alt: "The Rabadi Group, Southern California real estate",
       },
     ],
   },
@@ -93,7 +94,7 @@ export const metadata: Metadata = {
     title: "The Rabadi Group | Southern California Luxury Real Estate",
     description:
       "Father-and-son luxury real estate team. $100M+ in closed transactions. Call (626) 203-1372.",
-    images: ["/images/hero-bg.png"],
+    images: ["/images/og.jpg"],
   },
   robots: {
     index: true,
@@ -117,7 +118,7 @@ const organizationSchema = {
   name: "The Rabadi Group",
   url: BUSINESS.url,
   logo: `${BUSINESS.url}/images/logo-512.png`,
-  image: `${BUSINESS.url}/images/hero-bg.png`,
+  image: `${BUSINESS.url}/images/og.jpg`,
   telephone: "+16262031372",
   email: BUSINESS.email,
   description:
@@ -205,7 +206,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${newsreader.variable} ${schibsted.variable}`}>
+    <html lang="en" className={`${bodoni.variable} ${jost.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -219,6 +220,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <SmoothScroll />
         <Header />
         <main id="main" className="flex-1">
           {children}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BUSINESS, REGIONS, formatPrice, formatDate, salesIn } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import ContactPanel from "@/components/ContactPanel";
+import { Reveal } from "@/components/Motion";
 
 export const metadata: Metadata = {
   title: "Areas We Serve",
@@ -18,7 +19,9 @@ export default function AreasPage() {
     "@type": "RealEstateAgent",
     name: BUSINESS.name,
     url: BUSINESS.url,
-    areaServed: REGIONS.flatMap((r) => r.cities.map((c) => ({ "@type": "City", name: c.name, containedInPlace: { "@type": "State", name: "California" } }))),
+    areaServed: REGIONS.flatMap((r) =>
+      r.cities.map((c) => ({ "@type": "City", name: c.name, containedInPlace: { "@type": "State", name: "California" } })),
+    ),
   };
 
   return (
@@ -26,46 +29,40 @@ export default function AreasPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <PageIntro
         title="Where we work"
-        lead="Based in Claremont, closing from the foothills to the coast. Here's each area and what we've sold there."
+        lead="Based in Claremont, closing from the foothills to the coast. Each area, and what we've sold there."
+        image="/images/la-verne-new.jpg"
+        imageAlt="La Verne and the foothills from the air"
       />
 
-      <nav aria-label="Regions" className="wrap pt-8">
-        <ul className="flex flex-wrap gap-2">
-          {REGIONS.map((r) => (
-            <li key={r.name}>
-              <a href={`#${slug(r.name)}`} className="inline-flex min-h-11 items-center rounded-full border border-line px-4 no-underline hover:border-ink">
-                {r.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
       {REGIONS.map((r, ri) => (
-        <section key={r.name} id={slug(r.name)} className={`section ${ri % 2 ? "bg-stone" : ""}`}>
+        <section key={r.name} id={slug(r.name)} className={ri % 2 ? "light section" : "section bg-onyx"}>
           <div className="wrap">
-            <h2 className="h-section max-w-[20ch]">{r.name}</h2>
-            <p className="lead mt-3 text-ink-soft">{r.note}</p>
-            <ul className="mt-10 grid gap-x-12 md:grid-cols-2">
-              {r.cities.map((c) => {
+            <Reveal>
+              <h2 className="h-section max-w-[18ch]">{r.name}</h2>
+              <p className={`lead mt-5 ${ri % 2 ? "text-ink-soft" : "text-taupe"}`}>{r.note}</p>
+            </Reveal>
+            <ul className="mt-14 grid gap-x-16 md:grid-cols-2">
+              {r.cities.map((c, ci) => {
                 const sold = salesIn(c.name);
                 return (
-                  <li key={c.name} id={slug(c.name)} className="border-t border-line py-6">
-                    <h3 className="text-[1.75rem]">{c.name}</h3>
-                    <p className="mt-1 text-ink-soft">{c.desc}</p>
+                  <Reveal as="li" key={c.name} delay={(ci % 2) * 0.08} className="border-t border-current/15 py-8">
+                    <h3 id={slug(c.name)} className="text-[2rem]">
+                      {c.name}
+                    </h3>
+                    <p className="mt-2 opacity-75">{c.desc}</p>
                     {sold.length > 0 && (
-                      <ul className="mt-4 space-y-1 text-[0.97rem]">
+                      <ul className="mt-5 space-y-1.5 text-[0.97rem]">
                         {sold.map((s) => (
                           <li key={s.slug} className="flex justify-between gap-4">
                             <span>
-                              {s.address} <span className="text-ink-soft">({formatDate(s.date)})</span>
+                              {s.address} <span className="opacity-60">{formatDate(s.date)}</span>
                             </span>
-                            <span className="num shrink-0 text-[1.1rem]">{formatPrice(s.price, true)}</span>
+                            <span className="num shrink-0 text-[1.15rem]">{formatPrice(s.price, true)}</span>
                           </li>
                         ))}
                       </ul>
                     )}
-                  </li>
+                  </Reveal>
                 );
               })}
             </ul>
@@ -73,7 +70,7 @@ export default function AreasPage() {
         </section>
       ))}
 
-      <ContactPanel heading="Looking in a specific area?" intro="Tell us where and what you need. We'll tell you what's realistic there right now." defaultTopic="Buy a home" />
+      <ContactPanel heading="Looking in a particular area?" intro="Tell us where and what you need. We'll share what's realistic there right now." defaultTopic="Buying a home" />
     </>
   );
 }

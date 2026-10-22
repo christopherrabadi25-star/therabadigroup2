@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageIntro from "@/components/PageIntro";
 import ContactPanel from "@/components/ContactPanel";
+import { Reveal } from "@/components/Motion";
 
 export const metadata: Metadata = {
   title: "Market Notes: Claremont, La Verne & the Foothill Cities",
@@ -38,50 +39,55 @@ export default function MarketPage() {
     <>
       <PageIntro
         title="Market notes"
-        lead="What we're seeing on the ground in the Foothill Cities, written by Ramzi and Christopher. No national averages."
+        lead="What we're seeing on the ground in the Foothill Cities, written by Ramzi and Christopher."
+        image="/images/claremont-new.jpg"
+        imageAlt="Claremont Village"
+        position="60% 50%"
       />
 
-      <section className="section">
-        <div className="wrap grid gap-12 lg:grid-cols-2 lg:gap-20">
-          <div>
-            <h2 className="h-section">If you&apos;re selling</h2>
-            <p className="mt-5 text-[1.1rem]">
-              Homes that are priced right still sell quickly and often draw more than one offer. Buyers have become
-              more careful, so homes that start too high sit and usually sell for less in the end.
+      <section className="light section">
+        <div className="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+          <Reveal>
+            <h2 className="h-section">For sellers</h2>
+            <p className="mt-6 text-[1.12rem] text-ink-soft">
+              Homes priced right still sell quickly and often draw more than one offer. Buyers have grown more careful, so
+              homes that start too high sit and usually sell for less in the end.
             </p>
-            <Link href="/sellers" className="link mt-5 inline-block">
-              How we price and sell
+            <Link href="/sellers" className="link-line mt-7 text-ink">
+              How we sell
             </Link>
-          </div>
-          <div>
-            <h2 className="h-section">If you&apos;re buying</h2>
-            <p className="mt-5 text-[1.1rem]">
-              You have more room to negotiate than in 2021 and 2022, especially on homes that have been sitting. On the
-              best homes you still need to move quickly, with your financing ready.
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2 className="h-section">For buyers</h2>
+            <p className="mt-6 text-[1.12rem] text-ink-soft">
+              You have more room to negotiate than in 2021 and 2022, especially on homes that have been sitting. On the best
+              homes you still need to move quickly, with financing ready.
             </p>
-            <Link href="/buyers" className="link mt-5 inline-block">
-              How we help buyers
+            <Link href="/buyers" className="link-line mt-7 text-ink">
+              How we buy
             </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      <section className="section bg-stone">
+      <section className="section bg-onyx">
         <div className="wrap">
-          <h2 className="h-section mb-10">City by city</h2>
-          <ul className="grid gap-x-12 md:grid-cols-2">
-            {CITIES.map((c) => (
-              <li key={c.city} className="border-t border-line py-6">
-                <p className="text-ink-soft">{c.city}</p>
-                <h3 className="mt-1 text-[1.6rem]">{c.headline}</h3>
-                <p className="mt-2 text-ink-soft">{c.body}</p>
-              </li>
+          <Reveal>
+            <h2 className="h-section mb-12">City by city</h2>
+          </Reveal>
+          <ul className="grid gap-x-16 md:grid-cols-2">
+            {CITIES.map((c, i) => (
+              <Reveal as="li" key={c.city} delay={(i % 2) * 0.08} className="border-t border-ivory/15 py-8">
+                <p className="kicker text-champagne">{c.city}</p>
+                <h3 className="mt-3 text-[1.9rem]">{c.headline}</h3>
+                <p className="mt-3 text-taupe">{c.body}</p>
+              </Reveal>
             ))}
           </ul>
         </div>
       </section>
 
-      <ContactPanel heading="Ask us about your street" intro="Market questions are free. Tell us the neighborhood and we'll share what's selling there and for how much." />
+      <ContactPanel heading="Ask about your street" intro="Market questions are always welcome. Tell us the neighborhood and we'll share what's selling and for how much." />
     </>
   );
 }

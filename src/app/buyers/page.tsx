@@ -6,21 +6,22 @@ import Steps from "@/components/Steps";
 import SaleCard from "@/components/SaleCard";
 import ContactPanel from "@/components/ContactPanel";
 import { TextIcon } from "@/components/Icons";
+import { Reveal } from "@/components/Motion";
 
 export const metadata: Metadata = {
   title: "Buy a Home",
   description:
-    "Buying in Claremont, La Verne, Pasadena, Sierra Madre, or Los Angeles? Ramzi and Christopher Rabadi find the right home and negotiate hard. Our latest buyer closed $119,500 under asking. Call (626) 203-1372.",
+    "Buying in Claremont, La Verne, Pasadena, Sierra Madre, Los Angeles, or the Orange County coast? Ramzi and Christopher Rabadi find the right home and negotiate hard. Our latest buyer closed $119,500 under asking.",
   alternates: { canonical: "/buyers" },
 };
 
 const STEPS = [
-  { title: "Talk it through", body: "Tell us what you want, your timeline, and your budget. We tell you what's realistic in the neighborhoods you like." },
-  { title: "Get pre-approved", body: "We connect you with lenders who move fast and close on time, so your offer is taken seriously." },
-  { title: "See the right homes", body: "We screen listings before you spend a weekend on them, and we hear about homes before they hit the portals." },
-  { title: "Make a winning offer", body: "We study the comps and the seller's situation, then write an offer that wins without overpaying." },
-  { title: "Inspect and negotiate", body: "We walk inspections with you and use what we find to ask for repairs or credits. If it's wrong, we tell you to walk." },
-  { title: "Close and move in", body: "We track escrow, the loan, title, and the final walkthrough until you have keys." },
+  { title: "A conversation", body: "What you want, your timeline, your budget. We tell you what's realistic in the neighborhoods you love." },
+  { title: "Financing in place", body: "We introduce lenders who move quickly and close on time, so sellers take your offer seriously." },
+  { title: "The right homes", body: "We screen before you spend a weekend touring, and we hear about homes before they reach the portals." },
+  { title: "A winning offer", body: "We study the comparable sales and the seller's situation, then write terms that win without overpaying." },
+  { title: "Inspection and leverage", body: "We attend inspections with you and use what we find to secure repairs or credits. If it's wrong, we say walk away." },
+  { title: "The keys", body: "Escrow, the loan, title, and the final walkthrough, managed until the home is yours." },
 ];
 
 export default function BuyersPage() {
@@ -31,43 +32,52 @@ export default function BuyersPage() {
   return (
     <>
       <PageIntro
-        title="Buy the right home at the right price"
-        lead="From a first home in the Foothill Cities to a Spanish estate in Los Feliz, we find the house, write the offer, and fight for the terms."
+        title="Find the one"
+        lead="From a Foothill Cities first home to a 1931 Spanish estate in Los Feliz, we find it, write the offer, and fight for the terms."
+        image="/images/dana-point.jpg"
+        imageAlt="The Dana Point coastline"
+        position="50% 60%"
       >
-        <Link href="#contact" className="btn btn-brass">
-          Start your search
+        <Link href="#contact" className="btn btn-gold">
+          Begin your search
         </Link>
-        <a href={BUSINESS.smsHref} className="btn btn-line">
-          <TextIcon /> Text us what you want
+        <a href={BUSINESS.smsHref} className="btn btn-ghost">
+          <TextIcon size={16} /> Text us
         </a>
       </PageIntro>
 
-      <section className="section">
+      <section className="section bg-onyx">
         <div className="wrap">
-          <h2 className="h-section max-w-[18ch]">What our buyers got this year</h2>
-          <p className="lead mt-4 text-ink-soft">
-            In Sierra Madre our buyer closed $119,500 under asking and got $10,000 in credits. In Los Feliz we won a
-            multiple-offer bidding round for a 1931 Spanish estate.
-          </p>
-          <div className="rail mt-10">
-            {wins.map((s) => (
-              <SaleCard key={s.slug} sale={s} />
+          <Reveal>
+            <h2 className="h-section max-w-[16ch]">What our buyers secured this year</h2>
+            <p className="lead mt-6 text-taupe">
+              In Sierra Madre, $119,500 under asking plus $10,000 in credits. In Los Feliz, a 1931 Spanish estate won in a
+              multiple-offer round.
+            </p>
+          </Reveal>
+          <div className="rail mt-12">
+            {wins.map((s, i) => (
+              <Reveal key={s.slug} delay={i * 0.1}>
+                <SaleCard sale={s} />
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section bg-stone">
+      <section className="light section">
         <div className="wrap">
-          <h2 className="h-section mb-10">From first call to keys</h2>
+          <Reveal>
+            <h2 className="h-section mb-12">From first call to keys</h2>
+          </Reveal>
           <Steps items={STEPS} />
         </div>
       </section>
 
       <ContactPanel
         heading="Tell us what you're looking for"
-        intro="Area, budget, timing, must-haves. We'll reply with what's realistic and what's coming up."
-        defaultTopic="Buy a home"
+        intro="Area, budget, timing, the details that matter. We'll reply with what's realistic and what's coming."
+        defaultTopic="Buying a home"
       />
     </>
   );

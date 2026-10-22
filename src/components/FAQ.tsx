@@ -1,6 +1,7 @@
 import { FAQS } from "@/lib/data";
+import { Reveal } from "./Motion";
 
-export default function FAQ({ heading = "Common questions" }: { heading?: string }) {
+export default function FAQ({ heading = "Questions, answered" }: { heading?: string }) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -12,18 +13,20 @@ export default function FAQ({ heading = "Common questions" }: { heading?: string
   };
 
   return (
-    <section className="section">
+    <section className="light section">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      <div className="wrap grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-20">
-        <h2 className="h-section">{heading}</h2>
-        <div className="faq">
+      <div className="wrap grid gap-10 lg:grid-cols-[1fr_1.8fr] lg:gap-24">
+        <Reveal>
+          <h2 className="h-section">{heading}</h2>
+        </Reveal>
+        <Reveal delay={0.1} className="faq">
           {FAQS.map((f) => (
             <details key={f.question}>
               <summary>{f.question}</summary>
               <p>{f.answer}</p>
             </details>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

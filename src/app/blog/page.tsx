@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { POSTS } from "@/lib/posts";
 import PageIntro from "@/components/PageIntro";
+import { Reveal } from "@/components/Motion";
 
 export const metadata: Metadata = {
   title: "Guides for Buyers and Sellers",
@@ -16,36 +17,40 @@ export default function BlogPage() {
 
   return (
     <>
-      <PageIntro title="Guides" lead="Plain-language guides to buying and selling in Claremont, La Verne, and the San Gabriel Valley." />
+      <PageIntro
+        title="Guides"
+        lead="Considered guides to buying and selling in Claremont, La Verne, and the San Gabriel Valley."
+        image="/images/claremont.jpg"
+        imageAlt="Claremont Village"
+        position="60% 50%"
+      />
 
-      <section className="section !pt-10 md:!pt-16">
+      <section className="section bg-onyx">
         <div className="wrap">
-          <Link href={`/blog/${first.slug}`} className="group grid gap-6 no-underline md:grid-cols-2 md:items-center md:gap-12">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[16px] bg-stone">
-              <Image src={first.image} alt="" fill preload sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
-            </div>
-            <div>
-              <p className="text-ink-soft">
-                {first.category}, {first.readTime}
-              </p>
-              <h2 className="mt-2 text-[clamp(1.9rem,4vw,2.8rem)] group-hover:text-brass-ink">{first.title}</h2>
-              <p className="mt-4 text-ink-soft">{first.description}</p>
-            </div>
-          </Link>
+          <Reveal>
+            <Link href={`/blog/${first.slug}`} className="group grid gap-8 no-underline md:grid-cols-2 md:items-center md:gap-16">
+              <div className="zoom-on-hover relative aspect-[16/11] overflow-hidden bg-coal">
+                <Image src={first.image} alt="" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+              </div>
+              <div>
+                <p className="kicker text-champagne">{first.category}</p>
+                <h2 className="mt-4 text-[clamp(2rem,4.4vw,3.2rem)] transition-colors group-hover:text-champagne">{first.title}</h2>
+                <p className="mt-5 text-taupe">{first.description}</p>
+              </div>
+            </Link>
+          </Reveal>
 
-          <ul className="mt-16 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
-            {rest.map((p) => (
-              <li key={p.slug}>
+          <ul className="mt-20 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+            {rest.map((p, i) => (
+              <Reveal as="li" key={p.slug} delay={(i % 3) * 0.08}>
                 <Link href={`/blog/${p.slug}`} className="group block no-underline">
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-[14px] bg-stone">
+                  <div className="zoom-on-hover relative aspect-[16/11] overflow-hidden bg-coal">
                     <Image src={p.image} alt="" fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
                   </div>
-                  <p className="mt-4 text-[0.95rem] text-ink-soft">
-                    {p.category}, {p.readTime}
-                  </p>
-                  <h3 className="mt-1 text-[1.5rem] leading-tight group-hover:text-brass-ink">{p.title}</h3>
+                  <p className="kicker mt-5 text-champagne">{p.category}</p>
+                  <h3 className="mt-2 text-[1.6rem] leading-tight transition-colors group-hover:text-champagne">{p.title}</h3>
                 </Link>
-              </li>
+              </Reveal>
             ))}
           </ul>
         </div>
