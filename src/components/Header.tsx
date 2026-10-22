@@ -1,128 +1,145 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BUSINESS, NAV_LINKS } from "@/lib/data";
+import { BUSINESS, NAV_LINKS, MORE_LINKS } from "@/lib/data";
+import { CloseIcon, MenuIcon, PhoneIcon, TextIcon } from "./Icons";
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  // Close the menu after navigating
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
 
-  useEffect(() => setMobileOpen(false), [pathname]);
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.documentElement.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(href + "/");
 
   return (
     <>
-      <div
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "shadow-[0_1px_0_rgba(255,255,255,0.04)]" : ""
-        }`}
-        style={{ background: scrolled ? "rgba(5,5,5,0.97)" : "transparent", backdropFilter: scrolled ? "blur(16px)" : "none" }}
-      >
-        {/* Gold announcement bar — 36px */}
-        <a
-          href={BUSINESS.phoneHref}
-          className="flex items-center justify-center gap-2 bg-[#C4953A] text-black text-xs font-bold tracking-wide py-2.5 hover:bg-[#D4A84A] transition-colors"
-          style={{ minHeight: "36px" }}
-        >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.7A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.1a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-          </svg>
-          Call or Text — {BUSINESS.phone} — Free Consultations
-        </a>
+      <header className="sticky top-0 z-50 bg-paper/95 backdrop-blur border-b border-line">
+        <div className="wrap flex h-[var(--header-h)] items-center justify-between gap-6">
+          <Link
+            href="/"
+            className="no-underline leading-none"
+            aria-label="The Rabadi Group, home"
+          >
+            <span className="whitespace-nowrap font-serif text-[1.3rem] tracking-[-0.01em] sm:text-[1.45rem]">
+              The Rabadi Group
+            </span>
+          </Link>
 
-        {/* Nav — 60px */}
-        <div className={`border-b transition-colors duration-300 ${scrolled ? "border-[#1A1A1A]" : "border-transparent"}`} style={{ height: "60px" }}>
-          <div className="max-w-7xl mx-auto px-5 md:px-8 h-full flex items-center justify-between">
-
-            {/* Logo */}
-            <Link href="/" className="group flex flex-col leading-none shrink-0">
-              <span
-                className="font-bold text-[1.05rem] text-[#EDE8DC] group-hover:text-[#C4953A] transition-colors tracking-wide"
-                style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+          <nav aria-label="Main" className="hidden lg:flex items-center gap-7">
+            {NAV_LINKS.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                aria-current={isActive(l.href) ? "page" : undefined}
+                className={`text-[0.97rem] no-underline py-2 border-b-2 ${
+                  isActive(l.href)
+                    ? "border-brass text-ink"
+                    : "border-transparent text-ink-soft hover:text-ink"
+                }`}
               >
-                The Rabadi Group
-              </span>
-              <span className="text-[8px] tracking-[0.3em] uppercase text-[#C4953A] mt-0.5 font-semibold">
-                La Verne · Claremont · SoCal
-              </span>
-            </Link>
+                {l.label}
+              </Link>
+            ))}
+          </nav>
 
-            {/* Desktop links */}
-            <nav className="hidden lg:flex items-center gap-6">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-[0.82rem] font-medium tracking-wide transition-colors duration-200 ${
-                    pathname === link.href ? "text-[#C4953A]" : "text-[#9A9690] hover:text-[#EDE8DC]"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-
-            {/* Right CTA */}
-            <div className="hidden lg:flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <span className="hidden lg:block">
               <a
-                href="/sellers"
-                className="text-[0.8rem] font-semibold text-[#C4953A] border border-[#C4953A]/25 hover:border-[#C4953A]/60 px-4 py-2 rounded transition-all duration-200"
+                href={BUSINESS.phoneHref}
+                className="btn btn-oak !min-h-[44px] !px-5"
               >
-                Free Valuation
+                <PhoneIcon size={16} /> {BUSINESS.phone}
               </a>
-            </div>
-
-            {/* Mobile hamburger */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden flex flex-col justify-center items-center w-9 h-9 gap-[5px]"
-              aria-label="Menu"
+            </span>
+            <a
+              href={BUSINESS.phoneHref}
+              className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full bg-oak text-paper"
+              aria-label={`Call ${BUSINESS.phone}`}
             >
-              <span className={`block w-5 h-[1.5px] bg-[#EDE8DC] origin-center transition-all duration-200 ${mobileOpen ? "rotate-45 translate-y-[6.5px]" : ""}`} />
-              <span className={`block w-5 h-[1.5px] bg-[#EDE8DC] transition-all duration-200 ${mobileOpen ? "opacity-0 scale-x-0" : ""}`} />
-              <span className={`block w-5 h-[1.5px] bg-[#EDE8DC] origin-center transition-all duration-200 ${mobileOpen ? "-rotate-45 -translate-y-[6.5px]" : ""}`} />
+              <PhoneIcon size={18} />
+            </a>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className="lg:hidden inline-flex h-11 items-center gap-2 rounded-full border border-line px-4 text-[0.95rem] font-semibold"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+            >
+              {open ? <CloseIcon size={18} /> : <MenuIcon size={18} />}
+              {open ? "Close" : "Menu"}
             </button>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile dropdown */}
-      <div
-        className={`fixed left-0 right-0 z-40 bg-[#080808] border-b border-[#1E1E1E] overflow-hidden transition-all duration-300 ease-in-out`}
-        style={{ top: "96px", maxHeight: mobileOpen ? "420px" : "0", opacity: mobileOpen ? 1 : 0 }}
-      >
-        <div className="px-5 py-6 flex flex-col gap-1">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`py-3 px-4 rounded-lg text-sm font-medium transition-colors ${
-                pathname === link.href
-                  ? "text-[#C4953A] bg-[#C4953A]/8"
-                  : "text-[#B0ACA6] hover:text-[#EDE8DC] hover:bg-white/4"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <div className="mt-3 pt-3 border-t border-[#1E1E1E] flex flex-col gap-2">
-            <a href={BUSINESS.phoneHref} className="btn btn-gold justify-center py-4 text-sm">
-              Call {BUSINESS.phone}
-            </a>
-            <a href="/sellers" className="btn btn-outline justify-center py-3 text-sm">
-              Free Home Valuation
-            </a>
-          </div>
+      {/* Outside <header>: its backdrop-filter would trap a fixed overlay */}
+      {open && (
+        <div
+          id="mobile-menu"
+          className="lg:hidden fixed inset-x-0 top-[var(--header-h)] bottom-0 z-50 overflow-y-auto overscroll-contain bg-paper"
+        >
+          <nav aria-label="Mobile" className="wrap pt-4 pb-10">
+            <ul>
+              {[{ label: "Home", href: "/" }, ...NAV_LINKS].map((l) => (
+                <li key={l.href} className="border-b border-line">
+                  <Link
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className={`block py-4 font-serif text-[2rem] leading-tight no-underline ${
+                      (l.href === "/" ? pathname === "/" : isActive(l.href))
+                        ? "text-brass-ink"
+                        : ""
+                    }`}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+              {MORE_LINKS.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className="text-ink-soft text-[1.05rem]"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 grid grid-cols-2 gap-3">
+              <a href={BUSINESS.phoneHref} className="btn btn-oak">
+                <PhoneIcon /> Call
+              </a>
+              <a href={BUSINESS.smsHref} className="btn btn-line">
+                <TextIcon /> Text
+              </a>
+            </div>
+            <p className="mt-4 text-center text-ink-soft">{BUSINESS.phone}</p>
+          </nav>
         </div>
-      </div>
+      )}
     </>
   );
 }

@@ -1,97 +1,207 @@
 import type { Metadata } from "next";
-import Hero from "@/components/Hero";
-import ServicePaths from "@/components/ServicePaths";
-import Stats from "@/components/Stats";
-import FeaturedListings from "@/components/FeaturedListings";
-import AreasServed from "@/components/AreasServed";
-import TeamSection from "@/components/TeamSection";
-import CTABanner from "@/components/CTABanner";
+import Image from "next/image";
+import Link from "next/link";
+import { BUSINESS, RECENT_SALES, STATS, TEAM, SALES_BY_DATE, REGIONS, salesIn } from "@/lib/data";
+import SaleCard from "@/components/SaleCard";
+import Ridgeline from "@/components/Ridgeline";
+import ContactPanel from "@/components/ContactPanel";
 import FAQ from "@/components/FAQ";
-import { BUSINESS } from "@/lib/data";
+import { PhoneIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
-  title: "The Rabadi Group | Southern California Luxury Real Estate",
+  title: { absolute: "The Rabadi Group | Claremont & Southern California Real Estate" },
   description:
-    "Ramzi and Christopher Rabadi — father-and-son luxury real estate team. $100M+ closed, 5.0 Zillow rating, 20+ years. Beverly Hills, Hollywood Hills, Dana Point, La Verne, Claremont. Call (626) 203-1372.",
+    "Ramzi and Christopher Rabadi, a father and son real estate team in Claremont. $100M+ closed across the San Gabriel Valley, Los Angeles, and Orange County. Recent sales in Sierra Madre and Los Feliz. Call (626) 203-1372.",
+  alternates: { canonical: BUSINESS.url },
 };
 
+const SERVICES = [
+  {
+    title: "Selling a home",
+    body: "We price from the comps on your street, prepare the house, and negotiate every term, not just the price.",
+    href: "/sellers",
+    cta: "How we sell",
+  },
+  {
+    title: "Buying a home",
+    body: "Pre-approval, the right showings, and offers built to win without overpaying. Our latest buyer saved $129,500.",
+    href: "/buyers",
+    cta: "How we help buyers",
+  },
+  {
+    title: "Commercial and investment",
+    body: "Multi-family, retail, industrial, gas stations, and ground leases, led by Ramzi's 20+ years of deals.",
+    href: "/commercial",
+    cta: "Commercial services",
+  },
+];
+
+const HOME_AREAS = ["Claremont", "La Verne", "Pasadena", "Sierra Madre", "Los Feliz", "West Hollywood"];
+
 export default function HomePage() {
+  const cityDesc = new Map<string, string>(REGIONS.flatMap((r) => r.cities.map((c) => [c.name, c.desc] as [string, string])));
+
   return (
     <>
-      <Hero />
-      <ServicePaths />
-      <Stats />
-      <FeaturedListings />
-
-      <CTABanner
-        headline="Sellers: We Average 4.2% Above Asking."
-        sub="That's real money left on the table by agents who don't know how to negotiate. We do. Find out what your home is actually worth."
-        primaryLabel={`Call ${BUSINESS.phone}`}
-        primaryHref={BUSINESS.phoneHref}
-        secondaryLabel="Free Home Valuation"
-        secondaryHref="/sellers"
-      />
-
-      <AreasServed />
-      <TeamSection />
-
-      {/* Final contact section */}
-      <section className="relative py-24 md:py-32 overflow-hidden" style={{ background: "#060606" }}>
-        {/* Glow */}
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(196,149,58,0.07) 0%, transparent 70%)" }}
-        />
-        <div className="absolute top-0 left-0 right-0 rule-gold" />
-
-        <div className="relative max-w-3xl mx-auto px-5 md:px-10 text-center">
-          <span className="eyebrow mb-5">Ready to Start?</span>
-          <h2 className="text-[clamp(2.2rem,5vw,4rem)] font-semibold text-[#EDE8DC] mb-5 mt-4 leading-[1.1]">
-            Your Next Move Starts<br />With One Call.
-          </h2>
-          <p className="text-[#5A5550] text-lg leading-relaxed mb-10 max-w-xl mx-auto">
-            Whether you&apos;re buying, selling, or just figuring out the market — a 10-minute call with us is worth more than hours of Zillow research.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={BUSINESS.phoneHref} className="btn btn-gold btn-lg w-full sm:w-auto btn-pulse">
-              <PhoneIcon /> Call (626) 203-1372
-            </a>
-            <a href={BUSINESS.smsHref} className="btn btn-outline btn-lg w-full sm:w-auto">
-              <TextIcon /> Text Us Now
-            </a>
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-oak text-paper">
+        <div className="wrap grid gap-10 pb-24 pt-10 md:pt-16 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-16 lg:pb-36 lg:pt-20">
+          <div>
+            <h1 className="display max-w-[13ch]">Southern California real estate, handled by family.</h1>
+            <p className="lead mt-6 text-sage">
+              Ramzi and Christopher Rabadi have closed more than $100M in homes and commercial property over 20+
+              years, from Claremont and Pasadena to Los Feliz and Dana Point.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="#contact" className="btn btn-brass">
+                Get your home&apos;s value
+              </Link>
+              <a href={BUSINESS.phoneHref} className="btn btn-line">
+                <PhoneIcon /> Call {BUSINESS.phone}
+              </a>
+            </div>
           </div>
-          <p className="text-[#252320] text-xs mt-8 tracking-wider">
-            We respond fast. No automated responses. Ramzi or Christopher picks up.
-          </p>
+
+          <figure className="relative">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] lg:aspect-[4/5]">
+              <Image
+                src="/images/hero-bg.png"
+                alt="Christopher and Ramzi Rabadi"
+                fill
+                preload
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover object-[50%_20%]"
+              />
+            </div>
+            <figcaption className="mt-3 text-[0.95rem] text-sage">Christopher and Ramzi Rabadi, Claremont</figcaption>
+          </figure>
+        </div>
+        <Ridgeline
+          draw
+          className="absolute inset-x-0 bottom-0 block h-16 w-full md:h-24"
+          stroke="var(--color-brass)"
+          fill="var(--color-paper)"
+        />
+      </section>
+
+      {/* Proof */}
+      <section aria-label="Track record" className="wrap pt-6 md:pt-2">
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-8 border-b border-line pb-12 md:grid-cols-4">
+          {STATS.map((s) => (
+            <div key={s.label}>
+              <dt className="sr-only">{s.label}</dt>
+              <dd className="num text-[2.6rem] leading-none md:text-[3.2rem]">{s.value}</dd>
+              <dd className="mt-2 text-ink-soft">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      {/* Recent sales */}
+      <section className="section">
+        <div className="wrap">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4 md:mb-12">
+            <div>
+              <h2 className="h-section">Recently sold</h2>
+              <p className="mt-3 text-ink-soft">Our three latest closings.<span className="md:hidden"> Swipe to see each one.</span></p>
+            </div>
+            <Link href="/listings" className="link">
+              See all {SALES_BY_DATE.length} sales
+            </Link>
+          </div>
+          <div className="rail">
+            {RECENT_SALES.map((s, i) => (
+              <SaleCard key={s.slug} sale={s} preload={i === 0} />
+            ))}
+          </div>
         </div>
       </section>
 
+      {/* Services */}
+      <section className="section bg-stone">
+        <div className="wrap grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-20">
+          <h2 className="h-section">What we can do for you</h2>
+          <ul>
+            {SERVICES.map((s) => (
+              <li key={s.href} className="border-t border-line py-7 first:border-t-0 first:pt-0 md:grid md:grid-cols-[1fr_1.4fr] md:gap-8">
+                <h3 className="text-[1.75rem]">{s.title}</h3>
+                <div className="mt-2 md:mt-0">
+                  <p className="text-ink-soft">{s.body}</p>
+                  <Link href={s.href} className="link mt-3 inline-block">
+                    {s.cta}
+                  </Link>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section className="section">
+        <div className="wrap">
+          <h2 className="h-section max-w-[16ch]">Two agents on every deal</h2>
+          <p className="lead mt-4 text-ink-soft">
+            You work with both of us. Ramzi brings two decades of negotiating. Christopher brings the research, the
+            marketing, and fast answers.
+          </p>
+          <div className="mt-10 grid gap-10 md:grid-cols-2 md:gap-12">
+            {TEAM.map((m) => (
+              <article key={m.name} className="grid grid-cols-[112px_1fr] gap-5 sm:grid-cols-[150px_1fr]">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-[12px] bg-stone">
+                  <Image src={m.image} alt={m.name} fill sizes="150px" className="object-cover object-top" />
+                </div>
+                <div>
+                  <h3 className="text-[1.7rem]">{m.name}</h3>
+                  <p className="text-[0.95rem] text-ink-soft">
+                    {m.title}, {m.dre}
+                  </p>
+                  <p className="mt-3">{m.short}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <Link href="/about" className="link mt-10 inline-block">
+            More about us
+          </Link>
+        </div>
+      </section>
+
+      {/* Areas */}
+      <section className="section bg-stone">
+        <div className="wrap">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <h2 className="h-section">Where we work</h2>
+            <Link href="/areas" className="link">
+              All areas
+            </Link>
+          </div>
+          <ul className="grid gap-x-12 md:grid-cols-2">
+            {HOME_AREAS.map((name) => {
+              const n = salesIn(name).length;
+              return (
+                <li key={name} className="flex items-baseline justify-between gap-4 border-t border-line py-4">
+                  <div>
+                    <Link href={`/areas#${name.toLowerCase().replace(/\s+/g, "-")}`} className="font-serif text-[1.45rem] no-underline hover:text-brass-ink">
+                      {name}
+                    </Link>
+                    <p className="text-[0.95rem] text-ink-soft">{cityDesc.get(name)}</p>
+                  </div>
+                  {n > 0 && (
+                    <span className="shrink-0 text-[0.9rem] text-ink-soft">
+                      {n} {n === 1 ? "sale" : "sales"}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+
+      <ContactPanel heading="What's your home worth?" intro="Send us the address. We'll pull the recent sales on your street and get back to you with a value range, usually the same day." />
+
       <FAQ />
-
-      <CTABanner
-        headline="15+ Cities. Two Agents. Zero Excuses."
-        sub="Wherever your deal is in Southern California, we're the call you want to make."
-        primaryLabel={`Call ${BUSINESS.phone}`}
-        primaryHref={BUSINESS.phoneHref}
-        secondaryLabel="View Properties"
-        secondaryHref="/listings"
-        dark
-      />
     </>
-  );
-}
-
-function PhoneIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.7A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.1a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-    </svg>
-  );
-}
-
-function TextIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-    </svg>
   );
 }

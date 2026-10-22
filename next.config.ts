@@ -33,6 +33,8 @@ const nextConfig: NextConfig = {
         hostname: "dlajgvw9htjpb.cloudfront.net",
         pathname: "/**",
       },
+      { protocol: "https", hostname: "ssl.cdn-redfin.com", pathname: "/**" },
+      { protocol: "https", hostname: "tracydo.com", pathname: "/wp-content/**" },
       {
         protocol: "https",
         hostname: "api.cotality.com",

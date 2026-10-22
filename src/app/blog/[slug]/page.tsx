@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { POSTS, getPost, type BlockType } from "@/lib/posts";
-import { BUSINESS } from "@/lib/data";
+import { BUSINESS, formatDate } from "@/lib/data";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -35,163 +35,79 @@ export default async function PostPage({ params }: Props) {
 
   const related = POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.publishedAt,
+    image: `${BUSINESS.url}${post.image}`,
+    author: { "@type": "Organization", name: BUSINESS.name, url: BUSINESS.url },
+  };
+
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-36 pb-0 overflow-hidden">
-        <div className="absolute inset-0 h-[420px]">
-          <Image
-            src={post.image}
-            alt={post.title}
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-[#050505]" />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <article>
+        <header className="bg-oak text-paper">
+          <div className="wrap pb-12 pt-10 md:pb-16 md:pt-16">
+            <Link href="/blog" className="text-sage no-underline hover:text-paper">
+              All guides
+            </Link>
+            <h1 className="mt-6 max-w-[20ch] text-[clamp(2.2rem,6vw,3.8rem)] leading-[1.05]">{post.title}</h1>
+            <p className="mt-5 text-sage">
+              By Ramzi and Christopher Rabadi, {formatDate(post.publishedAt, "full")}, {post.readTime}
+            </p>
+          </div>
+        </header>
+        <div className="wrap">
+          <div className="relative -mt-0 aspect-[16/8] overflow-hidden rounded-b-[16px] bg-stone md:aspect-[21/8]">
+            <Image src={post.image} alt="" fill preload sizes="100vw" className="object-cover" />
+          </div>
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-10 pb-16">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-[#5A5550] text-xs hover:text-[#C4953A] transition-colors mb-8">
-            ← All Guides
-          </Link>
-          <div className="max-w-3xl">
-            <span className="inline-block text-[10px] font-bold tracking-widest uppercase border border-[#C4953A]/40 bg-[#C4953A]/10 text-[#C4953A] px-3 py-1 rounded-full mb-5">
-              {post.category}
-            </span>
-            <h1 className="text-[clamp(1.8rem,4.5vw,3.2rem)] font-bold text-[#EDE8DC] mb-5 leading-snug">
-              {post.title}
-            </h1>
-            <div className="flex flex-wrap items-center gap-5">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-[#C4953A]/20 flex items-center justify-center shrink-0">
-                  <span className="text-[#C4953A] text-xs font-bold">RG</span>
-                </div>
-                <div>
-                  <p className="text-[#EDE8DC] text-sm font-semibold">The Rabadi Group</p>
-                  <p className="text-[#3A3834] text-xs">Ramzi &amp; Christopher Rabadi · {BUSINESS.brokerage}</p>
-                </div>
-              </div>
-              <div className="h-4 w-px bg-[#2A2A2A]" />
-              <span className="text-[#4A4844] text-xs">{post.publishedAt}</span>
-              <div className="h-4 w-px bg-[#2A2A2A]" />
-              <span className="text-[#4A4844] text-xs">{post.readTime}</span>
+
+        <div className="wrap section !pt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16">
+          <div className="min-w-0 max-w-[42rem]">
+            <p className="lead">{post.description}</p>
+            <div className="mt-8 space-y-6">
+              {post.blocks.map((block, i) => (
+                <ContentBlock key={i} block={block} />
+              ))}
             </div>
           </div>
+
+          <aside className="lg:sticky lg:top-[calc(var(--header-h)+24px)] lg:self-start">
+            <div className="rounded-[16px] bg-oak p-6 text-paper">
+              <p className="font-serif text-[1.6rem] leading-tight">Questions about {post.city}?</p>
+              <p className="mt-2 text-sage">Call or text Ramzi or Christopher. Real answers, usually the same day.</p>
+              <div className="mt-5 grid gap-3">
+                <a href={BUSINESS.phoneHref} className="btn btn-brass w-full">
+                  Call {BUSINESS.phone}
+                </a>
+                <a href={BUSINESS.smsHref} className="btn btn-line w-full">
+                  Text us
+                </a>
+              </div>
+            </div>
+          </aside>
         </div>
-      </section>
+      </article>
 
-      {/* Content + Sidebar */}
-      <section className="pb-24 bg-[#050505]">
-        <div className="max-w-7xl mx-auto px-5 md:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 lg:gap-16 items-start">
-
-            {/* Article body */}
-            <article className="min-w-0 pt-4">
-              <p className="text-[#9A9690] text-lg leading-relaxed mb-12 border-l-2 border-[#C4953A]/40 pl-5 italic">
-                {post.description}
-              </p>
-              <div className="space-y-7">
-                {post.blocks.map((block, i) => (
-                  <ContentBlock key={i} block={block} />
-                ))}
-              </div>
-
-              {/* Author card */}
-              <div className="mt-16 p-6 border border-[#1E1E1E] rounded-xl bg-[#0A0A0A] flex flex-col sm:flex-row gap-5">
-                <div className="w-14 h-14 rounded-full bg-[#C4953A]/15 flex items-center justify-center shrink-0">
-                  <span className="text-[#C4953A] font-bold text-lg">RG</span>
-                </div>
-                <div>
-                  <p className="text-[#EDE8DC] font-semibold mb-1">The Rabadi Group</p>
-                  <p className="text-[#5A5550] text-sm leading-relaxed mb-3">
-                    Ramzi and Christopher Rabadi — father-and-son real estate team based in Claremont, CA. $100M+ in closed transactions, 20+ years in Southern California real estate, 5.0 Zillow rating.
-                  </p>
-                  <a href={BUSINESS.phoneHref} className="btn btn-gold btn-sm">Call {BUSINESS.phone}</a>
-                </div>
-              </div>
-            </article>
-
-            {/* Sticky sidebar */}
-            <aside className="lg:sticky lg:top-28 space-y-5 pt-4">
-              {/* CTA card */}
-              <div className="card p-6 border-[#C4953A]/20">
-                <span className="eyebrow mb-3 block">Free Consultation</span>
-                <h3 className="text-lg font-bold text-[#EDE8DC] mb-3 leading-snug">
-                  Questions About the {post.city} Market?
-                </h3>
-                <p className="text-[#5A5550] text-sm leading-relaxed mb-5">
-                  Call or text Ramzi or Christopher directly. We give real answers, not automated responses.
-                </p>
-                <div className="flex flex-col gap-3">
-                  <a href={BUSINESS.phoneHref} className="btn btn-gold w-full">
-                    Call {BUSINESS.phone}
-                  </a>
-                  <a href={BUSINESS.smsHref} className="btn btn-outline w-full">
-                    Text Us
-                  </a>
-                </div>
-              </div>
-
-              {/* Related guides */}
-              <div className="space-y-3">
-                <p className="text-[10px] text-[#3A3834] uppercase tracking-widest font-bold">More Guides</p>
-                {related.map((r) => (
-                  <Link
-                    key={r.slug}
-                    href={`/blog/${r.slug}`}
-                    className="block p-4 card hover:border-[#C4953A]/40 transition-colors"
-                  >
-                    <p className="text-[10px] text-[#C4953A] uppercase tracking-wider mb-1">{r.category}</p>
-                    <p className="text-[#EDE8DC] text-sm font-semibold leading-snug hover:text-[#D4A84A] transition-colors">
-                      {r.title}
-                    </p>
-                    <p className="text-[#3A3834] text-[10px] mt-1.5">{r.readTime}</p>
-                  </Link>
-                ))}
-                <Link href="/blog" className="block text-center text-[#C4953A] text-xs font-bold hover:text-[#D4A84A] pt-2">
-                  View All Guides →
-                </Link>
-              </div>
-
-              {/* Quick links */}
-              <div className="card p-5 space-y-2">
-                <p className="text-[10px] text-[#3A3834] uppercase tracking-widest font-bold mb-3">Our Services</p>
-                {[
-                  { label: "Buying a Home", href: "/buyers" },
-                  { label: "Selling a Home", href: "/sellers" },
-                  { label: "Commercial & Investment", href: "/commercial" },
-                  { label: "View Properties", href: "/listings" },
-                ].map((l) => (
-                  <Link key={l.href} href={l.href} className="flex items-center justify-between py-1.5 text-[#7A7570] hover:text-[#C4953A] transition-colors text-sm border-b border-[#1A1A1A] last:border-0">
-                    {l.label}
-                    <span className="text-[#2A2824]">→</span>
-                  </Link>
-                ))}
-              </div>
-            </aside>
-          </div>
-        </div>
-      </section>
-
-      {/* Related posts full grid */}
-      <section className="py-16 bg-[#080808] border-t border-[#1A1A1A]">
-        <div className="max-w-7xl mx-auto px-5 md:px-10">
-          <h2 className="text-xl font-semibold text-[#EDE8DC] mb-8">More Guides</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <section className="section bg-stone">
+        <div className="wrap">
+          <h2 className="h-section mb-10">More guides</h2>
+          <ul className="grid gap-x-8 gap-y-10 md:grid-cols-3">
             {related.map((r) => (
-              <Link key={r.slug} href={`/blog/${r.slug}`} className="card group flex flex-col hover:border-[#C4953A]/40 transition-colors">
-                <div className="relative h-40 overflow-hidden">
-                  <Image src={r.image} alt={r.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="400px" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] to-transparent" />
-                </div>
-                <div className="p-5 flex-1 flex flex-col">
-                  <p className="text-[#C4953A] text-[10px] uppercase tracking-widest mb-2">{r.category}</p>
-                  <h3 className="text-[#EDE8DC] font-semibold text-sm leading-snug mb-2 group-hover:text-[#D4A84A] transition-colors flex-1">{r.title}</h3>
-                  <p className="text-[#3A3834] text-[10px] mt-auto">{r.readTime}</p>
-                </div>
-              </Link>
+              <li key={r.slug}>
+                <Link href={`/blog/${r.slug}`} className="group block no-underline">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-[14px] bg-paper">
+                    <Image src={r.image} alt="" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+                  </div>
+                  <h3 className="mt-4 text-[1.4rem] leading-tight group-hover:text-brass-ink">{r.title}</h3>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
     </>
@@ -201,29 +117,16 @@ export default async function PostPage({ params }: Props) {
 function ContentBlock({ block }: { block: BlockType }) {
   switch (block.type) {
     case "h2":
-      return (
-        <h2 className="text-[clamp(1.3rem,2.5vw,1.7rem)] font-bold text-[#EDE8DC] mt-12 mb-4 first:mt-0 pb-3 border-b border-[#1A1A1A]">
-          {block.text}
-        </h2>
-      );
+      return <h2 className="!mt-12 text-[clamp(1.7rem,4vw,2.2rem)]">{block.text}</h2>;
     case "h3":
-      return (
-        <h3 className="text-lg font-bold text-[#EDE8DC] mt-8 mb-3">
-          {block.text}
-        </h3>
-      );
+      return <h3 className="!mt-8 text-[1.45rem]">{block.text}</h3>;
     case "p":
-      return (
-        <p className="text-[#8A8680] leading-[1.85] text-base">
-          {block.text}
-        </p>
-      );
+      return <p className="text-[1.08rem] leading-[1.7]">{block.text}</p>;
     case "ul":
       return (
-        <ul className="space-y-2.5 pl-0">
+        <ul className="list-disc space-y-2 pl-5 marker:text-brass-ink">
           {block.items.map((item, i) => (
-            <li key={i} className="flex gap-3 text-[#8A8680] text-sm leading-relaxed">
-              <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#C4953A]/60 shrink-0" />
+            <li key={i} className="pl-1 leading-[1.6]">
               {item}
             </li>
           ))}
@@ -231,30 +134,27 @@ function ContentBlock({ block }: { block: BlockType }) {
       );
     case "stat-grid":
       return (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-8">
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-y border-line py-6 md:grid-cols-3">
           {block.stats.map((s, i) => (
-            <div key={i} className="card p-5 text-center">
-              <p className="text-2xl font-bold text-[#C4953A] serif mb-1">{s.value}</p>
-              <p className="text-[#EDE8DC] text-xs font-semibold mb-0.5">{s.label}</p>
-              {s.sub && <p className="text-[#3A3834] text-[10px]">{s.sub}</p>}
+            <div key={i}>
+              <dt className="sr-only">{s.label}</dt>
+              <dd className="num text-[2rem] leading-none">{s.value}</dd>
+              <dd className="mt-1 font-semibold text-[0.95rem]">{s.label}</dd>
+              {s.sub && <dd className="text-[0.88rem] text-ink-soft">{s.sub}</dd>}
             </div>
           ))}
-        </div>
+        </dl>
       );
     case "callout":
-      return (
-        <div className="my-8 border-l-4 border-[#C4953A] bg-[#C4953A]/5 rounded-r-xl p-5">
-          <p className="text-[#C4953A] text-sm leading-relaxed font-medium">{block.text}</p>
-        </div>
-      );
+      return <p className="border-l-2 border-brass bg-stone px-5 py-4 text-[1.05rem]">{block.text}</p>;
     case "table":
       return (
-        <div className="my-8 overflow-x-auto rounded-xl border border-[#1E1E1E]">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-[#2A2A2A]">
+        <div className="overflow-x-auto rounded-[12px] border border-line">
+          <table className="w-full min-w-[480px] border-collapse text-[0.97rem]">
+            <thead className="bg-stone">
+              <tr>
                 {block.head.map((h, i) => (
-                  <th key={i} className="text-left px-5 py-3 text-[#5A5550] text-[10px] uppercase tracking-widest font-bold bg-[#0A0A0A]">
+                  <th key={i} className="px-4 py-3 text-left font-semibold">
                     {h}
                   </th>
                 ))}
@@ -262,9 +162,9 @@ function ContentBlock({ block }: { block: BlockType }) {
             </thead>
             <tbody>
               {block.rows.map((row, i) => (
-                <tr key={i} className="border-b border-[#151515] last:border-0 hover:bg-[#0A0A0A] transition-colors">
+                <tr key={i} className="border-t border-line">
                   {row.map((cell, j) => (
-                    <td key={j} className={`px-5 py-3.5 ${j === 0 ? "text-[#EDE8DC] font-semibold" : "text-[#7A7570]"}`}>
+                    <td key={j} className={`px-4 py-3 ${j === 0 ? "font-semibold" : "text-ink-soft"}`}>
                       {cell}
                     </td>
                   ))}

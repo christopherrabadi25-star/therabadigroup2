@@ -40,8 +40,8 @@ export async function POST(req: NextRequest) {
 
     const emailHtml = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-        <h2 style="color: #C9A84C; border-bottom: 1px solid #eee; padding-bottom: 12px;">
-          New Lead — The Rabadi Group
+        <h2 style="color: #1d3a2b; border-bottom: 1px solid #eee; padding-bottom: 12px;">
+          New lead from therabadigroup.com
         </h2>
         <table style="width: 100%; border-collapse: collapse;">
           <tr>
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
           from: FROM_EMAIL,
           to: [TO_EMAIL],
           reply_to: email || undefined,
-          subject: `New Lead: ${name} — ${type} — The Rabadi Group`,
+          subject: `New lead: ${name} (${type})`,
           html: emailHtml,
         }),
       });
@@ -110,7 +110,10 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    // `delivered` tells the form whether an email actually went out. When no
+    // email provider is configured the form offers text/email instead, so no
+    // lead is lost.
+    return NextResponse.json({ success: true, delivered: Boolean(RESEND_API_KEY) }, { status: 200 });
   } catch (err) {
     console.error("Contact form error:", err);
     return NextResponse.json(

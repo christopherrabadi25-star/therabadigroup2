@@ -2,7 +2,7 @@
 
 export const BUSINESS = {
   name: "The Rabadi Group",
-  tagline: "Your SGV & Foothill Cities Real Estate Specialists",
+  tagline: "Father and son real estate, from the foothills to the coast",
   domain: "therabadigroup.com",
   url: "https://therabadigroup.com",
   email: "ramzirbd@aim.com",
@@ -14,275 +14,354 @@ export const BUSINESS = {
   zillow: "https://www.zillow.com/profile/ramzirbd",
   brokerage: "Agency 8 Real Estate Group",
   brokerageCity: "Claremont, California",
-  laverne: true,
-  claremont: true,
   address: {
-    street: "Claremont",
+    street: "940 W Foothill Blvd",
+    city: "Claremont",
     state: "CA",
     zip: "91711",
-    full: "Claremont, CA",
+    full: "940 W Foothill Blvd, Claremont, CA 91711",
   },
 } as const;
 
 export const STATS = [
-  { value: "$100M+", label: "In Closed Transactions" },
-  { value: "35+", label: "Properties Sold" },
-  { value: "20+", label: "Years Experience" },
-  { value: "5.0★", label: "Zillow Rating" },
-  { value: "$1.7M", label: "Average Sale Price" },
-  { value: "4.2%", label: "Above Asking (Sellers)" },
+  { value: "$100M+", label: "closed across Southern California" },
+  { value: "20+", label: "years in the business" },
+  { value: "35+", label: "properties sold" },
+  { value: "5.0", label: "rating on Zillow" },
 ] as const;
 
 export const TEAM = [
   {
     name: "Ramzi Rabadi",
-    title: "Principal / Broker Associate",
+    first: "Ramzi",
+    title: "Agent, 20+ years",
     dre: "CA DRE #01738777",
-    experience: "20+ years",
     image: "/images/ramzi.png",
-    specialties: [
-      "Luxury Residential",
-      "Commercial",
-      "Multi-Family",
-      "Gas Stations",
-      "Ground Leases",
-      "Industrial",
-    ],
-    bio: "Twenty years in Southern California real estate — and still the hardest-working agent in the room. Ramzi Rabadi has closed over $100M in transactions across La Verne, Claremont, Beverly Hills, Hollywood Hills, Dana Point, and everywhere in between. He knows the Foothill Cities corridor better than anyone in the business. From a $7.4M Hollywood Hills estate to complex commercial ground leases, Ramzi has negotiated deals most agents don't even know exist. He doesn't sweet-talk. He closes.",
-    stats: [
-      { value: "$100M+", label: "Closed Volume" },
-      { value: "20+", label: "Years Experience" },
-      { value: "35+", label: "Transactions" },
-    ],
+    specialties: ["Luxury homes", "Commercial", "Multi-family", "Gas stations", "Ground leases", "Industrial"],
+    short:
+      "Two decades of deals, from a $7.4M Hollywood Hills mid-century to ground leases and gas stations most agents never touch.",
+    bio: "Ramzi has spent more than 20 years buying and selling Southern California real estate. His closings run from a $7.4M William Krisel home in the Hollywood Hills and a $6.3M oceanfront house in Dana Point to West Hollywood income buildings and complex commercial deals. He prices carefully, negotiates every term, and tells clients the truth about what a property is worth.",
   },
   {
     name: "Christopher Rabadi",
-    title: "Agent / Buyer Specialist",
+    first: "Christopher",
+    title: "Agent",
     dre: "CA DRE #02246356",
-    experience: "Next generation",
     image: "/images/christopher.png",
-    specialties: [
-      "Buyer Representation",
-      "San Gabriel Valley",
-      "Foothill Cities",
-      "Orange County Coast",
-      "Digital Marketing",
-      "Client Relations",
-    ],
-    bio: "Born and raised in the San Gabriel Valley. Christopher Rabadi works side by side with his father Ramzi — two agents, one deal, twice the firepower. He knows La Verne, Claremont, and the Foothill Cities on a street-by-street level and brings a tech-forward, client-first approach to every transaction. When you work with Christopher, you get the full team behind you.",
-    stats: [
-      { value: "SGV", label: "Home Market" },
-      { value: "Father + Son", label: "Team Power" },
-      { value: "20+", label: "Yrs Combined" },
-    ],
+    specialties: ["Buyer representation", "San Gabriel Valley", "Foothill Cities", "Market research", "Marketing"],
+    short:
+      "Raised in the San Gabriel Valley. Runs the research, comps, and marketing, and works side by side with buyers.",
+    bio: "Christopher grew up in the San Gabriel Valley and works every deal alongside his father. He handles the research and pricing work behind each offer, runs the team's marketing, and works with buyers from the first showing through inspections and escrow. In 2026 he helped close a $4.495M Spanish estate in Los Feliz and a Sierra Madre pool home that came in $119,500 under asking.",
   },
 ] as const;
 
-export const LISTINGS = [
+/* ------------------------------------------------------------------ */
+/* Closed sales                                                        */
+/* ------------------------------------------------------------------ */
+
+export type Side = "Buyer" | "Seller";
+
+export interface Sale {
+  slug: string;
+  address: string;
+  city: string;
+  neighborhood?: string;
+  /** Area grouping used on the Areas page */
+  area: string;
+  price: number;
+  date: string; // ISO yyyy-mm-dd (close of escrow)
+  side: Side;
+  type?: string;
+  facts?: string[];
+  highlight?: string;
+  description?: string;
+  /** Photos in order of preference. Remote photos fall back to the next one. */
+  images?: string[];
+  imageAlt?: string;
+  featured?: boolean;
+}
+
+export const SALES: Sale[] = [
   {
-    address: "1411 Rising Glen Rd",
-    city: "Los Angeles, CA",
-    price: "$7,400,000",
-    status: "SOLD",
-    date: "Jan 2023",
-    role: "Buyer Representative",
+    slug: "602-n-michillinda-ave-sierra-madre",
+    address: "602 N Michillinda Ave",
+    city: "Sierra Madre",
+    area: "Sierra Madre",
+    price: 1580000,
+    date: "2026-10-20",
+    side: "Buyer",
+    type: "Single-story pool home",
+    facts: ["3 beds", "2 baths", "2,049 sq ft", "Built 1960"],
+    highlight:
+      "Closed $119,500 under the $1,699,500 asking price, plus $10,000 in credits we negotiated for our buyer.",
     description:
-      "Hollywood Hills. Historic butterfly-roofed Mid-Century masterpiece by William Krisel. Once home to Bobby Darin & Sandra Dee, featured in Architectural Digest.",
-    image: "/images/hollywood-hills.webp",
-    neighborhood: "Hollywood Hills",
+      "Single-story pool home with a fireplace, formal dining room overlooking the pool, and views of the San Gabriel Mountains on a 10,000+ sq ft lot.",
+    images: ["https://ssl.cdn-redfin.com/photo/45/bigphoto/859/TR26141859_1.jpg"],
+    imageAlt: "602 N Michillinda Ave, Sierra Madre",
     featured: true,
   },
   {
-    address: "35099 Beach Rd",
-    city: "Dana Point, CA",
-    price: "$6,300,000",
-    status: "SOLD",
-    date: "Sep 2021",
-    role: "Buyer Representative",
+    slug: "4426-cromwell-ave-los-feliz",
+    address: "4426 Cromwell Ave",
+    city: "Los Angeles",
+    neighborhood: "Los Feliz",
+    area: "Los Feliz",
+    price: 4495000,
+    date: "2026-04-14",
+    side: "Buyer",
+    type: "1931 Spanish Colonial Revival",
+    facts: ["4 beds", "5 baths", "4,099 sq ft", "Pool and JADU"],
+    highlight:
+      "Won for our buyer in a multiple-offer, best-and-final round.",
     description:
-      "Beachfront living on Dana Point's prestigious coastline. Direct sand access with unobstructed Pacific views.",
-    image: "/images/west-hollywood-4plex.jpg",
-    neighborhood: "Dana Point Oceanfront",
+      "Gated 1931 Spanish estate north of Los Feliz Boulevard with arched doorways, original tile, a pool, fruit trees, and a junior ADU with its own entrance.",
+    images: [
+      "https://ssl.cdn-redfin.com/photo/40/bigphoto/811/26659811_1.jpg",
+      "https://tracydo.com/wp-content/uploads/2026/03/0_78-copy.jpg",
+    ],
+    imageAlt: "4426 Cromwell Ave, a 1931 Spanish estate in Los Feliz",
     featured: true,
   },
   {
+    slug: "235-e-foothill-blvd-b-monrovia-2025",
+    address: "235 E Foothill Blvd, Unit B",
+    city: "Monrovia",
+    area: "Monrovia",
+    price: 650000,
+    date: "2025-12-23",
+    side: "Seller",
+    type: "Townhome",
+    highlight: "Listed and sold for our seller, a few minutes from Old Town Monrovia.",
+    featured: true,
+  },
+  {
+    slug: "5000-live-oak-canyon-rd-la-verne",
     address: "5000 Live Oak Canyon Rd",
-    city: "La Verne, CA",
-    price: "$4,200,000",
-    status: "SOLD",
-    date: "Jun 2025",
-    role: "Listing Agent",
-    description:
-      "Designed by Foster Rhodes Jackson, a disciple of Frank Lloyd Wright. Nearly 10 acres with bell tower and panoramic canyon views. 3 Bed, 4 Bath, 3,628 SF, 9.97 Acres.",
-    image: "/images/la-verne-estate.jpg",
-    neighborhood: "La Verne Estates",
+    city: "La Verne",
+    area: "La Verne",
+    price: 4200000,
+    date: "2025-06-26",
+    side: "Buyer",
+    type: "Architectural estate",
+    facts: ["3 beds", "4 baths", "3,628 sq ft", "9.97 acres"],
+    highlight:
+      "Designed by Foster Rhodes Jackson, a disciple of Frank Lloyd Wright, with a bell tower and canyon views.",
+    images: [
+      "https://media.relahq.com/public/styles/gallery_grid/s3/property-images/prop-nid-179354336/011-0011_809.jpg",
+    ],
+    imageAlt: "5000 Live Oak Canyon Rd, La Verne",
+    featured: true,
+  },
+  { slug: "647-foxbrook-dr-glendora", address: "647 Foxbrook Dr", city: "Glendora", area: "Glendora", price: 1525000, date: "2025-06-20", side: "Buyer" },
+  { slug: "1595-w-foothill-blvd-upland", address: "1595 W Foothill Blvd", city: "Upland", area: "Upland", price: 1300000, date: "2024-11-21", side: "Buyer" },
+  { slug: "2252-zinnia-st-upland", address: "2252 Zinnia St", city: "Upland", area: "Upland", price: 1110000, date: "2024-11-15", side: "Buyer" },
+  {
+    slug: "8417-waring-ave-west-hollywood",
+    address: "8417 Waring Ave",
+    city: "Los Angeles",
+    neighborhood: "West Hollywood",
+    area: "West Hollywood",
+    price: 2110000,
+    date: "2024-09-26",
+    side: "Buyer",
+    type: "1939 multi-unit",
+    facts: ["7 beds", "5 baths", "4,167 sq ft", "4-car garage"],
+    images: ["/images/west-hollywood-multi.jpg"],
+    imageAlt: "8417 Waring Ave, West Hollywood",
+    featured: true,
+  },
+  { slug: "705-saint-anns-dr-laguna-beach", address: "705 Saint Anns Dr", city: "Laguna Beach", area: "Laguna Beach", price: 1800000, date: "2024-09-03", side: "Buyer" },
+  { slug: "360-anita-dr-pasadena", address: "360 Anita Dr", city: "Pasadena", neighborhood: "San Rafael", area: "Pasadena", price: 1900000, date: "2023-07-06", side: "Buyer" },
+  {
+    slug: "811-n-croft-ave-west-hollywood",
+    address: "811 N Croft Ave",
+    city: "Los Angeles",
+    neighborhood: "West Hollywood",
+    area: "West Hollywood",
+    price: 2650000,
+    date: "2023-05-18",
+    side: "Buyer",
+    type: "Fourplex",
+    highlight: "Half a block from Melrose Place, with large private patios.",
+    images: ["/images/west-hollywood-4plex.jpg"],
+    imageAlt: "811 N Croft Ave, West Hollywood",
     featured: true,
   },
   {
+    slug: "1411-rising-glen-rd-hollywood-hills",
+    address: "1411 Rising Glen Rd",
+    city: "Los Angeles",
+    neighborhood: "Hollywood Hills",
+    area: "Hollywood Hills",
+    price: 7400000,
+    date: "2023-01-18",
+    side: "Buyer",
+    type: "William Krisel mid-century",
+    highlight:
+      "Butterfly-roofed Krisel design, once home to Bobby Darin and Sandra Dee and featured in Architectural Digest.",
+    images: ["/images/hollywood-hills.webp"],
+    imageAlt: "1411 Rising Glen Rd, Hollywood Hills",
+    featured: true,
+  },
+  { slug: "25-annandale-rd-pasadena", address: "25 Annandale Rd", city: "Pasadena", area: "Pasadena", price: 1654000, date: "2022-11-04", side: "Buyer" },
+  { slug: "235-e-foothill-blvd-b-monrovia-2022", address: "235 E Foothill Blvd, Unit B", city: "Monrovia", area: "Monrovia", price: 575000, date: "2022-11-28", side: "Buyer" },
+  { slug: "32733-state-hwy-18-lucerne-valley", address: "32733 State Hwy 18", city: "Lucerne Valley", area: "High Desert", price: 400000, date: "2022-05-03", side: "Buyer" },
+  { slug: "1426-peppertree-dr-la-habra-heights", address: "1426 Peppertree Dr", city: "La Habra Heights", area: "La Habra Heights", price: 2103000, date: "2021-11-09", side: "Seller" },
+  { slug: "389-s-east-end-ave-pomona", address: "389 S East End Ave", city: "Pomona", area: "Pomona", price: 1140000, date: "2021-10-05", side: "Buyer" },
+  {
+    slug: "35099-beach-rd-dana-point",
+    address: "35099 Beach Rd",
+    city: "Dana Point",
+    area: "Dana Point",
+    price: 6300000,
+    date: "2021-09-28",
+    side: "Buyer",
+    type: "Oceanfront",
+    highlight: "On the sand along Dana Point's private Beach Road, with open Pacific views.",
+    images: ["/images/dana-point.jpg"],
+    imageAlt: "Dana Point coastline",
+    featured: true,
+  },
+  { slug: "418-vista-dr-claremont", address: "418 Vista Dr", city: "Claremont", area: "Claremont", price: 660000, date: "2021-04-26", side: "Buyer" },
+  { slug: "6968-angus-dr-la-verne", address: "6968 Angus Dr", city: "La Verne", area: "La Verne", price: 898000, date: "2021-01-22", side: "Buyer" },
+  { slug: "128-n-5th-ave-monrovia", address: "128 N 5th Ave", city: "Monrovia", area: "Monrovia", price: 690000, date: "2019-10-03", side: "Buyer" },
+  {
+    slug: "9550-w-olympic-blvd-beverly-hills",
     address: "9550 W Olympic Blvd",
-    city: "Beverly Hills, CA",
-    price: "$3,050,000",
-    status: "SOLD",
-    date: "Apr 2019",
-    role: "Buyer Representative",
-    description:
-      "Prime address on the prestigious Olympic Boulevard corridor. Heart of the 90210.",
-    image: "/images/beverly-hills.jpg",
-    neighborhood: "Beverly Hills",
-    featured: false,
+    city: "Beverly Hills",
+    area: "Beverly Hills",
+    price: 3050000,
+    date: "2019-04-09",
+    side: "Buyer",
+    highlight: "On the Olympic Boulevard corridor in the 90212.",
+    images: ["/images/beverly-hills.jpg"],
+    imageAlt: "9550 W Olympic Blvd, Beverly Hills",
+    featured: true,
+  },
+  { slug: "745-w-foothill-blvd-glendora", address: "745 W Foothill Blvd", city: "Glendora", area: "Glendora", price: 720000, date: "2018-08-16", side: "Buyer" },
+  { slug: "1546-steinhart-ave-redondo-beach", address: "1546 Steinhart Ave", city: "Redondo Beach", area: "South Bay", price: 1075000, date: "2017-09-01", side: "Buyer" },
+  { slug: "216-half-30th-st-newport-beach", address: "216 1/2 30th St", city: "Newport Beach", area: "Newport Beach", price: 1021000, date: "2017-03-27", side: "Buyer" },
+  { slug: "2060-liliano-dr-sierra-madre", address: "2060 Liliano Dr", city: "Sierra Madre", area: "Sierra Madre", price: 905000, date: "2012-12-06", side: "Buyer" },
+  { slug: "1970-n-altadena-dr-pasadena", address: "1970 N Altadena Dr", city: "Pasadena", area: "Pasadena", price: 836000, date: "2012-12-03", side: "Seller" },
+];
+
+/** Newest first */
+export const SALES_BY_DATE = [...SALES].sort((a, b) => b.date.localeCompare(a.date));
+
+export const RECENT_SALES = SALES_BY_DATE.slice(0, 3);
+
+export function formatPrice(n: number, short = false) {
+  if (short) {
+    if (n >= 1_000_000) return `$${Number((n / 1_000_000).toFixed(3))}M`;
+    return `$${Math.round(n / 1000)}K`;
+  }
+  return n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+}
+
+export function formatDate(iso: string, style: "month" | "full" = "month") {
+  const [y, m, d] = iso.split("-").map(Number);
+  const date = new Date(Date.UTC(y, m - 1, d));
+  return date.toLocaleDateString("en-US", {
+    month: style === "full" ? "long" : "short",
+    year: "numeric",
+    ...(style === "full" ? { day: "numeric" } : {}),
+    timeZone: "UTC",
+  });
+}
+
+export function placeLabel(s: Sale) {
+  return s.neighborhood ? `${s.neighborhood}, ${s.city}` : s.city;
+}
+
+/* ------------------------------------------------------------------ */
+/* Areas                                                               */
+/* ------------------------------------------------------------------ */
+
+export const REGIONS = [
+  {
+    name: "Foothill Cities and the San Gabriel Valley",
+    note: "Our home base. We live, work, and close here more than anywhere else.",
+    cities: [
+      { name: "Claremont", desc: "The Village, the Colleges, and tree-lined streets running up to the foothills. Our office is on Foothill Boulevard." },
+      { name: "La Verne", desc: "Bonita Unified schools, canyon estates along Live Oak and Webb Canyon, and very little inventory." },
+      { name: "Pasadena", desc: "Craftsman blocks, San Rafael, and the estates of South Orange Grove." },
+      { name: "Sierra Madre", desc: "A small village at the base of the mountains. Single-story homes on big lots rarely last." },
+      { name: "Monrovia", desc: "Old Town, walkable blocks, and some of the best value along the 210." },
+      { name: "Glendora", desc: "Hillside homes, strong schools, and steady appreciation." },
+      { name: "San Dimas", desc: "Bigger lots, horse properties, and a small-town feel." },
+      { name: "Upland", desc: "North Upland custom homes and quick access to the 210." },
+      { name: "Pomona", desc: "Historic homes in Lincoln Park and the Wilton Heights district." },
+    ],
   },
   {
-    address: "811 N Croft Ave",
-    city: "Los Angeles, CA",
-    price: "$2,650,000",
-    status: "SOLD",
-    date: "May 2023",
-    role: "Buyer Representative",
-    description:
-      "West Hollywood. Charming 4-plex half a block from Melrose Place. Great curb appeal with huge private patios.",
-    image: "/images/west-hollywood-4plex.jpg",
-    neighborhood: "West Hollywood",
-    featured: false,
+    name: "Los Angeles",
+    note: "Architectural homes and income property on the Westside and in the hills.",
+    cities: [
+      { name: "Hollywood Hills", desc: "Canyon views and mid-century landmarks above the city." },
+      { name: "Los Feliz", desc: "1920s and 30s Spanish and Revival estates below Griffith Park." },
+      { name: "West Hollywood", desc: "Multi-unit buildings and duplexes near Melrose and Sunset." },
+      { name: "Beverly Hills", desc: "Flats, the Olympic corridor, and trophy homes north of Sunset." },
+      { name: "La Habra Heights", desc: "Acreage, privacy, and hillside views on the county line." },
+    ],
   },
   {
-    address: "8417 Waring Ave",
-    city: "Los Angeles, CA",
-    price: "$2,110,000",
-    status: "SOLD",
-    date: "Sep 2024",
-    role: "Buyer Representative",
-    description:
-      "West Hollywood. Classic 1939 multi-unit. 7 beds, 5 baths, 4,167 SF, 4-car garage.",
-    image: "/images/west-hollywood-multi.jpg",
-    neighborhood: "West Hollywood",
-    featured: false,
+    name: "Orange County and the coast",
+    note: "Beach and harbor homes from Newport to Dana Point.",
+    cities: [
+      { name: "Dana Point", desc: "Beach Road, the harbor, and bluff-top homes." },
+      { name: "Laguna Beach", desc: "Village cottages and view homes in the hills." },
+      { name: "Newport Beach", desc: "The peninsula, the harbor, and Corona del Mar." },
+    ],
   },
 ] as const;
 
-export const AREAS = [
-  {
-    name: "La Verne",
-    description: "Our home market. Bonita Unified schools, foothill setting, tight inventory. We know every block.",
-    startingFrom: "From $850K",
-    image: "/images/la-verne.jpg",
-  },
-  {
-    name: "Claremont",
-    description: "The Village, north foothill estates, and the Colleges corridor. Sophisticated buyers, strong appreciation.",
-    startingFrom: "From $950K",
-    image: "/images/claremont.jpg",
-  },
-  {
-    name: "Beverly Hills",
-    description: "Prestige, privacy, and trophy properties at the highest tier of Los Angeles real estate.",
-    startingFrom: "From $7.4M",
-    image: "/images/beverly-hills-area.jpg",
-  },
-  {
-    name: "Hollywood Hills",
-    description: "Architectural homes, canyon views, and standout addresses above the city.",
-    startingFrom: "From $2.7M",
-    image: "/images/hollywood-hills-area.jpg",
-  },
-  {
-    name: "Dana Point",
-    description: "Harborfront luxury, dramatic cliffs, direct beach access. One of our largest closed deals.",
-    startingFrom: "From $6.3M",
-    image: "/images/dana-point.jpg",
-  },
-  {
-    name: "San Gabriel Valley",
-    description: "Our broader SGV coverage: San Dimas, Glendora, Upland, Rancho Cucamonga and beyond.",
-    startingFrom: "All price ranges",
-    image: "/images/sgv.jpg",
-  },
-] as const;
+export function salesIn(area: string) {
+  return SALES_BY_DATE.filter((s) => s.area === area);
+}
 
-export const SERVICES = [
-  {
-    title: "Luxury Residential",
-    description:
-      "Buying or selling a luxury home in Southern California? We negotiate hard, market aggressively, and deliver results.",
-    icon: "🏡",
-  },
-  {
-    title: "Seller Representation",
-    description:
-      "Our listings sell 4.2% above asking on average. We price with precision and market with authority.",
-    icon: "📈",
-  },
-  {
-    title: "Buyer Representation",
-    description:
-      "Off-market access, below-ask acquisitions, and a relentless advocate at every negotiating table.",
-    icon: "🔑",
-  },
-  {
-    title: "Commercial Real Estate",
-    description:
-      "Industrial, retail, mixed-use, gas stations, ground leases — we handle the full commercial spectrum.",
-    icon: "🏢",
-  },
-  {
-    title: "Investment Properties",
-    description:
-      "Multi-family, income-producing assets, and portfolio acquisitions across Los Angeles and beyond.",
-    icon: "💼",
-  },
-  {
-    title: "Free Home Valuation",
-    description:
-      "Know your home's true market value. Complimentary CMA based on real-time data and local expertise.",
-    icon: "📊",
-  },
-] as const;
+/* ------------------------------------------------------------------ */
+/* FAQ and navigation                                                  */
+/* ------------------------------------------------------------------ */
 
 export const FAQS = [
   {
-    question:
-      "Who is the best luxury real estate agent in La Verne or Claremont CA?",
+    question: "Who is the best real estate agent in Claremont or La Verne?",
     answer:
-      "The Rabadi Group, led by Ramzi Rabadi with 20+ years of experience and $100M+ in closed transactions, is the leading luxury real estate team in La Verne and Claremont, California.",
+      "The Rabadi Group is a father-and-son team based in Claremont at Agency 8 Real Estate Group. Ramzi Rabadi has 20+ years in Southern California real estate and the team has more than $100M in closed transactions, with a 5.0 rating on Zillow. Call or text (626) 203-1372 to talk with Ramzi or Christopher directly.",
   },
   {
     question: "What areas does The Rabadi Group serve?",
     answer:
-      "La Verne, Claremont, San Dimas, Glendora, Upland, Rancho Cucamonga (primary Foothill Cities markets), plus Los Angeles County (Beverly Hills, Pasadena, Hollywood Hills, West Hollywood), and Orange County (Dana Point, Laguna Beach).",
+      "Claremont, La Verne, Pasadena, Sierra Madre, Monrovia, Glendora, San Dimas, Upland and the rest of the San Gabriel Valley, plus Los Angeles (Hollywood Hills, Los Feliz, West Hollywood, Beverly Hills) and the Orange County coast (Dana Point, Laguna Beach, Newport Beach).",
   },
   {
-    question: "Does The Rabadi Group handle commercial real estate?",
+    question: "What has The Rabadi Group sold recently?",
     answer:
-      "Yes. The portfolio includes $100M+ in transactions across luxury residential, commercial, industrial, retail, gas stations, ground leases, and investment properties across Los Angeles and San Bernardino counties.",
+      "In October 2026 we represented the buyer of 602 N Michillinda Ave in Sierra Madre, which closed at $1,580,000, $119,500 under asking. In April 2026 we represented the buyer of 4426 Cromwell Ave in Los Feliz at $4,495,000. In December 2025 we sold 235 E Foothill Blvd, Unit B in Monrovia for our seller.",
   },
   {
-    question: "How do I get a home valuation?",
+    question: "Do you handle commercial real estate?",
     answer:
-      "Call or text us at (626) 203-1372. We provide complimentary home valuations based on real-time market data, recent comparable sales, and deep knowledge of local market conditions.",
+      "Yes. Ramzi works on multi-family, retail, industrial, office, gas station, and ground lease transactions across Los Angeles, San Bernardino, Orange, and Riverside counties.",
   },
   {
-    question: "What makes The Rabadi Group different from other agents?",
+    question: "How do I find out what my home is worth?",
     answer:
-      "We are a father-and-son team combining 20+ years of veteran experience with next-generation digital marketing strategy. Our listings sell 4.2% above asking on average. We handle both luxury residential and commercial — a depth of expertise few teams can match.",
+      "Send us your address with the form on this site, or call or text (626) 203-1372. We pull recent comparable sales for your street and give you a value range at no cost.",
   },
 ] as const;
 
 export const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Buy", href: "/buyers" },
   { label: "Sell", href: "/sellers" },
+  { label: "Buy", href: "/buyers" },
+  { label: "Sold homes", href: "/listings" },
   { label: "Commercial", href: "/commercial" },
-  { label: "Properties", href: "/listings" },
   { label: "Areas", href: "/areas" },
-  { label: "Guides", href: "/blog" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "About us", href: "/about" },
 ] as const;
 
-export const LOCAL_AREAS = [
-  { name: "La Verne", state: "CA", type: "city", desc: "Our home market. La Verne's estate corridor along Baseline and the foothill properties represent some of the best value-to-lifestyle ratio in all of LA County." },
-  { name: "Claremont", state: "CA", type: "city", desc: "The Village, the colleges, and some of the most architecturally significant homes in the Inland Valley. Claremont's luxury market is undervalued and moving fast." },
-  { name: "San Dimas", state: "CA", type: "city", desc: "Larger lots, equestrian properties, and a strong community feel. San Dimas is a hidden gem for buyers who want space without sacrificing location." },
-  { name: "Glendora", state: "CA", type: "city", desc: "Consistently strong appreciation, trophy hillside estates, and one of the safest and most desirable communities in the San Gabriel Valley." },
-  { name: "Upland", state: "CA", type: "city", desc: "Growing luxury market, new development, and easy access to the 210 corridor. Upland's north-end custom homes are some of the best buys in the region." },
-  { name: "Rancho Cucamonga", state: "CA", type: "city", desc: "Victoria Gardens corridor, excellent schools, and a rapidly appreciating luxury tier. One of the fastest-moving markets we work in." },
+export const MORE_LINKS = [
+  { label: "Market notes", href: "/market" },
+  { label: "Guides", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ] as const;

@@ -1,58 +1,24 @@
 import { MetadataRoute } from "next";
 import { BUSINESS } from "@/lib/data";
+import { POSTS } from "@/lib/posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = BUSINESS.url;
+  const base = BUSINESS.url;
   const now = new Date();
-
+  const pages: [string, number, "weekly" | "monthly"][] = [
+    ["", 1, "weekly"],
+    ["/listings", 0.9, "weekly"],
+    ["/sellers", 0.9, "monthly"],
+    ["/buyers", 0.9, "monthly"],
+    ["/about", 0.8, "monthly"],
+    ["/areas", 0.8, "monthly"],
+    ["/commercial", 0.8, "monthly"],
+    ["/market", 0.7, "monthly"],
+    ["/contact", 0.7, "monthly"],
+    ["/blog", 0.6, "monthly"],
+  ];
   return [
-    {
-      url: baseUrl,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/buyers`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/sellers`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/market`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/listings`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/areas`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
+    ...pages.map(([path, priority, changeFrequency]) => ({ url: `${base}${path}`, lastModified: now, changeFrequency, priority })),
+    ...POSTS.map((p) => ({ url: `${base}/blog/${p.slug}`, lastModified: new Date(p.publishedAt), changeFrequency: "yearly" as const, priority: 0.5 })),
   ];
 }

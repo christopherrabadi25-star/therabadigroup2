@@ -31,7 +31,7 @@ export const POSTS: Post[] = [
     publishedAt: "2025-01-15",
     readTime: "8 min read",
     featured: true,
-    image: "/images/la-verne-estate.jpg",
+    image: "/images/la-verne-new.jpg",
     blocks: [
       {
         type: "p",
@@ -153,7 +153,7 @@ export const POSTS: Post[] = [
     publishedAt: "2025-02-03",
     readTime: "7 min read",
     featured: false,
-    image: "/images/beverly-hills.jpg",
+    image: "/images/claremont.jpg",
     blocks: [
       {
         type: "p",
@@ -254,7 +254,7 @@ export const POSTS: Post[] = [
     publishedAt: "2025-02-20",
     readTime: "7 min read",
     featured: false,
-    image: "/images/la-verne-estate.jpg",
+    image: "/images/sgv.jpg",
     blocks: [
       {
         type: "p",
@@ -355,7 +355,7 @@ export const POSTS: Post[] = [
     publishedAt: "2025-03-05",
     readTime: "9 min read",
     featured: false,
-    image: "/images/west-hollywood-4plex.jpg",
+    image: "/images/claremont-new.jpg",
     blocks: [
       {
         type: "p",
@@ -463,7 +463,7 @@ export const POSTS: Post[] = [
     publishedAt: "2025-03-18",
     readTime: "10 min read",
     featured: false,
-    image: "/images/west-hollywood-4plex.jpg",
+    image: "/images/claremont.jpg",
     blocks: [
       {
         type: "p",
@@ -583,7 +583,7 @@ export const POSTS: Post[] = [
     publishedAt: "2025-04-01",
     readTime: "6 min read",
     featured: false,
-    image: "/images/hollywood-hills.webp",
+    image: "/images/sgv.jpg",
     blocks: [
       {
         type: "p",

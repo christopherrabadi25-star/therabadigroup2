@@ -1,96 +1,68 @@
 import Link from "next/link";
-import { BUSINESS, NAV_LINKS, TEAM } from "@/lib/data";
+import { BUSINESS, NAV_LINKS, MORE_LINKS, TEAM } from "@/lib/data";
+import Ridgeline from "./Ridgeline";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#060606] border-t border-[#181818]">
-      <div className="max-w-7xl mx-auto px-6 pt-16 pb-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            <p className="serif text-xl font-bold text-white mb-1">The Rabadi Group</p>
-            <p className="text-[9px] tracking-[0.28em] uppercase text-[#C8A96A] mb-5">Southern California Luxury</p>
-            <p className="text-sm text-[#666] leading-relaxed mb-5">
-              Father-and-son luxury real estate. $100M+ closed.
-              20+ years. Claremont, CA.
+    <footer className="bg-oak-deep text-paper">
+      <Ridgeline className="block h-16 w-full text-brass/70 md:h-24" />
+      <div className="wrap pb-12 pt-10 md:pt-14">
+        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+          <div>
+            <p className="font-serif text-[2rem] leading-none">The Rabadi Group</p>
+            <p className="mt-4 max-w-sm text-sage">
+              Ramzi and Christopher Rabadi. Father and son real estate agents based in Claremont, working across
+              Southern California.
             </p>
-            <a href={BUSINESS.instagram} target="_blank" rel="noopener noreferrer"
-              className="text-sm text-[#555] hover:text-[#C8A96A] transition-colors flex items-center gap-2">
-              <IgIcon /> {BUSINESS.instagramHandle}
-            </a>
+            <div className="mt-6 space-y-1">
+              <a href={BUSINESS.phoneHref} className="block text-[1.15rem] font-semibold no-underline hover:text-brass">
+                {BUSINESS.phone}
+              </a>
+              <a href={`mailto:${BUSINESS.email}`} className="block no-underline text-sage hover:text-paper">
+                {BUSINESS.email}
+              </a>
+              <a
+                href={BUSINESS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block no-underline text-sage hover:text-paper"
+              >
+                Instagram {BUSINESS.instagramHandle}
+              </a>
+            </div>
           </div>
 
-          {/* Nav */}
-          <div>
-            <h3 className="text-[10px] tracking-[0.22em] uppercase text-[#C8A96A] font-medium mb-5">Pages</h3>
-            <ul className="space-y-3">
-              {NAV_LINKS.map((l) => (
+          <nav aria-label="Footer">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-1">
+              {[...NAV_LINKS, ...MORE_LINKS].map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-sm text-[#666] hover:text-white transition-colors">
+                  <Link href={l.href} className="no-underline text-sage hover:text-paper">
                     {l.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Team */}
-          <div>
-            <h3 className="text-[10px] tracking-[0.22em] uppercase text-[#C8A96A] font-medium mb-5">Licensed Agents</h3>
-            <ul className="space-y-4">
+          <div className="text-sage">
+            <p className="font-semibold text-paper">{BUSINESS.brokerage}</p>
+            <p className="mt-1">{BUSINESS.address.full}</p>
+            <ul className="mt-5 space-y-1">
               {TEAM.map((m) => (
                 <li key={m.name}>
-                  <p className="text-sm text-white font-medium">{m.name}</p>
-                  <p className="text-xs text-[#555]">{m.title}</p>
-                  <p className="text-xs text-[#3A3A3A] mt-0.5">{m.dre}</p>
+                  {m.name}, {m.dre}
                 </li>
               ))}
             </ul>
           </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-[10px] tracking-[0.22em] uppercase text-[#C8A96A] font-medium mb-5">Contact</h3>
-            <ul className="space-y-3 mb-6">
-              <li>
-                <a href={BUSINESS.phoneHref} className="text-sm text-[#666] hover:text-[#C8A96A] transition-colors">
-                  {BUSINESS.phone}
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${BUSINESS.email}`} className="text-sm text-[#666] hover:text-[#C8A96A] transition-colors break-all">
-                  {BUSINESS.email}
-                </a>
-              </li>
-              <li>
-                <p className="text-sm text-[#444]">{BUSINESS.brokerage}<br />{BUSINESS.brokerageCity}</p>
-              </li>
-            </ul>
-            <a href="/contact" className="btn btn-gold py-3 px-5 text-sm">Free Valuation</a>
-          </div>
         </div>
 
-        <div className="rule-gold mb-6" />
-
-        <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#3A3A3A]">
-          <p>© {new Date().getFullYear()} The Rabadi Group. Brokered by {BUSINESS.brokerage}.</p>
-          <p>Ramzi Rabadi CA DRE #01738777 &nbsp;·&nbsp; Christopher Rabadi CA DRE #02246356</p>
-        </div>
-        <p className="text-center text-[10px] text-[#2A2A2A] mt-3">
-          Equal Housing Opportunity. Information deemed reliable but not guaranteed. All properties subject to prior sale, change, or withdrawal. Neither listing broker(s) nor The Rabadi Group shall be responsible for typographical errors, misinformation, or misprints.
+        <p className="mt-14 border-t border-white/10 pt-6 text-[0.85rem] text-sage/80">
+          © {new Date().getFullYear()} The Rabadi Group at {BUSINESS.brokerage}. Sales shown include transactions where
+          we represented the buyer, the seller, or both. Information is deemed reliable but not guaranteed. Equal
+          Housing Opportunity.
         </p>
       </div>
     </footer>
-  );
-}
-
-function IgIcon() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-      <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-    </svg>
   );
 }

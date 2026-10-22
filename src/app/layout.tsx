@@ -1,24 +1,31 @@
-import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
-import { BUSINESS } from "@/lib/data";
+import { BUSINESS, TEAM } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
-import ScrollReveal from "@/components/ScrollReveal";
 
-const playfair = Cormorant_Garamond({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const inter = DM_Sans({
-  variable: "--font-inter",
-  subsets: ["latin"],
+const newsreader = localFont({
+  src: "../fonts/newsreader-latin-opsz-normal.woff2",
+  variable: "--font-newsreader",
+  weight: "200 800",
   display: "swap",
 });
+
+const schibsted = localFont({
+  src: "../fonts/schibsted-grotesk-latin-wght-normal.woff2",
+  variable: "--font-schibsted",
+  weight: "400 900",
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  themeColor: "#1d3a2b",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(BUSINESS.url),
@@ -27,7 +34,7 @@ export const metadata: Metadata = {
     template: "%s | The Rabadi Group",
   },
   description:
-    "The Rabadi Group — Ramzi and Christopher Rabadi, La Verne and Claremont real estate specialists serving the SGV, Foothill Cities, and all of Southern California. All price ranges. $100M+ closed, 5.0 Zillow rating, 20+ years. Call (626) 203-1372.",
+    "Ramzi and Christopher Rabadi, a father and son real estate team in Claremont serving the San Gabriel Valley, Los Angeles, and Orange County. $100M+ closed, 20+ years, 5.0 on Zillow. Call (626) 203-1372.",
   keywords: [
     "real estate agent La Verne CA",
     "realtor Claremont CA",
@@ -77,7 +84,7 @@ export const metadata: Metadata = {
         url: "/images/hero-bg.png",
         width: 1200,
         height: 630,
-        alt: "The Rabadi Group — Southern California Luxury Real Estate",
+        alt: "Ramzi and Christopher Rabadi of The Rabadi Group",
       },
     ],
   },
@@ -99,9 +106,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "",
-  },
   alternates: {
     canonical: BUSINESS.url,
   },
@@ -112,39 +116,37 @@ const organizationSchema = {
   "@type": "RealEstateAgent",
   name: "The Rabadi Group",
   url: BUSINESS.url,
-  logo: "/images/hero-bg.png",
-  image: "/images/hero-bg.png",
+  logo: `${BUSINESS.url}/images/logo-512.png`,
+  image: `${BUSINESS.url}/images/hero-bg.png`,
   telephone: "+16262031372",
   email: BUSINESS.email,
   description:
-    "The Rabadi Group is a father-and-son luxury real estate team in La Verne and Claremont, California with $100M+ in closed transactions, 20+ years of experience, and a 5.0 Zillow rating. Serving La Verne, Claremont, San Dimas, Glendora, Beverly Hills, Hollywood Hills, Dana Point, Laguna Beach, and all of Southern California.",
+    "The Rabadi Group is a father-and-son real estate team in Claremont, California with $100M+ in closed transactions, 20+ years of experience, and a 5.0 Zillow rating. Serving La Verne, Claremont, San Dimas, Glendora, Beverly Hills, Hollywood Hills, Dana Point, Laguna Beach, and all of Southern California.",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "La Verne",
+    streetAddress: BUSINESS.address.street,
+    addressLocality: BUSINESS.address.city,
     addressRegion: "CA",
-    postalCode: "91750",
+    postalCode: BUSINESS.address.zip,
     addressCountry: "US",
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: "34.0967",
-    longitude: "-117.7198",
-  },
+  parentOrganization: { "@type": "RealEstateAgent", name: BUSINESS.brokerage },
   areaServed: [
-    "La Verne",
     "Claremont",
-    "San Dimas",
-    "Glendora",
-    "Beverly Hills",
+    "La Verne",
     "Pasadena",
+    "Sierra Madre",
+    "Monrovia",
+    "Glendora",
+    "San Dimas",
+    "Upland",
+    "Los Feliz",
     "Hollywood Hills",
     "West Hollywood",
+    "Beverly Hills",
     "Dana Point",
     "Laguna Beach",
     "San Gabriel Valley",
-    "Arcadia",
-    "Upland",
-    "La Habra Heights",
   ],
   aggregateRating: {
     "@type": "AggregateRating",
@@ -161,12 +163,12 @@ const organizationSchema = {
     {
       "@type": "Person",
       name: "Ramzi Rabadi",
-      jobTitle: "Principal / Broker Associate",
+      jobTitle: TEAM[0].title,
       telephone: "+16262031372",
       email: BUSINESS.email,
-      image: "/images/ramzi.png",
+      image: `${BUSINESS.url}/images/ramzi.png`,
       description:
-        "Ramzi Rabadi is a luxury real estate broker based in La Verne and Claremont, California with 20+ years of experience and $100M+ in closed transactions in Southern California.",
+        "Ramzi Rabadi is a real estate agent based in Claremont, California with 20+ years of experience and $100M+ in closed transactions in Southern California.",
       knowsAbout: [
         "Luxury Residential Real Estate",
         "Commercial Real Estate",
@@ -179,10 +181,10 @@ const organizationSchema = {
     {
       "@type": "Person",
       name: "Christopher Rabadi",
-      jobTitle: "Agent / Buyer Specialist",
+      jobTitle: TEAM[1].title,
       telephone: "+16262031372",
       email: BUSINESS.email,
-      image: "/images/christopher.png",
+      image: `${BUSINESS.url}/images/christopher.png`,
       description:
         "Christopher Rabadi works alongside his father Ramzi Rabadi as part of The Rabadi Group, serving buyers and sellers in La Verne, Claremont, the San Gabriel Valley, and all of Southern California.",
       knowsAbout: [
@@ -203,21 +205,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${playfair.variable} ${inter.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${newsreader.variable} ${schibsted.variable}`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body suppressHydrationWarning className="min-h-full flex flex-col bg-[#050505] text-[#EDE8DC] pb-16 md:pb-0">
+      <body className="min-h-dvh flex flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+        >
+          Skip to content
+        </a>
         <Header />
-        <ScrollReveal />
-        <main className="flex-1 pt-[96px]">{children}</main>
+        <main id="main" className="flex-1">
+          {children}
+        </main>
         <Footer />
         <MobileCallBar />
       </body>
