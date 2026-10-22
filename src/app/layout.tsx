@@ -7,10 +7,10 @@ import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import SmoothScroll from "@/components/SmoothScroll";
 
-const bodoni = localFont({
-  src: "../fonts/bodoni-moda-latin-opsz-normal.woff2",
-  variable: "--font-bodoni",
-  weight: "400 900",
+const dmSerif = localFont({
+  src: "../fonts/dm-serif-display-latin-400-normal.woff2",
+  variable: "--font-dmserif",
+  weight: "400",
   display: "swap",
 });
 
@@ -192,7 +192,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${bodoni.variable} ${inter.variable}`}>
+    <html lang="en" className={`${dmSerif.variable} ${inter.variable}`}>
       <head>
         <script
           type="application/ld+json"

@@ -82,7 +82,7 @@ export default function ContactPanel({
               ))}
             </ul>
             <div className="mt-10 space-y-2">
-              <a href={BUSINESS.phoneHref} className="block font-display text-[2rem] leading-tight no-underline hover:text-champagne">
+              <a href={BUSINESS.phoneHref} className="block text-[2rem] font-semibold leading-tight tracking-[-0.02em] no-underline hover:text-champagne">
                 {BUSINESS.phone}
               </a>
               <a href={`mailto:${BUSINESS.email}`} className="block text-ivory/75 no-underline hover:text-ivory">

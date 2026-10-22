@@ -15,7 +15,7 @@ export default function Footer() {
               real estate behind them.
             </p>
             <div className="mt-6 space-y-1.5">
-              <a href={BUSINESS.phoneHref} className="block font-display text-[1.5rem] no-underline hover:text-champagne">
+              <a href={BUSINESS.phoneHref} className="block text-[1.5rem] font-semibold tracking-[-0.01em] no-underline hover:text-champagne">
                 {BUSINESS.phone}
               </a>
               <a href={`mailto:${BUSINESS.email}`} className="block text-ivory/75 no-underline hover:text-ivory">

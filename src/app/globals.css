@@ -17,7 +17,7 @@
   --color-champagne: #c9b07f;
   --color-champagne-deep: #85693a;
 
-  --font-display: var(--font-bodoni), "Didot", "Bodoni 72", Georgia, serif;
+  --font-display: var(--font-dmserif), "Didot", Georgia, serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter), "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -70,9 +70,10 @@ body {
 h1,
 h2 {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 400;
+  font-synthesis: none;
   line-height: 1.06;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
@@ -135,18 +136,20 @@ p {
 
 .display {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 10vw, 5.8rem);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.025em;
+  font-size: clamp(2.6rem, 9.4vw, 5.4rem);
+  font-weight: 400;
+  font-synthesis: none;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
 }
 
 .h-section {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 6vw, 4rem);
-  font-weight: 500;
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.1rem, 5.6vw, 3.8rem);
+  font-weight: 400;
+  font-synthesis: none;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
 }
 
 .kicker {
@@ -166,8 +169,9 @@ p {
 .num {
   font-family: var(--font-display);
   font-variant-numeric: lining-nums;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: 0;
 }
 
 .h-sans {

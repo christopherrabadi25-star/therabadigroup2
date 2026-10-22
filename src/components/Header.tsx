@@ -49,7 +49,7 @@ export default function Header() {
       >
         <div className="wrap flex h-[var(--header-h)] items-center justify-between gap-6">
           <Link href="/" className="no-underline" aria-label="The Rabadi Group, home">
-            <span className="block whitespace-nowrap font-display text-[1rem] uppercase leading-none tracking-[0.22em] md:text-[1.12rem]">
+            <span className="block whitespace-nowrap font-display text-[1.02rem] uppercase leading-none tracking-[0.14em] md:text-[1.12rem]">
               The Rabadi Group
             </span>
           </Link>

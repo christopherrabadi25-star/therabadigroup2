@@ -63,7 +63,7 @@ export default function HomePage() {
     <>
       <HeroCinema slides={SLIDES}>
         <Reveal delay={0.05} y={30}>
-          <h1 className="display max-w-[11ch]">Exceptional homes, represented by family.</h1>
+          <h1 className="display max-w-[12ch]">Southern California&apos;s premier real estate team.</h1>
         </Reveal>
         <Reveal delay={0.2}>
           <p className="lead mt-6 text-ivory/90">
