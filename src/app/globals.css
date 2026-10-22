@@ -18,7 +18,7 @@
   --color-champagne-deep: #85693a;
 
   --font-display: var(--font-bodoni), "Didot", "Bodoni 72", Georgia, serif;
-  --font-sans: var(--font-jost), "Futura", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter), "Helvetica Neue", Arial, sans-serif;
 }
 
 :root {
@@ -60,19 +60,27 @@ body {
   color: var(--color-ivory);
   font-family: var(--font-sans);
   font-size: 1.0625rem;
-  font-weight: 380;
-  line-height: 1.65;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 h1,
-h2,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
 h3,
 h4 {
-  font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 1.06;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 1.25;
   letter-spacing: -0.015em;
   text-wrap: balance;
 }
@@ -127,37 +135,38 @@ p {
 
 .display {
   font-family: var(--font-display);
-  font-size: clamp(2.9rem, 10.5vw, 6rem);
-  line-height: 0.98;
+  font-size: clamp(2.8rem, 10vw, 5.8rem);
+  font-weight: 500;
+  line-height: 1;
   letter-spacing: -0.025em;
 }
 
 .h-section {
   font-family: var(--font-display);
-  font-size: clamp(2.3rem, 6.4vw, 4.4rem);
-  line-height: 1.02;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 500;
+  line-height: 1.04;
   letter-spacing: -0.02em;
 }
 
 .kicker {
   font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .lead {
-  font-size: clamp(1.1rem, 2.2vw, 1.28rem);
-  line-height: 1.6;
+  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  line-height: 1.5;
   font-weight: 400;
-  max-width: 36em;
+  max-width: 34em;
 }
 
 .num {
   font-family: var(--font-display);
   font-variant-numeric: lining-nums;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.02em;
 }
 
@@ -172,43 +181,46 @@ p {
   margin-top: 1em;
 }
 
-/* ---------- Buttons and links ---------- */
+/* ---------- Buttons and links (Apple-style pills) ---------- */
 
 .btn {
-  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  min-height: 54px;
-  padding: 0 30px;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 24px;
+  border-radius: 999px;
   font-family: var(--font-sans);
-  font-size: 0.82rem;
+  font-size: 1.0625rem;
   font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  line-height: 1;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: background-color 0.4s var(--ease-lux), color 0.4s var(--ease-lux), border-color 0.4s var(--ease-lux);
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 }
-.btn-gold {
-  background: var(--color-champagne);
+.btn:active {
+  transform: scale(0.98);
+}
+.btn-light {
+  background: var(--color-ivory);
   color: var(--color-onyx);
 }
-.btn-gold:hover {
-  background: var(--color-ivory);
+.btn-light:hover {
+  background: #ffffff;
 }
-.btn-ghost {
-  border-color: color-mix(in srgb, currentColor 45%, transparent);
-  color: inherit;
-  background: transparent;
+.btn-glass {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
 }
-.btn-ghost:hover {
-  border-color: currentColor;
-  background: color-mix(in srgb, currentColor 8%, transparent);
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.22);
 }
 .btn-dark {
   background: var(--color-onyx);
@@ -218,31 +230,32 @@ p {
   background: var(--color-ash);
 }
 
-.link-line {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 6px;
-  font-size: 0.8rem;
+.link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1.0625rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
   text-decoration: none;
+  color: var(--color-champagne);
 }
-.link-line::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.5;
-  transform-origin: left;
-  transition: transform 0.6s var(--ease-lux), opacity 0.3s;
+.light .link-more,
+.light-2 .link-more {
+  color: var(--color-champagne-deep);
 }
-.link-line:hover::after {
-  opacity: 1;
-  transform: scaleX(0.4);
+.link-more::after {
+  content: "\203A";
+  font-size: 1.35em;
+  line-height: 1;
+  transform: translateY(-1px);
+  transition: transform 0.25s ease;
+}
+.link-more:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.link-more:hover::after {
+  transform: translate(3px, -1px);
 }
 
 /* ---------- Forms ---------- */
@@ -252,11 +265,9 @@ p {
 }
 .field span {
   display: block;
-  font-size: 0.74rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   color: var(--color-taupe);
 }
 .field input,
@@ -390,10 +401,11 @@ p {
   justify-content: space-between;
   align-items: baseline;
   gap: 24px;
-  padding: 26px 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.3rem, 3vw, 1.6rem);
-  line-height: 1.25;
+  padding: 24px 0;
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.35;
 }
 .faq summary::-webkit-details-marker {
   display: none;
@@ -413,7 +425,7 @@ p {
 .faq details p {
   padding-bottom: 26px;
   max-width: 42em;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 /* ---------- Motion safety ---------- */

@@ -14,9 +14,9 @@ const bodoni = localFont({
   display: "swap",
 });
 
-const jost = localFont({
-  src: "../fonts/jost-latin-wght-normal.woff2",
-  variable: "--font-jost",
+const inter = localFont({
+  src: "../fonts/inter-latin-wght-normal.woff2",
+  variable: "--font-inter",
   weight: "100 900",
   display: "swap",
 });
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     template: "%s | The Rabadi Group",
   },
   description:
-    "Ramzi and Christopher Rabadi, a father and son real estate team in Claremont serving the San Gabriel Valley, Los Angeles, and Orange County. $100M+ closed, 20+ years, 5.0 on Zillow. Call (626) 203-1372.",
+    "Ramzi and Christopher Rabadi, a father and son real estate team in Claremont serving the San Gabriel Valley, Los Angeles, and Orange County. $130M+ closed, 20+ years, Call (626) 203-1372.",
   keywords: [
     "real estate agent La Verne CA",
     "realtor Claremont CA",
@@ -62,13 +62,6 @@ export const metadata: Metadata = {
     "luxury buyer agent Southern California",
     "San Gabriel Valley real estate",
   ],
-  icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/images/logo-512.png", sizes: "512x512", type: "image/png" },
-    ],
-    apple: "/images/logo-512.png",
-  },
   authors: [{ name: "The Rabadi Group", url: BUSINESS.url }],
   creator: "The Rabadi Group",
   publisher: "The Rabadi Group",
@@ -79,7 +72,7 @@ export const metadata: Metadata = {
     siteName: BUSINESS.name,
     title: "The Rabadi Group | Southern California Luxury Real Estate",
     description:
-      "Father-and-son luxury real estate team. $100M+ in closed transactions. La Verne, Claremont, Beverly Hills, Hollywood Hills, Dana Point. Call (626) 203-1372.",
+      "Father-and-son luxury real estate team. $130M+ in closed transactions. La Verne, Claremont, Beverly Hills, Hollywood Hills, Dana Point. Call (626) 203-1372.",
     images: [
       {
         url: "/images/og.jpg",
@@ -93,7 +86,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Rabadi Group | Southern California Luxury Real Estate",
     description:
-      "Father-and-son luxury real estate team. $100M+ in closed transactions. Call (626) 203-1372.",
+      "Father-and-son luxury real estate team. $130M+ in closed transactions. Call (626) 203-1372.",
     images: ["/images/og.jpg"],
   },
   robots: {
@@ -122,7 +115,7 @@ const organizationSchema = {
   telephone: "+16262031372",
   email: BUSINESS.email,
   description:
-    "The Rabadi Group is a father-and-son real estate team in Claremont, California with $100M+ in closed transactions, 20+ years of experience, and a 5.0 Zillow rating. Serving La Verne, Claremont, San Dimas, Glendora, Beverly Hills, Hollywood Hills, Dana Point, Laguna Beach, and all of Southern California.",
+    "The Rabadi Group is a father-and-son real estate team in Claremont, California with $130M+ in closed transactions, 20+ years of experience. Serving La Verne, Claremont, San Dimas, Glendora, Beverly Hills, Hollywood Hills, Dana Point, Laguna Beach, and all of Southern California.",
   address: {
     "@type": "PostalAddress",
     streetAddress: BUSINESS.address.street,
@@ -149,13 +142,6 @@ const organizationSchema = {
     "Laguna Beach",
     "San Gabriel Valley",
   ],
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5.0",
-    reviewCount: "35",
-    bestRating: "5",
-    worstRating: "1",
-  },
   sameAs: [
     "https://instagram.com/therabadigroup",
     "https://www.zillow.com/profile/ramzirbd",
@@ -169,7 +155,7 @@ const organizationSchema = {
       email: BUSINESS.email,
       image: `${BUSINESS.url}/images/ramzi.png`,
       description:
-        "Ramzi Rabadi is a real estate agent based in Claremont, California with 20+ years of experience and $100M+ in closed transactions in Southern California.",
+        "Ramzi Rabadi is a real estate agent based in Claremont, California with 20+ years of experience and $130M+ in closed transactions in Southern California.",
       knowsAbout: [
         "Luxury Residential Real Estate",
         "Commercial Real Estate",
@@ -206,7 +192,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${bodoni.variable} ${jost.variable}`}>
+    <html lang="en" className={`${bodoni.variable} ${inter.variable}`}>
       <head>
         <script
           type="application/ld+json"

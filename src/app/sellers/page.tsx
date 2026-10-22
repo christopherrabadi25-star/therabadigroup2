@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BUSINESS, SALES_BY_DATE, formatDate, formatPrice, placeLabel } from "@/lib/data";
+import { BUSINESS, PHOTOS, SALES_BY_DATE, formatDate, formatPrice, placeLabel } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import Steps from "@/components/Steps";
 import ContactPanel from "@/components/ContactPanel";
@@ -15,12 +15,12 @@ export const metadata: Metadata = {
 };
 
 const STEPS = [
-  { title: "An honest value", body: "We study the closest recent sales and walk the home with you. You get a considered range, not the number you hoped to hear." },
-  { title: "Preparation", body: "What to refresh, what to stage, what to leave alone. Small decisions here show up at closing." },
-  { title: "Presentation", body: "Professional photography, a refined listing, the MLS and every major portal, and direct calls to agents with qualified buyers." },
-  { title: "Showings and offers", body: "We host every showing and keep you informed. When offers arrive, we compare every term, not only the price." },
-  { title: "Negotiation", body: "Price, credits, contingencies, timing. Ramzi has seen every kind of offer in twenty years and pushes on each point." },
-  { title: "Closing", body: "Escrow, title, the buyer's lender, and the final walkthrough, managed until the deed records." },
+  { title: "An honest value", body: "We price from the closest recent sales, not wishful thinking." },
+  { title: "Preparation", body: "What to fix, stage, or leave alone." },
+  { title: "Marketing", body: "Professional photos, the MLS, every major portal, and calls to agents with buyers." },
+  { title: "Showings and offers", body: "We run showings and compare every term of every offer." },
+  { title: "Negotiation", body: "Price, credits, contingencies, timing. Twenty years of experience on your side." },
+  { title: "Closing", body: "Escrow, title, and lender, managed through to close." },
 ];
 
 export default function SellersPage() {
@@ -29,16 +29,17 @@ export default function SellersPage() {
   return (
     <>
       <PageIntro
-        title="Sell with confidence"
-        lead="Precise pricing, beautiful presentation, and negotiation on every term of every offer."
-        image="/images/hollywood-hills-area.jpg"
-        imageAlt="Los Angeles from the Hollywood Hills at golden hour"
-        position="42% 50%"
+        title="Sell for more"
+        lead="Our seller listings average 4.2% above asking."
+        image={PHOTOS.cromwellLiving}
+        fallback="/images/beverly-hills-area.jpg"
+        imageAlt="Living room of a Los Feliz estate"
+        position="50% 50%"
       >
-        <Link href="#contact" className="btn btn-gold">
-          Request a home value
+        <Link href="#contact" className="btn btn-light">
+          Get a home value
         </Link>
-        <a href={BUSINESS.phoneHref} className="btn btn-ghost">
+        <a href={BUSINESS.phoneHref} className="btn btn-glass">
           <PhoneIcon size={16} /> {BUSINESS.phone}
         </a>
       </PageIntro>
@@ -49,16 +50,12 @@ export default function SellersPage() {
             <p className="num text-[clamp(6rem,20vw,12rem)] leading-[0.85] text-champagne">
               <CountUp value="4.2%" />
             </p>
-            <p className="mt-5 text-taupe">average above asking on our seller listings</p>
+            <p className="mt-4 text-ivory/80">Average above asking on our listings</p>
           </Reveal>
           <Reveal delay={0.12} className="prose-body text-[1.12rem]">
-            <p>
-              On a $900,000 home, 4.2% is about $37,800 more at closing. It comes from pricing right on the first day,
-              presenting the home so buyers fall for it, and never giving ground without a reason.
-            </p>
-            <p className="text-taupe">
-              Well-priced homes still sell quickly across the Foothill Cities. Homes that start too high sit, then sell for
-              less. We would rather tell you the truth up front.
+            <p>On a $900,000 home, that&apos;s about $37,800 more at closing.</p>
+            <p className="text-ivory/75">
+              It comes from pricing right on day one, presenting the home well, and negotiating every term.
             </p>
           </Reveal>
         </div>
@@ -79,7 +76,7 @@ export default function SellersPage() {
             <Reveal>
               <h2 className="h-section">Recent seller sales</h2>
             </Reveal>
-            <Link href="/listings" className="link-line text-ivory">
+            <Link href="/listings" className="link-more text-ivory">
               All sold homes
             </Link>
           </div>
@@ -88,9 +85,9 @@ export default function SellersPage() {
               <Reveal as="li" key={s.slug} delay={i * 0.08} className="grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 border-t border-ivory/15 py-7 last:border-b md:grid-cols-[1.4fr_1fr_auto]">
                 <div>
                   <p className="font-display text-[1.7rem] leading-tight">{s.address}</p>
-                  <p className="text-taupe md:hidden">{placeLabel(s)}, {formatDate(s.date)}</p>
+                  <p className="text-ivory/75 md:hidden">{placeLabel(s)}, {formatDate(s.date)}</p>
                 </div>
-                <p className="hidden text-taupe md:block">{placeLabel(s)}, {formatDate(s.date)}</p>
+                <p className="hidden text-ivory/75 md:block">{placeLabel(s)}, {formatDate(s.date)}</p>
                 <p className="num text-[clamp(1.8rem,4vw,2.6rem)] leading-none text-champagne">{formatPrice(s.price)}</p>
               </Reveal>
             ))}
@@ -98,7 +95,7 @@ export default function SellersPage() {
         </div>
       </section>
 
-      <ContactPanel heading="What is your home worth?" intro="Share the address and anything we should know. We'll reply with a considered value range, privately." />
+      <ContactPanel heading="What is your home worth?" intro="Send the address. We'll reply with a value range, usually the same day." />
     </>
   );
 }

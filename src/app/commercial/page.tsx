@@ -40,15 +40,15 @@ export default function CommercialPage() {
   return (
     <>
       <PageIntro
-        title="Commercial and investment"
-        lead="Twenty years of the deals most agents pass on: ground leases, gas stations, multi-family, and mixed-use across Southern California."
+        title="Commercial"
+        lead="Twenty years of multi-family, retail, gas station, and ground lease deals."
         image="/images/beverly-hills-area.jpg"
         imageAlt="Beverly Hills"
       >
-        <a href={BUSINESS.phoneHref} className="btn btn-gold">
+        <a href={BUSINESS.phoneHref} className="btn btn-light">
           <PhoneIcon size={16} /> Call Ramzi
         </a>
-        <Link href="#contact" className="btn btn-ghost">
+        <Link href="#contact" className="btn btn-glass">
           Share your deal
         </Link>
       </PageIntro>

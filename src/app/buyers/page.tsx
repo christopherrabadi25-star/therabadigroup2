@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BUSINESS, SALES } from "@/lib/data";
+import { BUSINESS, PHOTOS, SALES } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import Steps from "@/components/Steps";
 import SaleCard from "@/components/SaleCard";
@@ -16,12 +16,12 @@ export const metadata: Metadata = {
 };
 
 const STEPS = [
-  { title: "A conversation", body: "What you want, your timeline, your budget. We tell you what's realistic in the neighborhoods you love." },
-  { title: "Financing in place", body: "We introduce lenders who move quickly and close on time, so sellers take your offer seriously." },
-  { title: "The right homes", body: "We screen before you spend a weekend touring, and we hear about homes before they reach the portals." },
-  { title: "A winning offer", body: "We study the comparable sales and the seller's situation, then write terms that win without overpaying." },
-  { title: "Inspection and leverage", body: "We attend inspections with you and use what we find to secure repairs or credits. If it's wrong, we say walk away." },
-  { title: "The keys", body: "Escrow, the loan, title, and the final walkthrough, managed until the home is yours." },
+  { title: "A conversation", body: "Your goals, timeline, and budget, and what's realistic." },
+  { title: "Financing", body: "Lenders who move fast, so sellers take you seriously." },
+  { title: "The right homes", body: "We screen listings and hear about homes before they go public." },
+  { title: "A winning offer", body: "Terms that win without overpaying." },
+  { title: "Inspections", body: "We use what we find to get repairs or credits." },
+  { title: "Closing", body: "Escrow, loan, and walkthrough, managed until you have keys." },
 ];
 
 export default function BuyersPage() {
@@ -32,16 +32,17 @@ export default function BuyersPage() {
   return (
     <>
       <PageIntro
-        title="Find the one"
-        lead="From a Foothill Cities first home to a 1931 Spanish estate in Los Feliz, we find it, write the offer, and fight for the terms."
-        image="/images/dana-point.jpg"
-        imageAlt="The Dana Point coastline"
+        title="Buy smarter"
+        lead="Our latest buyer closed $119,500 under asking."
+        image={PHOTOS.cromwellPool}
+        fallback="/images/dana-point.jpg"
+        imageAlt="Pool and garden of a Los Feliz estate"
         position="50% 60%"
       >
-        <Link href="#contact" className="btn btn-gold">
-          Begin your search
+        <Link href="#contact" className="btn btn-light">
+          Start your search
         </Link>
-        <a href={BUSINESS.smsHref} className="btn btn-ghost">
+        <a href={BUSINESS.smsHref} className="btn btn-glass">
           <TextIcon size={16} /> Text us
         </a>
       </PageIntro>
@@ -49,11 +50,7 @@ export default function BuyersPage() {
       <section className="section bg-onyx">
         <div className="wrap">
           <Reveal>
-            <h2 className="h-section max-w-[16ch]">What our buyers secured this year</h2>
-            <p className="lead mt-6 text-taupe">
-              In Sierra Madre, $119,500 under asking plus $10,000 in credits. In Los Feliz, a 1931 Spanish estate won in a
-              multiple-offer round.
-            </p>
+            <h2 className="h-section max-w-[16ch]">Recent buyer wins</h2>
           </Reveal>
           <div className="rail mt-12">
             {wins.map((s, i) => (
@@ -75,8 +72,8 @@ export default function BuyersPage() {
       </section>
 
       <ContactPanel
-        heading="Tell us what you're looking for"
-        intro="Area, budget, timing, the details that matter. We'll reply with what's realistic and what's coming."
+        heading="Tell us what you want"
+        intro="Area, budget, and timing. We'll reply with what's available."
         defaultTopic="Buying a home"
       />
     </>

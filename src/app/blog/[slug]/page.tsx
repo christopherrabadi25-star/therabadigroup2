@@ -57,7 +57,7 @@ export default async function PostPage({ params }: Props) {
             <div className="grade" />
           </div>
           <div className="wrap pb-14 pt-[calc(var(--header-h)+48px)]">
-            <Link href="/blog" className="link-line text-ivory/80">
+            <Link href="/blog" className="link-more text-ivory/80">
               All guides
             </Link>
             <h1 className="mt-8 max-w-[18ch] text-[clamp(2.4rem,6.5vw,4.6rem)] leading-[1.02]">{post.title}</h1>
@@ -81,12 +81,12 @@ export default async function PostPage({ params }: Props) {
             <aside className="lg:sticky lg:top-[calc(var(--header-h)+24px)] lg:self-start">
               <div className="bg-onyx p-8 text-ivory">
                 <p className="font-display text-[1.7rem] leading-tight">Questions about {post.city}?</p>
-                <p className="mt-3 text-taupe">Call or text Ramzi or Christopher. A personal reply, usually the same day.</p>
+                <p className="mt-3 text-ivory/75">Call or text Ramzi or Christopher. A personal reply, usually the same day.</p>
                 <div className="mt-6 grid gap-3">
-                  <a href={BUSINESS.phoneHref} className="btn btn-gold w-full">
+                  <a href={BUSINESS.phoneHref} className="btn btn-light w-full">
                     {BUSINESS.phone}
                   </a>
-                  <a href={BUSINESS.smsHref} className="btn btn-ghost w-full">
+                  <a href={BUSINESS.smsHref} className="btn btn-glass w-full">
                     Text us
                   </a>
                 </div>

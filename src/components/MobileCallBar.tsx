@@ -5,7 +5,7 @@ import { PhoneIcon, TextIcon } from "./Icons";
 /** Thumb-reach contact on phones. Body has matching bottom padding in globals.css. */
 export default function MobileCallBar() {
   const item =
-    "flex flex-1 items-center justify-center gap-2 text-[0.72rem] font-medium uppercase tracking-[0.18em] no-underline";
+    "flex flex-1 items-center justify-center gap-2 text-[0.98rem] font-medium no-underline";
   return (
     <nav
       aria-label="Quick contact"
@@ -19,8 +19,8 @@ export default function MobileCallBar() {
         <a href={BUSINESS.smsHref} className={`${item} border-x border-ivory/10`}>
           <TextIcon size={16} /> Text
         </a>
-        <Link href="/#contact" className={`${item} bg-champagne text-onyx`}>
-          Inquire
+        <Link href="/#contact" className={`${item} text-champagne`}>
+          Contact
         </Link>
       </div>
     </nav>

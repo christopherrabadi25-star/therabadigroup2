@@ -60,8 +60,8 @@ export default function Header() {
                 key={l.href}
                 href={l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
-                className={`relative py-2 text-[0.78rem] uppercase tracking-[0.18em] no-underline transition-colors ${
-                  isActive(l.href) ? "text-champagne" : "text-ivory/80 hover:text-ivory"
+                className={`relative py-2 text-[0.95rem] no-underline transition-colors ${
+                  isActive(l.href) ? "text-ivory" : "text-ivory/75 hover:text-ivory"
                 }`}
               >
                 {l.label}
@@ -72,14 +72,14 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <a
               href={BUSINESS.phoneHref}
-              className="hidden items-center gap-2 text-[0.85rem] tracking-[0.08em] text-ivory/90 no-underline hover:text-champagne lg:inline-flex"
+              className="hidden items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-[0.95rem] font-medium text-ivory no-underline backdrop-blur-xl hover:bg-white/20 lg:inline-flex"
             >
               <PhoneIcon size={15} /> {BUSINESS.phone}
             </a>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="flex h-11 items-center gap-3 pl-2 text-[0.75rem] uppercase tracking-[0.2em] lg:hidden"
+              className="flex h-11 items-center gap-3 pl-2 text-[0.95rem] font-medium lg:hidden"
               aria-expanded={open}
               aria-controls="mobile-menu"
             >
@@ -127,14 +127,14 @@ export default function Header() {
               <ul className="mt-8 flex flex-wrap gap-x-7 gap-y-2 border-t border-ivory/10 pt-6">
                 {MORE_LINKS.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} onClick={() => setOpen(false)} className="text-[0.78rem] uppercase tracking-[0.18em] text-taupe">
+                    <Link href={l.href} onClick={() => setOpen(false)} className="text-[1rem] text-ivory/75">
                       {l.label}
                     </Link>
                   </li>
                 ))}
               </ul>
               <div className="mt-auto pt-10">
-                <a href={BUSINESS.phoneHref} className="btn btn-gold w-full">
+                <a href={BUSINESS.phoneHref} className="btn btn-light w-full">
                   <PhoneIcon size={16} /> Call {BUSINESS.phone}
                 </a>
               </div>

@@ -39,7 +39,7 @@ export function Reveal({
   );
 }
 
-/** Counts a figure like "$100M+" up from zero when it scrolls into view. */
+/** Counts a figure like "$130M+" up from zero when it scrolls into view. */
 export function CountUp({ value, className }: { value: string; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
@@ -79,7 +79,7 @@ export function CountUp({ value, className }: { value: string; className?: strin
 export function ParallaxImage({
   src,
   alt,
-  sizes = "100vw",
+  sizes = "(orientation: portrait) 330vw, 100vw",
   className = "",
   strength = 12,
   position = "50% 50%",

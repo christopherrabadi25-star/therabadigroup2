@@ -11,8 +11,8 @@ const TOPICS = ["A value for my home", "Selling my home", "Buying a home", "Comm
 type Status = { kind: "idle" } | { kind: "sending" } | { kind: "sent" } | { kind: "fallback"; body: string } | { kind: "error"; msg: string };
 
 export default function ContactPanel({
-  heading = "Begin a private conversation",
-  intro = "Tell us what you have in mind. Ramzi or Christopher will reply personally, usually the same day.",
+  heading = "Talk to us",
+  intro = "Ramzi or Christopher will get back to you, usually the same day.",
   defaultTopic = TOPICS[0],
   id = "contact",
   as: Heading = "h2",
@@ -64,19 +64,19 @@ export default function ContactPanel({
             <Heading className="h-section max-w-[12ch]">{heading}</Heading>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="lead mt-6 text-taupe">{intro}</p>
+            <p className="lead mt-6 text-ivory/75">{intro}</p>
           </Reveal>
 
           <Reveal delay={0.2}>
             <ul className="mt-12 grid gap-6 sm:grid-cols-2">
               {TEAM.map((m) => (
                 <li key={m.name} className="flex items-center gap-4">
-                  <div className="relative h-[92px] w-[72px] shrink-0 overflow-hidden bg-ash">
+                  <div className="relative h-[92px] w-[72px] shrink-0 overflow-hidden rounded-[12px] bg-ash">
                     <Image src={m.image} alt={m.name} fill sizes="72px" className="object-cover object-top" />
                   </div>
                   <div>
                     <p className="font-display text-[1.25rem] leading-tight">{m.name}</p>
-                    <p className="mt-1 text-[0.82rem] text-taupe">{m.dre}</p>
+                    <p className="mt-1 text-[0.82rem] text-ivory/75">{m.dre}</p>
                   </div>
                 </li>
               ))}
@@ -85,10 +85,10 @@ export default function ContactPanel({
               <a href={BUSINESS.phoneHref} className="block font-display text-[2rem] leading-tight no-underline hover:text-champagne">
                 {BUSINESS.phone}
               </a>
-              <a href={`mailto:${BUSINESS.email}`} className="block text-taupe no-underline hover:text-ivory">
+              <a href={`mailto:${BUSINESS.email}`} className="block text-ivory/75 no-underline hover:text-ivory">
                 {BUSINESS.email}
               </a>
-              <p className="pt-4 text-[0.92rem] text-taupe/80">
+              <p className="pt-4 text-[0.92rem] text-ivory/70">
                 {BUSINESS.brokerage}, {BUSINESS.address.full}
               </p>
             </div>
@@ -96,25 +96,25 @@ export default function ContactPanel({
         </div>
 
         <Reveal delay={0.15}>
-          <div className="border border-ivory/10 bg-onyx/60 p-6 md:p-12">
+          <div className="rounded-[24px] border border-ivory/10 bg-onyx/60 p-6 md:p-10">
             {status.kind === "sent" ? (
               <div role="status" className="py-12">
-                <p className="font-display text-[2.2rem] leading-tight">Thank you.</p>
-                <p className="mt-4 text-taupe">
+                <p className="font-display text-[2.2rem] leading-tight">Message sent.</p>
+                <p className="mt-4 text-ivory/75">
                   Your message is with Ramzi and Christopher. If it&apos;s urgent, call {BUSINESS.phone}.
                 </p>
               </div>
             ) : status.kind === "fallback" ? (
               <div role="status" className="py-6">
                 <p className="font-display text-[2rem] leading-tight">One more step</p>
-                <p className="mt-4 text-taupe">Send your note as a text or email and it goes straight to Ramzi&apos;s phone.</p>
+                <p className="mt-4 text-ivory/75">Send your note as a text or email and it goes straight to Ramzi&apos;s phone.</p>
                 <div className="mt-8 grid gap-3">
-                  <a href={`${BUSINESS.smsHref}?&body=${encodeURIComponent(status.body)}`} className="btn btn-gold">
+                  <a href={`${BUSINESS.smsHref}?&body=${encodeURIComponent(status.body)}`} className="btn btn-light">
                     <TextIcon size={16} /> Send as a text
                   </a>
                   <a
                     href={`mailto:${BUSINESS.email}?subject=${encodeURIComponent("Website inquiry")}&body=${encodeURIComponent(status.body)}`}
-                    className="btn btn-ghost"
+                    className="btn btn-glass"
                   >
                     <MailIcon size={16} /> Send as an email
                   </a>
@@ -123,7 +123,7 @@ export default function ContactPanel({
             ) : (
               <form onSubmit={onSubmit} noValidate className="grid min-w-0 gap-8 [&>*]:min-w-0">
                 <label className="field">
-                  <span>I&apos;m interested in</span>
+                  <span>What can we help with?</span>
                   <select name="type" defaultValue={defaultTopic}>
                     {TOPICS.map((t) => (
                       <option key={t}>{t}</option>
@@ -145,7 +145,7 @@ export default function ContactPanel({
                   <input name="email" type="email" autoComplete="email" />
                 </label>
                 <label className="field">
-                  <span>Property address or details (optional)</span>
+                  <span>Address or details (optional)</span>
                   <textarea name="message" rows={2} />
                 </label>
                 {status.kind === "error" && (
@@ -153,10 +153,9 @@ export default function ContactPanel({
                     {status.msg}
                   </p>
                 )}
-                <button type="submit" className="btn btn-gold mt-2 w-full" disabled={status.kind === "sending"}>
-                  {status.kind === "sending" ? "Sending" : "Request a private consultation"}
+                <button type="submit" className="btn btn-light mt-2 w-full" disabled={status.kind === "sending"}>
+                  {status.kind === "sending" ? "Sending..." : "Send message"}
                 </button>
-                <p className="-mt-3 text-center text-[0.85rem] text-taupe/80">Your details stay with us. No newsletters.</p>
               </form>
             )}
           </div>

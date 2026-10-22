@@ -19,10 +19,10 @@ export default function BlogPage() {
     <>
       <PageIntro
         title="Guides"
-        lead="Considered guides to buying and selling in Claremont, La Verne, and the San Gabriel Valley."
-        image="/images/claremont.jpg"
-        imageAlt="Claremont Village"
-        position="60% 50%"
+        lead="Buying and selling in Claremont, La Verne, and the San Gabriel Valley."
+        image="/images/dana-point.jpg"
+        imageAlt="The Dana Point coastline"
+        position="50% 60%"
       />
 
       <section className="section bg-onyx">
@@ -35,7 +35,7 @@ export default function BlogPage() {
               <div>
                 <p className="kicker text-champagne">{first.category}</p>
                 <h2 className="mt-4 text-[clamp(2rem,4.4vw,3.2rem)] transition-colors group-hover:text-champagne">{first.title}</h2>
-                <p className="mt-5 text-taupe">{first.description}</p>
+                <p className="mt-5 text-ivory/75">{first.description}</p>
               </div>
             </Link>
           </Reveal>

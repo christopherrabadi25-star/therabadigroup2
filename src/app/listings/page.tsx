@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SALES_BY_DATE, formatDate, formatPrice, placeLabel } from "@/lib/data";
+import { PHOTOS, SALES_BY_DATE, formatDate, formatPrice, placeLabel } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import SaleCard from "@/components/SaleCard";
 import ContactPanel from "@/components/ContactPanel";
@@ -39,10 +39,11 @@ export default function ListingsPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <PageIntro
-        title="Sold"
-        lead="A record of homes we've represented, from the Hollywood Hills and the Dana Point sand to Los Feliz and Sierra Madre."
-        image="/images/rising-glen.jpg"
-        imageAlt="1411 Rising Glen Rd at dusk"
+        title="Our sales"
+        lead="Every home we've closed, newest first."
+        image={PHOTOS.cromwellExterior}
+        fallback="/images/rising-glen.jpg"
+        imageAlt="A Los Feliz estate we sold in 2026"
         position="40% 55%"
       />
 
@@ -62,9 +63,9 @@ export default function ListingsPage() {
       <section className="light section">
         <div className="wrap">
           <Reveal>
-            <h2 className="h-section">The complete record</h2>
+            <h2 className="h-section">Sales history</h2>
             <p className="lead mt-5 text-ink-soft">
-              Residential sales from public records, newest first. Commercial and off-market transactions are not listed.
+              Residential sales from public records. Commercial and off-market deals are not listed.
             </p>
           </Reveal>
           <div className="mt-14 space-y-14">
@@ -92,7 +93,7 @@ export default function ListingsPage() {
         </div>
       </section>
 
-      <ContactPanel heading="Considering a sale?" intro="We'll show you what comparable homes near you have sold for and what yours could command." />
+      <ContactPanel heading="Thinking of selling?" intro="We'll tell you what your home could sell for, based on real comps." />
     </>
   );
 }

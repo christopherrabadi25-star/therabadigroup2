@@ -39,8 +39,8 @@ export default function MarketPage() {
     <>
       <PageIntro
         title="Market notes"
-        lead="What we're seeing on the ground in the Foothill Cities, written by Ramzi and Christopher."
-        image="/images/claremont-new.jpg"
+        lead="What we're seeing in the Foothill Cities right now."
+        image="/images/claremont.jpg"
         imageAlt="Claremont Village"
         position="60% 50%"
       />
@@ -53,7 +53,7 @@ export default function MarketPage() {
               Homes priced right still sell quickly and often draw more than one offer. Buyers have grown more careful, so
               homes that start too high sit and usually sell for less in the end.
             </p>
-            <Link href="/sellers" className="link-line mt-7 text-ink">
+            <Link href="/sellers" className="link-more mt-7 text-ink">
               How we sell
             </Link>
           </Reveal>
@@ -63,7 +63,7 @@ export default function MarketPage() {
               You have more room to negotiate than in 2021 and 2022, especially on homes that have been sitting. On the best
               homes you still need to move quickly, with financing ready.
             </p>
-            <Link href="/buyers" className="link-line mt-7 text-ink">
+            <Link href="/buyers" className="link-more mt-7 text-ink">
               How we buy
             </Link>
           </Reveal>
@@ -80,7 +80,7 @@ export default function MarketPage() {
               <Reveal as="li" key={c.city} delay={(i % 2) * 0.08} className="border-t border-ivory/15 py-8">
                 <p className="kicker text-champagne">{c.city}</p>
                 <h3 className="mt-3 text-[1.9rem]">{c.headline}</h3>
-                <p className="mt-3 text-taupe">{c.body}</p>
+                <p className="mt-3 text-ivory/75">{c.body}</p>
               </Reveal>
             ))}
           </ul>

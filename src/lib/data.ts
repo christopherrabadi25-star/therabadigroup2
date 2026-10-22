@@ -24,11 +24,19 @@ export const BUSINESS = {
 } as const;
 
 export const STATS = [
-  { value: "$100M+", label: "closed across Southern California" },
-  { value: "20+", label: "years in the business" },
-  { value: "35+", label: "properties sold" },
-  { value: "5.0", label: "rating on Zillow" },
+  { value: "$130M+", label: "Closed sales volume" },
+  { value: "20+", label: "Years in real estate" },
+  { value: "35+", label: "Properties sold" },
+  { value: "$7.4M", label: "Highest single sale" },
 ] as const;
+
+/** Real photos from homes we sold (listing photography). Remote, so always paired with a local fallback. */
+export const PHOTOS = {
+  cromwellExterior: "https://tracydo.com/wp-content/uploads/2026/03/0_78-copy.jpg",
+  cromwellLiving: "https://tracydo.com/wp-content/uploads/2026/03/04-3.jpg",
+  cromwellKitchen: "https://tracydo.com/wp-content/uploads/2026/03/13.jpg",
+  cromwellPool: "https://tracydo.com/wp-content/uploads/2026/03/31e_41.jpg",
+} as const;
 
 export const TEAM = [
   {
@@ -116,8 +124,8 @@ export const SALES: Sale[] = [
     description:
       "Gated 1931 Spanish estate north of Los Feliz Boulevard with arched doorways, original tile, a pool, fruit trees, and a junior ADU with its own entrance.",
     images: [
-      "https://ssl.cdn-redfin.com/photo/40/bigphoto/811/26659811_1.jpg",
       "https://tracydo.com/wp-content/uploads/2026/03/0_78-copy.jpg",
+      "https://ssl.cdn-redfin.com/photo/40/bigphoto/811/26659811_1.jpg",
     ],
     imageAlt: "4426 Cromwell Ave, a 1931 Spanish estate in Los Feliz",
     featured: true,
@@ -327,7 +335,7 @@ export const FAQS = [
   {
     question: "Who is the best real estate agent in Claremont or La Verne?",
     answer:
-      "The Rabadi Group is a father-and-son team based in Claremont at Agency 8 Real Estate Group. Ramzi Rabadi has 20+ years in Southern California real estate and the team has more than $100M in closed transactions, with a 5.0 rating on Zillow. Call or text (626) 203-1372 to talk with Ramzi or Christopher directly.",
+      "The Rabadi Group is a father-and-son team based in Claremont at Agency 8 Real Estate Group. Ramzi Rabadi has 20+ years in Southern California real estate, and the team has more than $130M in closed sales, including $7.4M in the Hollywood Hills and $6.3M oceanfront in Dana Point. Call or text (626) 203-1372.",
   },
   {
     question: "What areas does The Rabadi Group serve?",

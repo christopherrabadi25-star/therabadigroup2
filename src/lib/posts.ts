@@ -171,7 +171,7 @@ export const POSTS: Post[] = [
           { value: "+5.4%", label: "Year-Over-Year Appreciation", sub: "12-month trailing average" },
           { value: "22 days", label: "Median Days on Market", sub: "Slower in upper price tiers" },
           { value: "$545/SF", label: "Median Price Per Sq Ft", sub: "Village area commands premium" },
-          { value: "5.0 ★", label: "Rabadi Group Zillow Rating", sub: "35+ verified client reviews" },
+          { value: "$130M+", label: "Rabadi Group Closed Volume", sub: "20+ years in Southern California" },
         ],
       },
       {

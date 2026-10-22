@@ -29,7 +29,7 @@ export default function AreasPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <PageIntro
         title="Where we work"
-        lead="Based in Claremont, closing from the foothills to the coast. Each area, and what we've sold there."
+        lead="Every area we work in, and what we've sold there."
         image="/images/la-verne-new.jpg"
         imageAlt="La Verne and the foothills from the air"
       />
@@ -39,7 +39,7 @@ export default function AreasPage() {
           <div className="wrap">
             <Reveal>
               <h2 className="h-section max-w-[18ch]">{r.name}</h2>
-              <p className={`lead mt-5 ${ri % 2 ? "text-ink-soft" : "text-taupe"}`}>{r.note}</p>
+              <p className={`lead mt-5 ${ri % 2 ? "text-ink-soft" : "text-ivory/75"}`}>{r.note}</p>
             </Reveal>
             <ul className="mt-14 grid gap-x-16 md:grid-cols-2">
               {r.cities.map((c, ci) => {
