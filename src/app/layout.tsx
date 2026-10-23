@@ -62,6 +62,15 @@ export const metadata: Metadata = {
     "luxury buyer agent Southern California",
     "San Gabriel Valley real estate",
   ],
+  icons: {
+    icon: [
+      { url: "/rg-icon-v2-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/rg-icon-v2-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/rg-icon-v2-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/rg-apple-icon-v2.png", sizes: "180x180", type: "image/png" }],
+  },
   authors: [{ name: "The Rabadi Group", url: BUSINESS.url }],
   creator: "The Rabadi Group",
   publisher: "The Rabadi Group",
