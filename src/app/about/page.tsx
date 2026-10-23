@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { BUSINESS, STATS, TEAM } from "@/lib/data";
+import { BUSINESS, PHOTOS, STATS, TEAM } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import ContactPanel from "@/components/ContactPanel";
 import { CountUp, Reveal } from "@/components/Motion";
@@ -37,10 +37,10 @@ export default function AboutPage() {
       <PageIntro
         title="About us"
         lead="Father and son. $130M+ closed and more than 20 years in Southern California real estate."
-        image="/images/hollywood-hills-area.jpg"
-        sizes="(orientation: portrait) 900vw, 100vw"
-        imageAlt="Los Angeles at golden hour"
-        position="42% 50%"
+        image={PHOTOS.risingGlen}
+        fallback="/images/rising-glen.jpg"
+        imageAlt="A Hollywood Hills home we sold"
+        position="40% 55%"
       />
 
       <section className="section bg-onyx">

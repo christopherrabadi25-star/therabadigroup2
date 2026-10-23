@@ -16,29 +16,15 @@ export const metadata: Metadata = {
   alternates: { canonical: BUSINESS.url },
 };
 
+// Real homes we sold, in order. Remote listing photos fall back or are skipped if they can't load.
 const SLIDES: Slide[] = [
   {
-    src: "/images/hollywood-hills-area.jpg",
-    alt: "Los Angeles at golden hour from the Hollywood Hills",
-    title: "Hollywood Hills",
-    detail: "Mid-century landmark, sold for $7.4M",
-    origin: "45% 40%",
-    position: "42% 50%",
-    sizes: "(orientation: portrait) 900vw, 100vw",
-  },
-  {
     src: PHOTOS.cromwellExterior,
+    fallback: PHOTOS.cromwellRedfin,
     alt: "A 1931 Spanish estate in Los Feliz",
     title: "Los Feliz",
     detail: "1931 Spanish estate, sold for $4.495M",
     origin: "50% 45%",
-  },
-  {
-    src: "/images/beverly-hills-area.jpg",
-    alt: "Palm-lined street in Beverly Hills",
-    title: "Beverly Hills",
-    detail: "Sold for $3.05M",
-    origin: "50% 30%",
   },
   {
     src: PHOTOS.cromwellPool,
@@ -47,11 +33,54 @@ const SLIDES: Slide[] = [
     detail: "Pool, garden and guest suite",
     origin: "50% 60%",
   },
+  {
+    src: PHOTOS.markham,
+    alt: "A 1901 Colonial Revival estate in Pasadena",
+    title: "Pasadena",
+    detail: "1901 Colonial Revival estate, sold for $4.675M",
+    origin: "50% 50%",
+  },
+  {
+    src: PHOTOS.markham2,
+    alt: "A 1901 Colonial Revival estate in Pasadena",
+    title: "Pasadena",
+    detail: "Governor Markham Landmark District",
+    origin: "50% 50%",
+  },
+  {
+    src: PHOTOS.markham3,
+    alt: "A 1901 Colonial Revival estate in Pasadena",
+    title: "Pasadena",
+    detail: "Pool, cabana and guest studio",
+    origin: "50% 50%",
+  },
+  {
+    src: PHOTOS.saintAnns,
+    alt: "A 1928 cottage in Laguna Beach",
+    title: "Laguna Beach",
+    detail: "Sold for $1.8M",
+    origin: "50% 50%",
+  },
+  {
+    src: PHOTOS.risingGlen,
+    fallback: "/images/rising-glen.jpg",
+    alt: "A William Krisel mid-century home in the Hollywood Hills",
+    title: "Hollywood Hills",
+    detail: "William Krisel mid-century, sold for $7.4M",
+    origin: "40% 60%",
+  },
+  {
+    src: PHOTOS.danaPoint,
+    alt: "An oceanfront home in Dana Point",
+    title: "Dana Point",
+    detail: "Oceanfront, sold for $6.3M",
+    origin: "50% 55%",
+  },
 ];
 
 const SERVICES = [
   { title: "Selling", body: "Sharp pricing, standout presentation, and hard negotiation. Our listings average 4.2% over asking.", href: "/sellers" },
-  { title: "Buying", body: "Offers that win without overpaying. Our latest buyer closed $119,500 under asking.", href: "/buyers" },
+  { title: "Buying", body: "Offers that win without overpaying, from Sierra Madre to a $4.675M Pasadena estate.", href: "/buyers" },
   { title: "Commercial", body: "Multi-family, retail, industrial, gas stations, and ground leases. Twenty years of deals.", href: "/commercial" },
 ];
 
@@ -122,7 +151,13 @@ export default function HomePage() {
       <section aria-label="Signature sales" className="bg-onyx">
         {signature.map((s, i) => (
           <article key={s.slug} className="relative flex min-h-[72svh] items-end overflow-hidden md:min-h-[88svh]">
-            <ParallaxImage src={s.images![0]} alt={s.neighborhood ?? s.city} strength={10} position={i === 0 ? "40% 55%" : "50% 60%"} />
+            <ParallaxImage
+              src={s.images![0]}
+              fallback={i === 0 ? "/images/rising-glen.jpg" : undefined}
+              alt={s.neighborhood ?? s.city}
+              strength={10}
+              position={i === 0 ? "40% 55%" : "50% 55%"}
+            />
             <div className="grade" />
             <div className="wrap relative pb-12 md:pb-16">
               <Reveal>

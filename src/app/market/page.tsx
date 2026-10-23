@@ -40,9 +40,10 @@ export default function MarketPage() {
       <PageIntro
         title="Market notes"
         lead="What we're seeing in the Foothill Cities right now."
-        image="/images/claremont.jpg"
-        imageAlt="Claremont Village"
-        position="60% 50%"
+        image="https://ssl.cdn-redfin.com/photo/45/bigphoto/859/TR26141859_1.jpg"
+        fallback="/images/claremont.jpg"
+        imageAlt="A Sierra Madre home we sold in October 2026"
+        position="50% 50%"
       />
 
       <section className="light section">

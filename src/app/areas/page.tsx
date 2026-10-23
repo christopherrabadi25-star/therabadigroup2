@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BUSINESS, REGIONS, formatPrice, formatDate, salesIn } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
+import { PHOTOS } from "@/lib/data";
 import ContactPanel from "@/components/ContactPanel";
 import { Reveal } from "@/components/Motion";
 
@@ -30,8 +31,9 @@ export default function AreasPage() {
       <PageIntro
         title="Where we work"
         lead="Every area we work in, and what we've sold there."
-        image="/images/la-verne-new.jpg"
-        imageAlt="La Verne and the foothills from the air"
+        image={PHOTOS.markham2}
+        fallback="/images/la-verne-new.jpg"
+        imageAlt="A Pasadena estate we sold"
       />
 
       {REGIONS.map((r, ri) => (

@@ -84,6 +84,7 @@ export function ParallaxImage({
   strength = 12,
   position = "50% 50%",
   preload = false,
+  fallback,
 }: {
   src: string;
   alt: string;
@@ -92,17 +93,22 @@ export function ParallaxImage({
   strength?: number;
   position?: string;
   preload?: boolean;
+  fallback?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [`-${strength}%`, `${strength}%`]);
-  const remote = src.startsWith("http");
+  const [current, setCurrent] = useState(src);
+  const remote = current.startsWith("http");
   return (
     <div ref={ref} className={`absolute inset-0 overflow-hidden ${className}`}>
       <motion.div className="absolute inset-x-0" style={{ top: `-${strength}%`, bottom: `-${strength}%`, y: reduce ? 0 : y }}>
         <Image
-          src={src}
+          key={current}
+          src={current}
+          onError={() => fallback && current !== fallback && setCurrent(fallback)}
+          referrerPolicy={remote ? "no-referrer" : undefined}
           alt={alt}
           fill
           sizes={sizes}

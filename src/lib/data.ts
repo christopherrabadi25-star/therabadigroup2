@@ -36,6 +36,15 @@ export const PHOTOS = {
   cromwellLiving: "https://tracydo.com/wp-content/uploads/2026/03/04-3.jpg",
   cromwellKitchen: "https://tracydo.com/wp-content/uploads/2026/03/13.jpg",
   cromwellPool: "https://tracydo.com/wp-content/uploads/2026/03/31e_41.jpg",
+  cromwellRedfin: "https://ssl.cdn-redfin.com/photo/40/bigphoto/811/26659811_1.jpg",
+  markham: "https://ssl.cdn-redfin.com/photo/45/bigphoto/840/P1-28840_1.jpg",
+  markham2: "https://ssl.cdn-redfin.com/photo/45/bigphoto/840/P1-28840_2_1.jpg",
+  markham3: "https://ssl.cdn-redfin.com/photo/45/bigphoto/840/P1-28840_3_1.jpg",
+  saintAnns: "https://ssl.cdn-redfin.com/photo/45/bigphoto/526/LG24134526_1.jpg",
+  risingGlen: "https://www.compass.com/m/243102dcc22db564159e038057b107dc4d1f4df0_img_0/origin.webp",
+  danaPoint: "https://ssl.cdn-redfin.com/photo/45/bigphoto/529/PW21068529_0.jpg",
+  monrovia: "https://ssl.cdn-redfin.com/photo/45/bigphoto/033/CV25203033_1.jpg",
+  liveOak: "https://ssl.cdn-redfin.com/photo/45/bigphoto/140/PW25026140_P.jpg",
 } as const;
 
 export const TEAM = [
@@ -91,6 +100,28 @@ export interface Sale {
 
 export const SALES: Sale[] = [
   {
+    slug: "303-markham-pl-pasadena",
+    address: "303 Markham Pl",
+    city: "Pasadena",
+    neighborhood: "Governor Markham District",
+    area: "Pasadena",
+    price: 4675000,
+    date: "2026-10-26",
+    side: "Buyer",
+    type: "1901 Colonial Revival",
+    facts: ["4 beds", "5.5 baths", "4,080 sq ft", "0.39 acres"],
+    highlight:
+      "A landmark-district estate attributed to architect Herbert L. Smith, secured for our buyer within days of hitting the market.",
+    description:
+      "Chef's kitchen with two islands, primary suite with a marble bath and balcony, and grounds with a pool, spa, cabana and guest studio.",
+    images: [
+      "https://ssl.cdn-redfin.com/photo/45/bigphoto/840/P1-28840_1.jpg",
+      "https://ssl.cdn-redfin.com/photo/45/mbpaddedwide/840/genMid.P1-28840_1.jpg",
+    ],
+    imageAlt: "303 Markham Pl, a 1901 Colonial Revival estate in Pasadena",
+    featured: true,
+  },
+  {
     slug: "602-n-michillinda-ave-sierra-madre",
     address: "602 N Michillinda Ave",
     city: "Sierra Madre",
@@ -126,6 +157,7 @@ export const SALES: Sale[] = [
     images: [
       "https://tracydo.com/wp-content/uploads/2026/03/0_78-copy.jpg",
       "https://ssl.cdn-redfin.com/photo/40/bigphoto/811/26659811_1.jpg",
+      "https://ssl.cdn-redfin.com/photo/40/mbpaddedwide/811/genMid.26659811_1.jpg",
     ],
     imageAlt: "4426 Cromwell Ave, a 1931 Spanish estate in Los Feliz",
     featured: true,
@@ -139,7 +171,10 @@ export const SALES: Sale[] = [
     date: "2025-12-23",
     side: "Seller",
     type: "Townhome",
+    facts: ["2 beds", "1.5 baths", "1,134 sq ft"],
     highlight: "Listed and sold for our seller, a few minutes from Old Town Monrovia.",
+    images: ["https://ssl.cdn-redfin.com/photo/45/bigphoto/033/CV25203033_1.jpg"],
+    imageAlt: "235 E Foothill Blvd, Unit B, Monrovia",
     featured: true,
   },
   {
@@ -151,10 +186,11 @@ export const SALES: Sale[] = [
     date: "2025-06-26",
     side: "Buyer",
     type: "Architectural estate",
-    facts: ["3 beds", "4 baths", "3,628 sq ft", "9.97 acres"],
+    facts: ["3 beds", "3.5 baths", "3,628 sq ft", "9.97 acres"],
     highlight:
       "Designed by Foster Rhodes Jackson, a disciple of Frank Lloyd Wright, with a bell tower and canyon views.",
     images: [
+      "https://ssl.cdn-redfin.com/photo/45/bigphoto/140/PW25026140_P.jpg",
       "https://media.relahq.com/public/styles/gallery_grid/s3/property-images/prop-nid-179354336/011-0011_809.jpg",
     ],
     imageAlt: "5000 Live Oak Canyon Rd, La Verne",
@@ -178,7 +214,20 @@ export const SALES: Sale[] = [
     imageAlt: "8417 Waring Ave, West Hollywood",
     featured: true,
   },
-  { slug: "705-saint-anns-dr-laguna-beach", address: "705 Saint Anns Dr", city: "Laguna Beach", area: "Laguna Beach", price: 1800000, date: "2024-09-03", side: "Buyer" },
+  {
+    slug: "705-saint-anns-dr-laguna-beach",
+    address: "705 Saint Anns Dr",
+    city: "Laguna Beach",
+    area: "Laguna Beach",
+    price: 1800000,
+    date: "2024-09-03",
+    side: "Buyer",
+    type: "1928 Laguna Beach cottage",
+    facts: ["Corner lot", "Two decks", "Two-car garage"],
+    images: ["https://ssl.cdn-redfin.com/photo/45/bigphoto/526/LG24134526_1.jpg"],
+    imageAlt: "705 Saint Anns Dr, Laguna Beach",
+    featured: true,
+  },
   { slug: "360-anita-dr-pasadena", address: "360 Anita Dr", city: "Pasadena", neighborhood: "San Rafael", area: "Pasadena", price: 1900000, date: "2023-07-06", side: "Buyer" },
   {
     slug: "811-n-croft-ave-west-hollywood",
@@ -207,7 +256,10 @@ export const SALES: Sale[] = [
     type: "William Krisel mid-century",
     highlight:
       "Butterfly-roofed Krisel design, once home to Bobby Darin and Sandra Dee and featured in Architectural Digest.",
-    images: ["/images/rising-glen.jpg"],
+    images: [
+      "https://www.compass.com/m/243102dcc22db564159e038057b107dc4d1f4df0_img_0/origin.webp",
+      "/images/rising-glen.jpg",
+    ],
     imageAlt: "1411 Rising Glen Rd, Hollywood Hills",
     featured: true,
   },
@@ -225,9 +277,9 @@ export const SALES: Sale[] = [
     date: "2021-09-28",
     side: "Buyer",
     type: "Oceanfront",
-    highlight: "On the sand along Dana Point's private Beach Road, with open Pacific views.",
-    images: ["/images/dana-point.jpg"],
-    imageAlt: "Dana Point coastline",
+    highlight: "On the sand in Capistrano Beach's gated Beach Road community, with ocean views from both levels.",
+    images: ["https://ssl.cdn-redfin.com/photo/45/bigphoto/529/PW21068529_0.jpg"],
+    imageAlt: "35099 Beach Rd, Dana Point, on the sand",
     featured: true,
   },
   { slug: "418-vista-dr-claremont", address: "418 Vista Dr", city: "Claremont", area: "Claremont", price: 660000, date: "2021-04-26", side: "Buyer" },
@@ -345,7 +397,7 @@ export const FAQS = [
   {
     question: "What has The Rabadi Group sold recently?",
     answer:
-      "In October 2026 we represented the buyer of 602 N Michillinda Ave in Sierra Madre, which closed at $1,580,000, $119,500 under asking. In April 2026 we represented the buyer of 4426 Cromwell Ave in Los Feliz at $4,495,000. In December 2025 we sold 235 E Foothill Blvd, Unit B in Monrovia for our seller.",
+      "In October 2026 we represented the buyer of 303 Markham Pl in Pasadena, a 1901 Colonial Revival estate, at $4,675,000, and the buyer of 602 N Michillinda Ave in Sierra Madre, which closed at $1,580,000, $119,500 under asking. In April 2026 we represented the buyer of 4426 Cromwell Ave in Los Feliz at $4,495,000. In December 2025 we sold 235 E Foothill Blvd, Unit B in Monrovia for our seller.",
   },
   {
     question: "Do you handle commercial real estate?",

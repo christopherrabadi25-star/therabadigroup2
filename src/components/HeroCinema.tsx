@@ -14,6 +14,8 @@ export type Slide = {
   position?: string;
   /** For very wide photos, request more pixels on tall phone screens. */
   sizes?: string;
+  /** Local photo to use if the remote one can't load. */
+  fallback?: string;
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -34,6 +36,7 @@ export default function HeroCinema({
   children: React.ReactNode;
 }) {
   const [failed, setFailed] = useState<string[]>([]);
+  const [swapped, setSwapped] = useState<string[]>([]);
   const live = useMemo(() => slides.filter((s) => !failed.includes(s.src)), [slides, failed]);
   const [i, setI] = useState(0);
   const reduce = useReducedMotion();
@@ -46,6 +49,12 @@ export default function HeroCinema({
   }, [i, reduce, video, live.length]);
 
   const s = live[idx];
+  const shownSrc = s && swapped.includes(s.src) && s.fallback ? s.fallback : s?.src;
+  const onImgError = () => {
+    if (!s) return;
+    if (s.fallback && !swapped.includes(s.src)) setSwapped((x) => [...x, s.src]);
+    else setFailed((f) => [...f, s.src]);
+  };
 
   return (
     <section className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-onyx text-ivory">
@@ -77,14 +86,15 @@ export default function HeroCinema({
                   style={{ ["--kb-origin" as string]: s.origin ?? "50% 50%" }}
                 >
                   <Image
-                    src={s.src}
+                    src={shownSrc!}
                     alt={s.alt}
                     fill
                     preload={idx === 0}
                     sizes={s.sizes ?? "(orientation: portrait) 330vw, 100vw"}
-                    unoptimized={s.src.startsWith("http")}
-                    referrerPolicy={s.src.startsWith("http") ? "no-referrer" : undefined}
-                    onError={() => setFailed((f) => [...f, s.src])}
+                    key={shownSrc}
+                    unoptimized={shownSrc!.startsWith("http")}
+                    referrerPolicy={shownSrc!.startsWith("http") ? "no-referrer" : undefined}
+                    onError={onImgError}
                     className="object-cover"
                     style={{ objectPosition: s.position ?? "50% 50%", filter: "saturate(0.9) contrast(1.05)" }}
                   />

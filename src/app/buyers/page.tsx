@@ -25,7 +25,7 @@ const STEPS = [
 ];
 
 export default function BuyersPage() {
-  const wins = ["602-n-michillinda-ave-sierra-madre", "4426-cromwell-ave-los-feliz", "5000-live-oak-canyon-rd-la-verne"]
+  const wins = ["303-markham-pl-pasadena", "602-n-michillinda-ave-sierra-madre", "4426-cromwell-ave-los-feliz"]
     .map((slug) => SALES.find((s) => s.slug === slug)!)
     .filter(Boolean);
 
@@ -34,9 +34,9 @@ export default function BuyersPage() {
       <PageIntro
         title="Buy smarter"
         lead="Our latest buyer closed $119,500 under asking."
-        image={PHOTOS.cromwellPool}
-        fallback="/images/dana-point.jpg"
-        imageAlt="Pool and garden of a Los Feliz estate"
+        image={PHOTOS.markham}
+        fallback="/images/rising-glen.jpg"
+        imageAlt="A 1901 Colonial Revival estate in Pasadena we helped our buyer purchase"
         position="50% 60%"
       >
         <Link href="#contact" className="btn btn-light">

@@ -42,8 +42,8 @@ export default function CommercialPage() {
       <PageIntro
         title="Commercial"
         lead="Twenty years of multi-family, retail, gas station, and ground lease deals."
-        image="/images/beverly-hills-area.jpg"
-        imageAlt="Beverly Hills"
+        image="/images/waring-ave.jpg"
+        imageAlt="A West Hollywood multi-unit building we sold"
       >
         <a href={BUSINESS.phoneHref} className="btn btn-light">
           <PhoneIcon size={16} /> Call Ramzi

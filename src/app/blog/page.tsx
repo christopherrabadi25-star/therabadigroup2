@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { POSTS } from "@/lib/posts";
 import PageIntro from "@/components/PageIntro";
+import { PHOTOS } from "@/lib/data";
 import { Reveal } from "@/components/Motion";
 
 export const metadata: Metadata = {
@@ -20,9 +21,10 @@ export default function BlogPage() {
       <PageIntro
         title="Guides"
         lead="Buying and selling in Claremont, La Verne, and the San Gabriel Valley."
-        image="/images/dana-point.jpg"
-        imageAlt="The Dana Point coastline"
-        position="50% 60%"
+        image={PHOTOS.saintAnns}
+        fallback="/images/rising-glen.jpg"
+        imageAlt="A Laguna Beach home we sold"
+        position="50% 50%"
       />
 
       <section className="section bg-onyx">

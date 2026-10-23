@@ -32,7 +32,7 @@ export default function SellersPage() {
         title="Sell for more"
         lead="Our seller listings average 4.2% above asking."
         image={PHOTOS.cromwellLiving}
-        fallback="/images/beverly-hills-area.jpg"
+        fallback="/images/rising-glen.jpg"
         imageAlt="Living room of a Los Feliz estate"
         position="50% 50%"
       >
