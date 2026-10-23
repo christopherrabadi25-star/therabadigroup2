@@ -27,31 +27,10 @@ const SLIDES: Slide[] = [
     origin: "50% 45%",
   },
   {
-    src: PHOTOS.cromwellPool,
-    alt: "Pool and garden of a Los Feliz estate",
-    title: "Los Feliz",
-    detail: "Pool, garden and guest suite",
-    origin: "50% 60%",
-  },
-  {
     src: PHOTOS.markham,
     alt: "A 1901 Colonial Revival estate in Pasadena",
     title: "Pasadena",
     detail: "1901 Colonial Revival estate, sold for $4.675M",
-    origin: "50% 50%",
-  },
-  {
-    src: PHOTOS.markham2,
-    alt: "A 1901 Colonial Revival estate in Pasadena",
-    title: "Pasadena",
-    detail: "Governor Markham Landmark District",
-    origin: "50% 50%",
-  },
-  {
-    src: PHOTOS.markham3,
-    alt: "A 1901 Colonial Revival estate in Pasadena",
-    title: "Pasadena",
-    detail: "Pool, cabana and guest studio",
     origin: "50% 50%",
   },
   {
@@ -68,6 +47,20 @@ const SLIDES: Slide[] = [
     title: "Hollywood Hills",
     detail: "William Krisel mid-century, sold for $7.4M",
     origin: "40% 60%",
+  },
+  {
+    src: PHOTOS.peppertree,
+    alt: "A gated estate in La Habra Heights",
+    title: "La Habra Heights",
+    detail: "Gated estate, sold for $2.1M",
+    origin: "50% 50%",
+  },
+  {
+    src: PHOTOS.foxbrook,
+    alt: "A mid-century home in Glendora",
+    title: "Glendora",
+    detail: "Mid-century post-and-beam, sold for $1.525M",
+    origin: "50% 50%",
   },
   {
     src: PHOTOS.danaPoint,

@@ -31,9 +31,9 @@ export default function AreasPage() {
       <PageIntro
         title="Where we work"
         lead="Every area we work in, and what we've sold there."
-        image={PHOTOS.markham2}
+        image={PHOTOS.peppertree}
         fallback="/images/la-verne-new.jpg"
-        imageAlt="A Pasadena estate we sold"
+        imageAlt="A La Habra Heights estate we sold"
       />
 
       {REGIONS.map((r, ri) => (

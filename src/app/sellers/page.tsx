@@ -31,9 +31,9 @@ export default function SellersPage() {
       <PageIntro
         title="Sell for more"
         lead="Our seller listings average 4.2% above asking."
-        image={PHOTOS.cromwellLiving}
+        image={PHOTOS.peppertree}
         fallback="/images/rising-glen.jpg"
-        imageAlt="Living room of a Los Feliz estate"
+        imageAlt="A La Habra Heights estate we sold for our seller"
         position="50% 50%"
       >
         <Link href="#contact" className="btn btn-light">
