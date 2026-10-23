@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import SmoothScroll from "@/components/SmoothScroll";
+import { Analytics } from "@vercel/analytics/next";
 
 const dmSerif = localFont({
   src: "../fonts/dm-serif-display-latin-400-normal.woff2",
@@ -65,6 +66,8 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/rg-icon-v2-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/rg-icon-v2-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/rg-icon-v2-96.png", sizes: "96x96", type: "image/png" },
       { url: "/rg-icon-v2-192.png", sizes: "192x192", type: "image/png" },
       { url: "/rg-icon-v2-512.png", sizes: "512x512", type: "image/png" },
     ],
@@ -222,6 +225,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <MobileCallBar />
+        <Analytics />
       </body>
     </html>
   );
