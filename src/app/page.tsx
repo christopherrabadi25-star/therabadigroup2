@@ -85,12 +85,7 @@ export default function HomePage() {
     <>
       <HeroCinema slides={SLIDES}>
         <Reveal delay={0.05} y={30}>
-          <h1 className="display max-w-[12ch]">Southern California&apos;s premier real estate team.</h1>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <p className="lead mt-6 text-ivory/90">
-            $110M+ in closed sales. More than 20 years of experience. Ramzi and Christopher Rabadi.
-          </p>
+          <h1 className="display max-w-[12ch]">Foothills to the coast.</h1>
         </Reveal>
         <Reveal delay={0.32}>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -170,7 +165,6 @@ export default function HomePage() {
         <div className="wrap grid gap-10 lg:grid-cols-[1fr_1.7fr] lg:gap-20">
           <Reveal>
             <h2 className="h-section">Notable sales</h2>
-            <p className="lead mt-4 text-ivory/75">Our highest closings on record.</p>
             <Link href="/listings" className="link-more mt-6">
               Full sales history
             </Link>
@@ -207,7 +201,6 @@ export default function HomePage() {
             {SERVICES.map((s, i) => (
               <Reveal as="li" key={s.href} delay={i * 0.08} className="border-t border-ink/15 pt-6">
                 <h3 className="text-[1.5rem]">{s.title}</h3>
-                <p className="mt-3 text-ink-soft">{s.body}</p>
                 <Link href={s.href} className="link-more mt-4">
                   Learn more
                 </Link>
@@ -222,7 +215,6 @@ export default function HomePage() {
         <div className="wrap grid gap-14 lg:grid-cols-[1fr_1.5fr] lg:gap-20">
           <Reveal>
             <h2 className="h-section">Ramzi and Christopher</h2>
-            <p className="lead mt-5 text-ink-soft">Father and son. Two agents on every deal, and both pick up the phone.</p>
             <Link href="/about" className="link-more mt-6">
               About us
             </Link>
@@ -241,7 +233,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <ContactPanel heading="What is your home worth?" intro="Send the address. We'll reply with a value range based on the closest recent sales." />
+      <ContactPanel heading="What is your home worth?" intro="Send the address. We'll send a value range." />
 
       <FAQ />
     </>

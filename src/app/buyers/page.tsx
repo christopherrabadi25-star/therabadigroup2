@@ -73,7 +73,7 @@ export default function BuyersPage() {
 
       <ContactPanel
         heading="Tell us what you want"
-        intro="Area, budget, and timing. We'll reply with what's available."
+        intro="Area, budget, timing."
         defaultTopic="Buying a home"
       />
     </>

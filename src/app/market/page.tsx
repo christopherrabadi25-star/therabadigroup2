@@ -15,22 +15,22 @@ const CITIES = [
   {
     city: "Claremont",
     headline: "Limited supply, steady demand",
-    body: "The Colleges, the Village, and north Claremont's custom homes keep this market stable. Well-priced homes near the foothills still draw multiple offers, so buyers need to be ready.",
+    body: "Well-priced homes near the foothills still draw multiple offers.",
   },
   {
     city: "La Verne",
     headline: "Tight inventory north of Baseline",
-    body: "Larger lots on the foothill side, and canyon properties along Live Oak and Webb Canyon, are the strongest part of the market. Properly priced homes move fast.",
+    body: "Foothill lots and canyon homes move fast when priced right.",
   },
   {
     city: "Sierra Madre",
     headline: "Overpriced listings sit",
-    body: "Our buyer at 602 N Michillinda closed $119,500 under asking after the home had been on and off the market for a year. Buyers have leverage when a seller starts too high.",
+    body: "Our buyer at 602 N Michillinda closed $119,500 under asking.",
   },
   {
     city: "San Dimas and Glendora",
     headline: "Value for space",
-    body: "Bigger lots and horse properties in San Dimas, and hillside homes with strong schools in Glendora, draw buyers priced out of Claremont and La Verne.",
+    body: "Bigger lots for buyers priced out of Claremont and La Verne.",
   },
 ];
 
@@ -51,8 +51,7 @@ export default function MarketPage() {
           <Reveal>
             <h2 className="h-section">For sellers</h2>
             <p className="mt-6 text-[1.12rem] text-ink-soft">
-              Homes priced right still sell quickly and often draw more than one offer. Buyers have grown more careful, so
-              homes that start too high sit and usually sell for less in the end.
+              Priced right, homes still sell fast. Priced high, they sit.
             </p>
             <Link href="/sellers" className="link-more mt-7 text-ink">
               How we sell
@@ -61,8 +60,7 @@ export default function MarketPage() {
           <Reveal delay={0.1}>
             <h2 className="h-section">For buyers</h2>
             <p className="mt-6 text-[1.12rem] text-ink-soft">
-              You have more room to negotiate than in 2021 and 2022, especially on homes that have been sitting. On the best
-              homes you still need to move quickly, with financing ready.
+              More room to negotiate, especially on homes that have sat.
             </p>
             <Link href="/buyers" className="link-more mt-7 text-ink">
               How we buy
@@ -88,7 +86,7 @@ export default function MarketPage() {
         </div>
       </section>
 
-      <ContactPanel heading="Ask about your street" intro="Market questions are always welcome. Tell us the neighborhood and we'll share what's selling and for how much." />
+      <ContactPanel heading="Ask about your street" intro="Tell us the neighborhood. We'll tell you what's selling." />
     </>
   );
 }
