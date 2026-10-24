@@ -54,6 +54,9 @@ export default function SellersPage() {
           </Reveal>
           <Reveal delay={0.12} className="prose-body text-[1.12rem]">
             <p>On a $900,000 home, that&apos;s about $37,800 more at closing.</p>
+            <p className="text-ivory/75">
+              It comes from pricing right on day one, presenting the home well, and negotiating every term.
+            </p>
           </Reveal>
         </div>
       </section>
@@ -92,7 +95,7 @@ export default function SellersPage() {
         </div>
       </section>
 
-      <ContactPanel heading="What is your home worth?" intro="Send the address. We'll send a value range." />
+      <ContactPanel heading="What is your home worth?" intro="Send the address. We'll reply with a value range, usually the same day." />
     </>
   );
 }

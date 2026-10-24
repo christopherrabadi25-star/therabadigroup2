@@ -36,7 +36,7 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <PageIntro
         title="About us"
-        lead="$110M+ closed. 20+ years."
+        lead="Father and son. $110M+ closed and more than 20 years in Southern California real estate."
         image={PHOTOS.risingGlen}
         fallback="/images/rising-glen.jpg"
         imageAlt="A Hollywood Hills home we sold"
@@ -71,7 +71,7 @@ export default function AboutPage() {
               <p className="kicker text-champagne-deep">{m.title}</p>
               <h2 className="h-section mt-4">{m.name}</h2>
               <p className="mt-2 text-[0.92rem] text-ink-soft">{m.dre}</p>
-              <p className="mt-8 max-w-[34em] text-[1.12rem] leading-relaxed">{m.short}</p>
+              <p className="mt-8 max-w-[34em] text-[1.12rem] leading-relaxed">{m.bio}</p>
               <p className="mt-8 text-ink-soft">{m.specialties.join(", ")}</p>
             </Reveal>
           </div>
@@ -84,8 +84,10 @@ export default function AboutPage() {
             <h2 className="h-section">Local roots</h2>
           </Reveal>
           <Reveal delay={0.1} className="prose-body text-[1.12rem]">
-            <p>San Gabriel Valley for decades.</p>
-            <p className="text-ivory/75">{BUSINESS.address.full}</p>
+            <p>Our family has lived and worked in the San Gabriel Valley for decades.</p>
+            <p className="text-ivory/75">
+              {BUSINESS.brokerage}, {BUSINESS.address.full}. When you call, Ramzi or Christopher answers.
+            </p>
           </Reveal>
         </div>
       </section>

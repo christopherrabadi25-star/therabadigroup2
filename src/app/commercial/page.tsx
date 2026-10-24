@@ -62,6 +62,7 @@ export default function CommercialPage() {
             {TYPES.map((t, i) => (
               <Reveal as="li" key={t.title} delay={(i % 2) * 0.08} className="border-t border-ink/15 py-6">
                 <h3 className="text-[1.6rem]">{t.title}</h3>
+                <p className="mt-2 text-ink-soft">{t.body}</p>
               </Reveal>
             ))}
           </ul>
@@ -94,7 +95,7 @@ export default function CommercialPage() {
 
       <ContactPanel
         heading="Tell us about the property"
-        intro="Asset, location, goal. Ramzi will call you back."
+        intro="Asset type, location, and your goal. Ramzi will call you back with an honest read."
         defaultTopic="Commercial or investment"
       />
     </>

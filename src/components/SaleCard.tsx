@@ -55,7 +55,7 @@ export default function SaleCard({
           {sale.side === "Buyer" ? "Represented the buyer" : "Represented the seller"}
         </p>
         {sale.facts && <p className="mt-1 text-[0.98rem] opacity-80">{sale.facts.join(", ")}</p>}
-        
+        {sale.highlight && <p className="mt-2 leading-relaxed">{sale.highlight}</p>}
         {showDescription && sale.description && <p className="mt-2 opacity-80">{sale.description}</p>}
       </div>
     </article>
