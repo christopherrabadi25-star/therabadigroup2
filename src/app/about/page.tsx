@@ -8,7 +8,7 @@ import { CountUp, Reveal } from "@/components/Motion";
 export const metadata: Metadata = {
   title: "About Ramzi and Christopher Rabadi",
   description:
-    "Meet Ramzi and Christopher Rabadi, a father and son real estate team at Agency 8 Real Estate Group in Claremont. 20+ years and $130M+ closed. CA DRE #01738777 and #02246356.",
+    "Meet Ramzi and Christopher Rabadi, a father and son real estate team at Agency 8 Real Estate Group in Claremont. 20+ years and $110M+ closed. CA DRE #01738777 and #02246356.",
   alternates: { canonical: "/about" },
 };
 
@@ -36,7 +36,7 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <PageIntro
         title="About us"
-        lead="Father and son. $130M+ closed and more than 20 years in Southern California real estate."
+        lead="Father and son. $110M+ closed and more than 20 years in Southern California real estate."
         image={PHOTOS.risingGlen}
         fallback="/images/rising-glen.jpg"
         imageAlt="A Hollywood Hills home we sold"

@@ -1,4 +1,4 @@
-import { formatDate, formatPrice, placeLabel, type Sale } from "@/lib/data";
+import { formatPrice, placeLabel, saleStatus, type Sale } from "@/lib/data";
 import SafeImage from "./SafeImage";
 
 function PhotoFallback({ sale }: { sale: Sale }) {
@@ -42,7 +42,7 @@ export default function SaleCard({
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-onyx/90 via-onyx/10 to-transparent" />
         <p className="absolute left-4 top-4 rounded-full bg-onyx/55 px-3 py-1 text-[0.85rem] font-medium text-ivory backdrop-blur-md">
-          Sold {formatDate(sale.date)}
+          {saleStatus(sale)}
         </p>
         <div className="absolute inset-x-5 bottom-5 text-ivory">
           <p className="num text-[clamp(2.2rem,5vw,2.8rem)] leading-none">{formatPrice(sale.price)}</p>

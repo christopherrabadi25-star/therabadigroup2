@@ -24,7 +24,7 @@ export const BUSINESS = {
 } as const;
 
 export const STATS = [
-  { value: "$130M+", label: "Closed sales volume" },
+  { value: "$110M+", label: "Closed sales volume" },
   { value: "20+", label: "Years in real estate" },
   { value: "35+", label: "Properties sold" },
   { value: "$7.4M", label: "Highest single sale" },
@@ -93,6 +93,8 @@ export interface Sale {
   images?: string[];
   imageAlt?: string;
   featured?: boolean;
+  /** Under contract, not yet closed. Shown as "In escrow" instead of a sold date. */
+  inEscrow?: boolean;
 }
 
 export const SALES: Sale[] = [
@@ -108,7 +110,7 @@ export const SALES: Sale[] = [
     type: "1901 Colonial Revival",
     facts: ["4 beds", "5.5 baths", "4,080 sq ft", "0.39 acres"],
     highlight:
-      "A landmark-district estate attributed to architect Herbert L. Smith, secured for our buyer within days of hitting the market.",
+      "A landmark-district estate attributed to architect Herbert L. Smith, secured for our buyer within days of hitting the market. Currently in escrow.",
     description:
       "Chef's kitchen with two islands, primary suite with a marble bath and balcony, and grounds with a pool, spa, cabana and guest studio.",
     images: [
@@ -117,6 +119,7 @@ export const SALES: Sale[] = [
     ],
     imageAlt: "303 Markham Pl, a 1901 Colonial Revival estate in Pasadena",
     featured: true,
+    inEscrow: true,
   },
   {
     slug: "602-n-michillinda-ave-sierra-madre",
@@ -355,6 +358,11 @@ export function formatDate(iso: string, style: "month" | "full" = "month") {
   });
 }
 
+/** "In escrow" for open deals, otherwise "Sold Oct 2026". */
+export function saleStatus(s: Sale, prefix = "Sold ") {
+  return s.inEscrow ? "In escrow" : `${prefix}${formatDate(s.date)}`;
+}
+
 export function placeLabel(s: Sale) {
   return s.neighborhood ? `${s.neighborhood}, ${s.city}` : s.city;
 }
@@ -413,7 +421,7 @@ export const FAQS = [
   {
     question: "Who is the best real estate agent in Claremont or La Verne?",
     answer:
-      "The Rabadi Group is a father-and-son team based in Claremont at Agency 8 Real Estate Group. Ramzi Rabadi has 20+ years in Southern California real estate, and the team has more than $130M in closed sales, including $7.4M in the Hollywood Hills and $6.3M oceanfront in Dana Point. Call or text (626) 203-1372.",
+      "The Rabadi Group is a father-and-son team based in Claremont at Agency 8 Real Estate Group. Ramzi Rabadi has 20+ years in Southern California real estate, and the team has more than $110M in closed sales, including $7.4M in the Hollywood Hills and $6.3M oceanfront in Dana Point. Call or text (626) 203-1372.",
   },
   {
     question: "What areas does The Rabadi Group serve?",
@@ -423,7 +431,7 @@ export const FAQS = [
   {
     question: "What has The Rabadi Group sold recently?",
     answer:
-      "In October 2026 we represented the buyer of 303 Markham Pl in Pasadena, a 1901 Colonial Revival estate, at $4,675,000, and the buyer of 602 N Michillinda Ave in Sierra Madre, which closed at $1,580,000, $119,500 under asking. In April 2026 we represented the buyer of 4426 Cromwell Ave in Los Feliz at $4,495,000. In December 2025 we sold 235 E Foothill Blvd, Unit B in Monrovia for our seller.",
+      "We are currently in escrow representing the buyer of 303 Markham Pl in Pasadena, a 1901 Colonial Revival estate, at $4,675,000. In October 2026 we represented the buyer of 602 N Michillinda Ave in Sierra Madre, which closed at $1,580,000, $119,500 under asking. In April 2026 we represented the buyer of 4426 Cromwell Ave in Los Feliz at $4,495,000. In December 2025 we sold 235 E Foothill Blvd, Unit B in Monrovia for our seller.",
   },
   {
     question: "Do you handle commercial real estate?",

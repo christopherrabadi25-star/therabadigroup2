@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "The Rabadi Group",
     short_name: "Rabadi Group",
-    description: "Ramzi and Christopher Rabadi. $130M+ in Southern California real estate.",
+    description: "Ramzi and Christopher Rabadi. $110M+ in Southern California real estate.",
     start_url: "/",
     display: "browser",
     background_color: "#121110",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BUSINESS, REGIONS, formatPrice, formatDate, salesIn } from "@/lib/data";
+import { BUSINESS, REGIONS, formatPrice, saleStatus, salesIn } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import { PHOTOS } from "@/lib/data";
 import ContactPanel from "@/components/ContactPanel";
@@ -57,7 +57,7 @@ export default function AreasPage() {
                         {sold.map((s) => (
                           <li key={s.slug} className="flex justify-between gap-4">
                             <span>
-                              {s.address} <span className="opacity-60">{formatDate(s.date)}</span>
+                              {s.address} <span className="opacity-60">{saleStatus(s, "")}</span>
                             </span>
                             <span className="num shrink-0 text-[1.15rem]">{formatPrice(s.price, true)}</span>
                           </li>

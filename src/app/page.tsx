@@ -12,7 +12,7 @@ import { PhoneIcon } from "@/components/Icons";
 export const metadata: Metadata = {
   title: { absolute: "The Rabadi Group | Luxury Real Estate in Claremont & Southern California" },
   description:
-    "Ramzi and Christopher Rabadi. $130M+ in closed sales and 20+ years in Southern California real estate, including $7.4M in the Hollywood Hills and $6.3M oceanfront in Dana Point. Call (626) 203-1372.",
+    "Ramzi and Christopher Rabadi. $110M+ in closed sales and 20+ years in Southern California real estate, including $7.4M in the Hollywood Hills and $6.3M oceanfront in Dana Point. Call (626) 203-1372.",
   alternates: { canonical: BUSINESS.url },
 };
 
@@ -30,7 +30,7 @@ const SLIDES: Slide[] = [
     src: PHOTOS.markham,
     alt: "A 1901 Colonial Revival estate in Pasadena",
     title: "Pasadena",
-    detail: "1901 Colonial Revival estate, sold for $4.675M",
+    detail: "1901 Colonial Revival estate, in escrow at $4.675M",
     origin: "50% 50%",
   },
   {
@@ -89,7 +89,7 @@ export default function HomePage() {
         </Reveal>
         <Reveal delay={0.2}>
           <p className="lead mt-6 text-ivory/90">
-            $130M+ in closed sales. More than 20 years of experience. Ramzi and Christopher Rabadi.
+            $110M+ in closed sales. More than 20 years of experience. Ramzi and Christopher Rabadi.
           </p>
         </Reveal>
         <Reveal delay={0.32}>

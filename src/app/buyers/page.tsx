@@ -36,7 +36,7 @@ export default function BuyersPage() {
         lead="Our latest buyer closed $119,500 under asking."
         image={PHOTOS.markham}
         fallback="/images/rising-glen.jpg"
-        imageAlt="A 1901 Colonial Revival estate in Pasadena we helped our buyer purchase"
+        imageAlt="A 1901 Colonial Revival estate in Pasadena, in escrow for our buyer"
         position="50% 60%"
       >
         <Link href="#contact" className="btn btn-light">

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PHOTOS, SALES_BY_DATE, formatDate, formatPrice, placeLabel } from "@/lib/data";
+import { PHOTOS, SALES_BY_DATE, formatPrice, placeLabel, saleStatus } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import SaleCard from "@/components/SaleCard";
 import ContactPanel from "@/components/ContactPanel";
@@ -82,7 +82,7 @@ export default function ListingsPage() {
                       <p className="num text-right text-[1.35rem] leading-none md:order-4">{formatPrice(s.price)}</p>
                       <p className="text-ink-soft md:order-2">{placeLabel(s)}</p>
                       <p className="text-right text-[0.92rem] text-ink-soft md:order-3 md:text-left">
-                        {s.side === "Buyer" ? "Buyer" : "Seller"}, {formatDate(s.date)}
+                        {s.side === "Buyer" ? "Buyer" : "Seller"}, {saleStatus(s, "")}
                       </p>
                     </li>
                   ))}
