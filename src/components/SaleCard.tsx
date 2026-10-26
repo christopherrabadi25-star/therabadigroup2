@@ -1,4 +1,5 @@
 import { formatPrice, placeLabel, saleStatus, type Sale } from "@/lib/data";
+import Link from "next/link";
 import SafeImage from "./SafeImage";
 
 function PhotoFallback({ sale }: { sale: Sale }) {
@@ -57,6 +58,11 @@ export default function SaleCard({
         {sale.facts && <p className="mt-1 text-[0.98rem] opacity-80">{sale.facts.join(", ")}</p>}
         {sale.highlight && <p className="mt-2 leading-relaxed">{sale.highlight}</p>}
         {showDescription && sale.description && <p className="mt-2 opacity-80">{sale.description}</p>}
+        {sale.page && (
+          <Link href={sale.page} className="link-more mt-3">
+            See the story
+          </Link>
+        )}
       </div>
     </article>
   );

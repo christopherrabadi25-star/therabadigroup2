@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages: [string, number, "weekly" | "monthly"][] = [
     ["", 1, "weekly"],
     ["/listings", 0.9, "weekly"],
+    ["/listings/303-markham-pl-pasadena", 0.9, "monthly"],
     ["/sellers", 0.9, "monthly"],
     ["/buyers", 0.9, "monthly"],
     ["/about", 0.8, "monthly"],

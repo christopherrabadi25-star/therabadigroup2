@@ -95,6 +95,8 @@ export interface Sale {
   featured?: boolean;
   /** Under contract, not yet closed. Shown as "In escrow" instead of a sold date. */
   inEscrow?: boolean;
+  /** Dedicated showcase page for this sale, if it has one. */
+  page?: string;
 }
 
 export const SALES: Sale[] = [
@@ -110,7 +112,7 @@ export const SALES: Sale[] = [
     type: "1901 Colonial Revival",
     facts: ["4 beds", "5.5 baths", "4,080 sq ft", "0.39 acres"],
     highlight:
-      "A landmark-district estate attributed to architect Herbert L. Smith, secured for our buyer within days of hitting the market. Currently in escrow.",
+      "A 1901 landmark-district estate attributed to architect Herbert L. Smith, under contract for our buyer in two days and closed at $4,675,000.",
     description:
       "Chef's kitchen with two islands, primary suite with a marble bath and balcony, and grounds with a pool, spa, cabana and guest studio.",
     images: [
@@ -119,7 +121,7 @@ export const SALES: Sale[] = [
     ],
     imageAlt: "303 Markham Pl, a 1901 Colonial Revival estate in Pasadena",
     featured: true,
-    inEscrow: true,
+    page: "/listings/303-markham-pl-pasadena",
   },
   {
     slug: "602-n-michillinda-ave-sierra-madre",
@@ -431,7 +433,7 @@ export const FAQS = [
   {
     question: "What has The Rabadi Group sold recently?",
     answer:
-      "We are currently in escrow representing the buyer of 303 Markham Pl in Pasadena, a 1901 Colonial Revival estate, at $4,675,000. In October 2026 we represented the buyer of 602 N Michillinda Ave in Sierra Madre, which closed at $1,580,000, $119,500 under asking. In April 2026 we represented the buyer of 4426 Cromwell Ave in Los Feliz at $4,495,000. In December 2025 we sold 235 E Foothill Blvd, Unit B in Monrovia for our seller.",
+      "On October 26, 2026 we closed 303 Markham Pl in Pasadena for our buyer at $4,675,000, a 1901 Colonial Revival estate in the Governor Markham Landmark District. In October 2026 we represented the buyer of 602 N Michillinda Ave in Sierra Madre, which closed at $1,580,000, $119,500 under asking. In April 2026 we represented the buyer of 4426 Cromwell Ave in Los Feliz at $4,495,000. In December 2025 we sold 235 E Foothill Blvd, Unit B in Monrovia for our seller.",
   },
   {
     question: "Do you handle commercial real estate?",

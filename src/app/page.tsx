@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { BUSINESS, PHOTOS, RECENT_SALES, STATS, TEAM, SALES, SALES_BY_DATE, formatPrice } from "@/lib/data";
+import { BUSINESS, PHOTOS, formatDate, RECENT_SALES, STATS, TEAM, SALES, SALES_BY_DATE, formatPrice } from "@/lib/data";
 import HeroCinema, { type Slide } from "@/components/HeroCinema";
 import SaleCard from "@/components/SaleCard";
 import ContactPanel from "@/components/ContactPanel";
 import FAQ from "@/components/FAQ";
 import { CountUp, ParallaxImage, Reveal } from "@/components/Motion";
 import { PhoneIcon } from "@/components/Icons";
+import { MARKHAM } from "@/lib/markham";
 
 export const metadata: Metadata = {
   title: { absolute: "The Rabadi Group | Luxury Real Estate in Claremont & Southern California" },
@@ -19,19 +20,19 @@ export const metadata: Metadata = {
 // Real homes we sold, in order. Remote listing photos fall back or are skipped if they can't load.
 const SLIDES: Slide[] = [
   {
+    src: PHOTOS.markham,
+    alt: "A 1901 Colonial Revival estate in Pasadena",
+    title: "Just sold: 303 Markham Pl, Pasadena",
+    detail: "1901 Colonial Revival estate, $4,675,000",
+    origin: "50% 50%",
+  },
+  {
     src: PHOTOS.cromwellExterior,
     fallback: PHOTOS.cromwellRedfin,
     alt: "A 1931 Spanish estate in Los Feliz",
     title: "Los Feliz",
     detail: "1931 Spanish estate, sold for $4.495M",
     origin: "50% 45%",
-  },
-  {
-    src: PHOTOS.markham,
-    alt: "A 1901 Colonial Revival estate in Pasadena",
-    title: "Pasadena",
-    detail: "1901 Colonial Revival estate, in escrow at $4.675M",
-    origin: "50% 50%",
   },
   {
     src: PHOTOS.saintAnns,
@@ -84,6 +85,18 @@ export default function HomePage() {
   return (
     <>
       <HeroCinema slides={SLIDES}>
+        <Reveal y={16}>
+          <Link
+            href={`/listings/${MARKHAM.slug}`}
+            className="group mb-7 inline-flex max-w-full items-center gap-2.5 rounded-full border border-champagne/70 bg-onyx/45 py-1.5 pl-1.5 pr-4 no-underline sm:gap-3 sm:pr-5 backdrop-blur-md transition-colors hover:bg-onyx/65"
+          >
+            <span className="shimmer shrink-0 whitespace-nowrap rounded-full bg-champagne px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.16em] text-onyx">Just sold</span>
+            <span className="whitespace-nowrap text-[0.86rem] text-ivory sm:text-[0.95rem]">
+              303 Markham Pl<span className="hidden sm:inline">, Pasadena</span> <span className="text-champagne">{formatPrice(MARKHAM.price, true)}</span>
+            </span>
+            <span aria-hidden className="text-champagne transition-transform group-hover:translate-x-1">&rarr;</span>
+          </Link>
+        </Reveal>
         <Reveal delay={0.05} y={30}>
           <h1 className="display max-w-[12ch]">Southern California&apos;s premier real estate team.</h1>
         </Reveal>
@@ -117,6 +130,41 @@ export default function HomePage() {
             </Reveal>
           ))}
         </dl>
+      </section>
+
+
+      {/* Just sold feature: 303 Markham Pl */}
+      <section aria-label="Just sold: 303 Markham Pl" className="relative isolate flex min-h-[88svh] items-end overflow-hidden bg-onyx text-ivory md:min-h-[96svh]">
+        <ParallaxImage src={MARKHAM.hero} fallback={MARKHAM.heroFallback} alt="303 Markham Pl, a 1901 Colonial Revival estate in Pasadena" strength={10} />
+        <div className="grade" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-onyx/80 via-onyx/25 to-transparent" />
+        <div className="wrap relative grid gap-10 pb-14 pt-24 md:pb-20 lg:grid-cols-[1.3fr_1fr] lg:items-end">
+          <Reveal>
+            <p className="inline-flex items-center gap-2 rounded-full border border-champagne/60 px-4 py-1.5 text-[0.82rem] font-semibold uppercase tracking-[0.18em] text-champagne">
+              <span className="h-1.5 w-1.5 rounded-full bg-champagne" /> Just sold, {formatDate(MARKHAM.closed, "full")}
+            </p>
+            <p className="num mt-6 text-[clamp(3.4rem,12vw,8.5rem)] leading-[0.9]">{formatPrice(MARKHAM.price)}</p>
+            <h2 className="mt-5 font-display text-[clamp(1.8rem,4.6vw,3rem)] leading-tight">303 Markham Place, Pasadena</h2>
+            <p className="lead mt-3 text-ivory/85">
+              A 1901 Colonial Revival in the Governor Markham Landmark District, on the National Register of Historic Places. Under contract
+              for our buyer in two days.
+            </p>
+            <Link href={`/listings/${MARKHAM.slug}`} className="btn btn-light mt-8">
+              See the house and its history
+            </Link>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-t border-ivory/20 pt-6">
+              {MARKHAM.facts.map((f) => (
+                <div key={f.label}>
+                  <dt className="sr-only">{f.label}</dt>
+                  <dd className="num text-[clamp(2rem,4vw,2.8rem)] leading-none text-champagne">{f.value}</dd>
+                  <dd className="mt-1 text-[0.95rem] text-ivory/75">{f.label}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        </div>
       </section>
 
       {/* Just sold */}

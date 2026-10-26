@@ -450,3 +450,24 @@ p {
     padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom));
   }
 }
+
+/* Subtle light sweep for the "Just sold" badge */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: shimmer 3.6s var(--ease-lux) infinite;
+}
+@keyframes shimmer {
+  0%, 55% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shimmer::after { animation: none; }
+}
