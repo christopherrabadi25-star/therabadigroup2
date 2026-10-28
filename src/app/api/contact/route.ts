@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { saveLead } from "@/lib/leads";
 
 interface ContactPayload {
   name: string;
@@ -6,6 +7,8 @@ interface ContactPayload {
   phone: string;
   message: string;
   type: string;
+  vid?: string;
+  page?: string;
 }
 
 // Configure your email provider here.
@@ -109,6 +112,25 @@ export async function POST(req: NextRequest) {
         timestamp: new Date().toISOString(),
       });
     }
+
+    // Save every lead to the dashboard store, with the visitor's journey.
+    let stored = false;
+    try {
+      await saveLead({
+        name,
+        phone,
+        email,
+        type,
+        message,
+        page: sanitize(body.page || "").slice(0, 200),
+        vid: sanitize(body.vid || "").slice(0, 40) || undefined,
+        emailed: Boolean(RESEND_API_KEY),
+      });
+      stored = true;
+    } catch (e) {
+      console.error("Lead store error:", e);
+    }
+    if (!stored) console.warn("Lead was not stored (tracking store not configured)");
 
     // `delivered` tells the form whether an email actually went out. When no
     // email provider is configured the form offers text/email instead, so no

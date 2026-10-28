@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import MobileCallBar from "@/components/MobileCallBar";
 import SmoothScroll from "@/components/SmoothScroll";
 import { Analytics } from "@vercel/analytics/next";
+import { Suspense } from "react";
+import Tracker from "@/components/Tracker";
 
 const dmSerif = localFont({
   src: "../fonts/dm-serif-display-latin-400-normal.woff2",
@@ -226,6 +228,9 @@ export default function RootLayout({
         <Footer />
         <MobileCallBar />
         <Analytics />
+        <Suspense fallback={null}>
+          <Tracker />
+        </Suspense>
       </body>
     </html>
   );

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { BUSINESS, TEAM } from "@/lib/data";
 import { MailIcon, TextIcon } from "./Icons";
 import { Reveal } from "./Motion";
+import { getIds } from "./Tracker";
 
 const TOPICS = ["A value for my home", "Selling my home", "Buying a home", "Commercial or investment", "Something else"];
 
@@ -34,6 +35,14 @@ export default function ContactPanel({
       email: String(f.get("email") || "").trim(),
       type: String(f.get("type") || ""),
       message: String(f.get("message") || "").trim(),
+      vid: (() => {
+        try {
+          return getIds().vid;
+        } catch {
+          return "";
+        }
+      })(),
+      page: location.pathname,
     };
     if (!data.name || !data.phone) {
       setStatus({ kind: "error", msg: "Add your name and phone number so we can reach you." });
