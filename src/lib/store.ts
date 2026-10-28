@@ -7,7 +7,20 @@
 import postgres from "postgres";
 import type { StoredEvent } from "@/lib/tracking";
 
-const DB_URL = process.env.POSTGRES_URL || process.env.SUPABASE_DB_URL || process.env.DATABASE_URL;
+// Vercel's Supabase integration may add a custom prefix (e.g. STORAGE_POSTGRES_URL),
+// so look for any variable ending in POSTGRES_URL.
+function findDbUrl(): string | undefined {
+  const env = process.env;
+  const keys = Object.keys(env);
+  const pick = (re: RegExp) => keys.filter((k) => re.test(k) && env[k]).sort((a, b) => a.length - b.length)[0];
+  const k =
+    pick(/(^|_)POSTGRES_URL$/) ||
+    pick(/(^|_)POSTGRES_URL_NON_POOLING$/) ||
+    pick(/(^|_)SUPABASE_DB_URL$/) ||
+    pick(/(^|_)DATABASE_URL$/);
+  return k ? env[k] : undefined;
+}
+const DB_URL = findDbUrl();
 
 export const remoteConfigured = Boolean(DB_URL);
 const useMemory = !remoteConfigured && process.env.NODE_ENV !== "production";

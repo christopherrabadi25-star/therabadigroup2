@@ -91,7 +91,7 @@ export default function Dashboard({
       {storeWarning === "missing" && (
         <Notice>
           Storage isn&apos;t connected, so nothing is being saved yet. In Vercel open this project, go to Storage, connect your{" "}
-          <b>Supabase</b> database to it (so it gets a POSTGRES_URL), then redeploy.
+          <b>Supabase</b> database to it (so it gets a POSTGRES_URL variable for Production), then redeploy.
         </Notice>
       )}
       {storeWarning === "memory" && <Notice>Local preview: using temporary in-memory storage.</Notice>}
