@@ -1,100 +1,20 @@
-// Tiny Redis client for the visitor tracking + lead store.
-// Works with Upstash Redis (connect it in Vercel > Storage > Upstash for Redis,
-// which sets KV_REST_API_URL / KV_REST_API_TOKEN automatically).
-// In local dev with no store configured, an in-memory fallback is used so the
-// dashboard can be exercised.
+// Storage for visitor tracking + leads, backed by Supabase Postgres.
+// Uses the POSTGRES_URL that Vercel's Supabase integration adds automatically.
+// Tables are created on first use, with row level security switched on so
+// nothing is readable through Supabase's public API keys.
+// In local dev with no database configured, an in-memory fallback is used.
 
-type Cmd = (string | number)[];
+import postgres from "postgres";
+import type { StoredEvent } from "@/lib/tracking";
 
-const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+const DB_URL = process.env.POSTGRES_URL || process.env.SUPABASE_DB_URL || process.env.DATABASE_URL;
 
-export const remoteConfigured = Boolean(URL_ && TOKEN);
+export const remoteConfigured = Boolean(DB_URL);
 const useMemory = !remoteConfigured && process.env.NODE_ENV !== "production";
 export const storeConfigured = remoteConfigured || useMemory;
 
-export async function redis(cmds: Cmd[]): Promise<unknown[]> {
-  if (cmds.length === 0) return [];
-  if (remoteConfigured) {
-    const res = await fetch(`${URL_}/pipeline`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" },
-      body: JSON.stringify(cmds.map((c) => c.map(String))),
-      cache: "no-store",
-    });
-    if (!res.ok) throw new Error(`Store error ${res.status}: ${await res.text()}`);
-    const json = (await res.json()) as { result?: unknown; error?: string }[];
-    return json.map((r) => r.result);
-  }
-  if (useMemory) return cmds.map(memExec);
-  return [];
-}
-
-// ---- in-memory fallback (dev only) ----
-const g = globalThis as unknown as { __rgMem?: Map<string, unknown> };
-const mem: Map<string, unknown> = (g.__rgMem ||= new Map());
-
-function memExec(cmd: Cmd): unknown {
-  const [op, key, ...a] = cmd.map(String);
-  switch (op.toUpperCase()) {
-    case "LPUSH": {
-      const l = (mem.get(key) as string[]) || [];
-      for (const v of a) l.unshift(v);
-      mem.set(key, l);
-      return l.length;
-    }
-    case "LTRIM": {
-      const l = (mem.get(key) as string[]) || [];
-      mem.set(key, l.slice(Number(a[0]), Number(a[1]) === -1 ? undefined : Number(a[1]) + 1));
-      return "OK";
-    }
-    case "LRANGE": {
-      const l = (mem.get(key) as string[]) || [];
-      return l.slice(Number(a[0]), Number(a[1]) === -1 ? undefined : Number(a[1]) + 1);
-    }
-    case "EXPIRE":
-      return 1;
-    case "SET": {
-      if (a.includes("NX") && mem.has(key)) return null;
-      mem.set(key, a[0]);
-      return "OK";
-    }
-    case "GET":
-      return (mem.get(key) as string) ?? null;
-    case "HSET": {
-      const h = (mem.get(key) as Record<string, string>) || {};
-      for (let i = 0; i < a.length; i += 2) h[a[i]] = a[i + 1];
-      mem.set(key, h);
-      return 1;
-    }
-    case "HGETALL": {
-      const h = (mem.get(key) as Record<string, string>) || {};
-      return Object.entries(h).flat();
-    }
-    case "ZADD": {
-      const z = (mem.get(key) as Record<string, number>) || {};
-      z[a[1]] = Number(a[0]);
-      mem.set(key, z);
-      return 1;
-    }
-    case "ZREMRANGEBYSCORE": {
-      const z = (mem.get(key) as Record<string, number>) || {};
-      for (const [m, s] of Object.entries(z)) if (s < Number(a[1])) delete z[m];
-      return 1;
-    }
-    case "ZRANGE": {
-      const z = (mem.get(key) as Record<string, number>) || {};
-      return Object.entries(z)
-        .sort((x, y) => x[1] - y[1])
-        .flatMap(([m, s]) => [m, String(s)]);
-    }
-    default:
-      return null;
-  }
-}
-
-// ---- helpers ----
 export const TZ = "America/Los_Angeles";
+export const DAY_MS = 86400000;
 
 export function dayKey(ts: number): string {
   return new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" }).format(ts);
@@ -103,8 +23,176 @@ export function dayKey(ts: number): string {
 export function lastDays(n: number): string[] {
   const out: string[] = [];
   const now = Date.now();
-  for (let i = n - 1; i >= 0; i--) out.push(dayKey(now - i * 86400000));
+  for (let i = n - 1; i >= 0; i--) out.push(dayKey(now - i * DAY_MS));
   return [...new Set(out)];
 }
 
-export const DAY = 86400;
+export interface LeadRecord {
+  id: string;
+  ts: number;
+  data: Record<string, unknown>;
+  status: string;
+}
+
+// ---------------- Postgres ----------------
+
+type Sql = ReturnType<typeof postgres>;
+const g = globalThis as unknown as { __rgSql?: Sql; __rgReady?: Promise<void>; __rgMem?: Mem };
+
+function db(): Sql {
+  if (!g.__rgSql) {
+    g.__rgSql = postgres(DB_URL!, {
+      prepare: false, // required for Supabase's transaction pooler
+      max: 3,
+      idle_timeout: 20,
+      ssl: /localhost|127\.0\.0\.1/.test(DB_URL!) ? false : "require",
+    });
+  }
+  return g.__rgSql;
+}
+
+async function ready(): Promise<Sql> {
+  const sql = db();
+  g.__rgReady ||= (async () => {
+    await sql.unsafe(`
+      create table if not exists rg_events (
+        id bigserial primary key,
+        ts bigint not null,
+        vid text not null,
+        sid text not null,
+        t text not null,
+        path text,
+        data jsonb not null
+      );
+      create index if not exists rg_events_ts on rg_events (ts);
+      create index if not exists rg_events_vid on rg_events (vid, ts);
+      create table if not exists rg_visitors (
+        vid text primary key,
+        first jsonb not null,
+        created bigint not null
+      );
+      create table if not exists rg_leads (
+        id text primary key,
+        ts bigint not null,
+        status text not null default 'New',
+        data jsonb not null
+      );
+      create index if not exists rg_leads_ts on rg_leads (ts);
+      alter table rg_events enable row level security;
+      alter table rg_visitors enable row level security;
+      alter table rg_leads enable row level security;
+    `);
+  })().catch((e) => {
+    g.__rgReady = undefined;
+    throw e;
+  });
+  await g.__rgReady;
+  return sql;
+}
+
+// ---------------- in-memory (dev only) ----------------
+
+interface Mem {
+  events: StoredEvent[];
+  visitors: Map<string, StoredEvent>;
+  leads: LeadRecord[];
+}
+function mem(): Mem {
+  return (g.__rgMem ||= { events: [], visitors: new Map(), leads: [] });
+}
+
+// ---------------- API ----------------
+
+export async function saveEvents(events: StoredEvent[]): Promise<void> {
+  if (!events.length) return;
+  if (remoteConfigured) {
+    const sql = await ready();
+    const rows = events.map((e) => ({ ts: e.ts, vid: e.vid, sid: e.sid, t: e.t, path: e.path, data: sql.json(e as never) }));
+    await sql`insert into rg_events ${sql(rows, "ts", "vid", "sid", "t", "path", "data")}`;
+    const firsts = events.filter((e) => e.t === "pageview");
+    for (const f of firsts.slice(0, 1)) {
+      await sql`insert into rg_visitors (vid, first, created) values (${f.vid}, ${sql.json(f as never)}, ${f.ts}) on conflict (vid) do nothing`;
+    }
+    // occasional cleanup: keep 400 days of raw events
+    if (Math.random() < 0.01) await sql`delete from rg_events where ts < ${Date.now() - 400 * DAY_MS}`;
+    return;
+  }
+  if (useMemory) {
+    const m = mem();
+    m.events.push(...events);
+    for (const e of events) if (e.t === "pageview" && !m.visitors.has(e.vid)) m.visitors.set(e.vid, e);
+  }
+}
+
+export async function getEventsSince(since: number): Promise<StoredEvent[]> {
+  if (remoteConfigured) {
+    const sql = await ready();
+    const rows = await sql<{ data: StoredEvent }[]>`select data from rg_events where ts >= ${since} order by ts asc limit 200000`;
+    return rows.map((r) => r.data);
+  }
+  if (useMemory) return mem().events.filter((e) => e.ts >= since);
+  return [];
+}
+
+export async function getVisitor(vid: string): Promise<{ first: StoredEvent | null; journey: StoredEvent[] }> {
+  if (remoteConfigured) {
+    const sql = await ready();
+    const [f] = await sql<{ first: StoredEvent }[]>`select first from rg_visitors where vid = ${vid}`;
+    const j = await sql<{ data: StoredEvent }[]>`select data from rg_events where vid = ${vid} order by ts asc limit 300`;
+    return { first: f?.first || null, journey: j.map((r) => r.data) };
+  }
+  if (useMemory) {
+    const m = mem();
+    return { first: m.visitors.get(vid) || null, journey: m.events.filter((e) => e.vid === vid) };
+  }
+  return { first: null, journey: [] };
+}
+
+export async function getLive(since: number): Promise<{ vid: string; path: string; ts: number }[]> {
+  if (remoteConfigured) {
+    const sql = await ready();
+    const rows = await sql<{ vid: string; path: string; ts: string }[]>`
+      select distinct on (vid) vid, path, ts from rg_events
+      where t = 'pageview' and ts >= ${since}
+      order by vid, ts desc`;
+    return rows.map((r) => ({ vid: r.vid, path: r.path, ts: Number(r.ts) }));
+  }
+  if (useMemory) {
+    const latest = new Map<string, { vid: string; path: string; ts: number }>();
+    for (const e of mem().events) if (e.t === "pageview" && e.ts >= since) latest.set(e.vid, { vid: e.vid, path: e.path, ts: e.ts });
+    return [...latest.values()];
+  }
+  return [];
+}
+
+export async function insertLead(rec: LeadRecord): Promise<void> {
+  if (remoteConfigured) {
+    const sql = await ready();
+    await sql`insert into rg_leads (id, ts, status, data) values (${rec.id}, ${rec.ts}, ${rec.status}, ${sql.json(rec.data as never)})`;
+    return;
+  }
+  if (useMemory) mem().leads.unshift(rec);
+}
+
+export async function listLeads(): Promise<LeadRecord[]> {
+  if (remoteConfigured) {
+    const sql = await ready();
+    const rows = await sql<{ id: string; ts: string; status: string; data: Record<string, unknown> }[]>`
+      select id, ts, status, data from rg_leads order by ts desc limit 5000`;
+    return rows.map((r) => ({ id: r.id, ts: Number(r.ts), status: r.status, data: r.data }));
+  }
+  if (useMemory) return mem().leads;
+  return [];
+}
+
+export async function updateLeadStatus(id: string, status: string): Promise<void> {
+  if (remoteConfigured) {
+    const sql = await ready();
+    await sql`update rg_leads set status = ${status} where id = ${id}`;
+    return;
+  }
+  if (useMemory) {
+    const l = mem().leads.find((x) => x.id === id);
+    if (l) l.status = status;
+  }
+}

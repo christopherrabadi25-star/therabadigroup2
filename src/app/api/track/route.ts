@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { redis, dayKey, DAY } from "@/lib/store";
+import { saveEvents } from "@/lib/store";
 import { classifySource, clean, parseUA, type Landing, type StoredEvent, type EventType } from "@/lib/tracking";
 
 const TYPES: EventType[] = ["pageview", "leave", "click"];
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
   const country = decode(req.headers.get("x-vercel-ip-country"));
 
   const now = Date.now();
-  const cmds: (string | number)[][] = [];
+  const out: StoredEvent[] = [];
 
   for (const e of events) {
     if (!TYPES.includes(e.t) || !e.vid || !e.sid || !e.path) continue;
@@ -92,20 +92,11 @@ export async function POST(req: NextRequest) {
       label: e.t === "click" ? clean(e.label, 80) : undefined,
       href: e.t === "click" ? clean(e.href, 300) : undefined,
     };
-    const json = JSON.stringify(ev);
-    const day = `ev:${dayKey(now)}`;
-    cmds.push(["LPUSH", day, json], ["LTRIM", day, 0, 49999], ["EXPIRE", day, 400 * DAY]);
-    const vj = `vj:${ev.vid}`;
-    cmds.push(["LPUSH", vj, json], ["LTRIM", vj, 0, 299], ["EXPIRE", vj, 180 * DAY]);
-    if (e.t === "pageview") {
-      cmds.push(["ZADD", "live", now, `${ev.vid}|${path}`]);
-      cmds.push(["SET", `vf:${ev.vid}`, json, "NX", "EX", 180 * DAY]);
-    }
+    out.push(ev);
   }
-  cmds.push(["ZREMRANGEBYSCORE", "live", 0, now - 10 * 60 * 1000]);
 
   try {
-    await redis(cmds);
+    await saveEvents(out);
   } catch (err) {
     console.error("track store error", err);
   }
