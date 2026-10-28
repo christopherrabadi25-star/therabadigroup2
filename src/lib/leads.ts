@@ -1,5 +1,4 @@
-import { redis, DAY } from "@/lib/store";
-import type { StoredEvent } from "@/lib/tracking";
+import { getVisitor, insertLead, listLeads, updateLeadStatus } from "@/lib/store";
 
 export interface Lead {
   id: string;
@@ -35,12 +34,7 @@ export async function saveLead(input: Omit<Lead, "id" | "ts">): Promise<Lead> {
   const ts = Date.now();
   const lead: Lead = { ...input, id: ts.toString(36) + Math.random().toString(36).slice(2, 6), ts };
   if (lead.vid) {
-    const [first, journey] = (await redis([
-      ["GET", `vf:${lead.vid}`],
-      ["LRANGE", `vj:${lead.vid}`, 0, 299],
-    ])) as [string | null, string[] | null];
-    const f: StoredEvent | null = first ? JSON.parse(first) : null;
-    const evs: StoredEvent[] = (journey || []).map((j) => JSON.parse(j));
+    const { first: f, journey: evs } = await getVisitor(lead.vid);
     if (f) {
       Object.assign(lead, {
         src: f.src,
@@ -60,33 +54,18 @@ export async function saveLead(input: Omit<Lead, "id" | "ts">): Promise<Lead> {
     }
     lead.pages = evs
       .filter((e) => e.t === "pageview")
-      .reverse()
       .map((e) => ({ path: e.path, ts: e.ts }));
     lead.sessions = new Set(evs.map((e) => e.sid)).size;
   }
-  await redis([
-    ["LPUSH", "leads", JSON.stringify(lead)],
-    ["LTRIM", "leads", 0, 4999],
-    ["EXPIRE", `vj:${lead.vid || "none"}`, 365 * DAY],
-  ]);
+  await insertLead({ id: lead.id, ts: lead.ts, status: "New", data: lead as unknown as Record<string, unknown> });
   return lead;
 }
 
 export async function getLeads(): Promise<Lead[]> {
-  const [list, statuses] = (await redis([
-    ["LRANGE", "leads", 0, 4999],
-    ["HGETALL", "leadstatus"],
-  ])) as [string[] | null, string[] | Record<string, string> | null];
-  const st: Record<string, string> = {};
-  if (Array.isArray(statuses)) for (let i = 0; i < statuses.length; i += 2) st[statuses[i]] = statuses[i + 1];
-  else if (statuses) Object.assign(st, statuses);
-  return (list || []).map((j) => {
-    const l = JSON.parse(j) as Lead;
-    l.status = st[l.id] || "New";
-    return l;
-  });
+  const rows = await listLeads();
+  return rows.map((r) => ({ ...(r.data as unknown as Lead), id: r.id, ts: r.ts, status: r.status || "New" }));
 }
 
 export async function setLeadStatus(id: string, status: string) {
-  await redis([["HSET", "leadstatus", id, status]]);
+  await updateLeadStatus(id, status);
 }

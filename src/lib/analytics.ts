@@ -1,4 +1,4 @@
-import { redis, lastDays, TZ } from "@/lib/store";
+import { getEventsSince, getLive, lastDays, TZ, DAY_MS } from "@/lib/store";
 import type { StoredEvent } from "@/lib/tracking";
 import type { Lead } from "@/lib/leads";
 
@@ -80,14 +80,8 @@ function hourOf(ts: number) {
 
 export async function buildReport(range: number, leads: Lead[]): Promise<Report> {
   const days = lastDays(range);
-  const res = (await redis([...days.map((d) => ["LRANGE", `ev:${d}`, 0, -1]), ["ZRANGE", "live", 0, -1, "WITHSCORES"]])) as (string[] | null)[];
-  const liveRaw = (res.pop() || []) as string[];
-  const events: StoredEvent[] = [];
-  for (const list of res) for (const j of list || []) {
-    try {
-      events.push(JSON.parse(j));
-    } catch {}
-  }
+  const dayStart = Date.now() - range * DAY_MS;
+  const [events, liveRows] = await Promise.all([getEventsSince(dayStart), getLive(Date.now() - 5 * 60 * 1000)]);
   events.sort((a, b) => a.ts - b.ts);
 
   const since = Date.now() - range * 86400000;
@@ -233,15 +227,7 @@ export async function buildReport(range: number, leads: Lead[]): Promise<Report>
   for (const l of rangeLeads) leadDays.set(dayFmt.format(l.ts), (leadDays.get(dayFmt.format(l.ts)) || 0) + 1);
 
   // live: latest page per visitor in last 5 minutes
-  const liveMap = new Map<string, { vid: string; path: string; ts: number }>();
-  for (let i = 0; i < liveRaw.length; i += 2) {
-    const [vid, ...p] = liveRaw[i].split("|");
-    const ts = Number(liveRaw[i + 1]);
-    if (Date.now() - ts > 5 * 60 * 1000) continue;
-    const cur = liveMap.get(vid);
-    if (!cur || cur.ts < ts) liveMap.set(vid, { vid, path: p.join("|"), ts });
-  }
-  const live = [...liveMap.values()]
+  const live = liveRows
     .map((x) => ({ ...x, src: visitors.get(x.vid)?.src, city: visitors.get(x.vid)?.city }))
     .sort((a, b) => b.ts - a.ts);
 
