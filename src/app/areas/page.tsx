@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { BUSINESS, REGIONS, formatPrice, saleStatus, salesIn } from "@/lib/data";
+import { BUSINESS, REGIONS } from "@/lib/data";
+import { CITIES } from "@/lib/cities";
 import PageIntro from "@/components/PageIntro";
-import { PHOTOS } from "@/lib/data";
+import CityTiles from "@/components/CityTiles";
 import ContactPanel from "@/components/ContactPanel";
 import { Reveal } from "@/components/Motion";
 
 export const metadata: Metadata = {
   title: "Areas We Serve",
   description:
-    "The Rabadi Group sells homes in Claremont, La Verne, Pasadena, Sierra Madre, Monrovia, Glendora, Los Feliz, the Hollywood Hills, West Hollywood, Beverly Hills, Dana Point, and Laguna Beach.",
+    "Claremont, La Verne, Glendora, and San Dimas, plus Pasadena, Sierra Madre, Los Angeles, and the Orange County coast. The Rabadi Group, Claremont.",
   alternates: { canonical: "/areas" },
 };
 
-const slug = (s: string) => s.toLowerCase().replace(/\s+/g, "-");
+const core = new Set(CITIES.map((c) => c.name));
 
 export default function AreasPage() {
   const schema = {
@@ -29,56 +29,37 @@ export default function AreasPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      <PageIntro
-        title="Where we work"
-        lead="Every area we work in, and what we've sold there."
-        image={PHOTOS.peppertree}
-        fallback="/images/la-verne-new.jpg"
-        imageAlt="A La Habra Heights estate we sold"
-      />
+      <PageIntro title="Where we work" lead="Home base: the foothill cities." image="/images/sgv.jpg" imageAlt="The foothill cities from above" />
 
-      {REGIONS.map((r, ri) => (
-        <section key={r.name} id={slug(r.name)} className={ri % 2 ? "light section" : "section bg-onyx"}>
-          <div className="wrap">
-            <Reveal>
-              <h2 className="h-section max-w-[18ch]">{r.name}</h2>
-              <p className={`lead mt-5 ${ri % 2 ? "text-ink-soft" : "text-ivory/75"}`}>{r.note}</p>
-            </Reveal>
-            <ul className="mt-14 grid gap-x-16 md:grid-cols-2">
-              {r.cities.map((c, ci) => {
-                const sold = salesIn(c.name);
-                return (
-                  <Reveal as="li" key={c.name} delay={(ci % 2) * 0.08} className="border-t border-current/15 py-8">
-                    <h3 id={slug(c.name)} className="text-[2rem]">
-                      {c.name}
-                    </h3>
-                    <p className="mt-2 opacity-75">{c.desc}</p>
-                    {c.name === "Claremont" && (
-                      <Link href="/areas/claremont" className="link-more mt-4 inline-block">
-                        Claremont real estate
-                      </Link>
-                    )}
-                    {sold.length > 0 && (
-                      <ul className="mt-5 space-y-1.5 text-[0.97rem]">
-                        {sold.map((s) => (
-                          <li key={s.slug} className="flex justify-between gap-4">
-                            <span>
-                              {s.address} <span className="opacity-60">{saleStatus(s, "")}</span>
-                            </span>
-                            <span className="num shrink-0 text-[1.15rem]">{formatPrice(s.price, true)}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </Reveal>
-                );
-              })}
-            </ul>
+      <section aria-label="Our home cities" className="bg-onyx">
+        <CityTiles to="areas" />
+      </section>
+
+      <section className="section bg-onyx">
+        <div className="wrap">
+          <Reveal>
+            <h2 className="h-section mb-12">Also serving</h2>
+          </Reveal>
+          <div className="grid gap-12 md:grid-cols-3">
+            {REGIONS.map((r, ri) => (
+              <Reveal key={r.name} delay={ri * 0.08}>
+                <p className="kicker text-champagne">{r.name}</p>
+                <ul className="mt-4">
+                  {r.cities
+                    .filter((c) => !core.has(c.name))
+                    .map((c) => (
+                      <li key={c.name} className="border-t border-ivory/10 py-3">
+                        {c.name}
+                      </li>
+                    ))}
+                </ul>
+              </Reveal>
+            ))}
           </div>
-        </section>
-      ))}
+        </div>
+      </section>
 
-      <ContactPanel heading="Looking in a particular area?" intro="Tell us where and what you need. We'll share what's realistic there right now." defaultTopic="Buying a home" />
+      <ContactPanel heading="Looking in a particular area?" intro="Tell us where. We'll tell you what's realistic." defaultTopic="Buying a home" />
     </>
   );
 }

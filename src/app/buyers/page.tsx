@@ -16,12 +16,12 @@ export const metadata: Metadata = {
 };
 
 const STEPS = [
-  { title: "A conversation", body: "Your goals, timeline, and budget, and what's realistic." },
-  { title: "Financing", body: "Lenders who move fast, so sellers take you seriously." },
-  { title: "The right homes", body: "We screen listings and hear about homes before they go public." },
+  { title: "A conversation", body: "Goals, budget, timing." },
+  { title: "Financing", body: "Lenders who move fast." },
+  { title: "The right homes", body: "Including homes before they go public." },
   { title: "A winning offer", body: "Terms that win without overpaying." },
-  { title: "Inspections", body: "We use what we find to get repairs or credits." },
-  { title: "Closing", body: "Escrow, loan, and walkthrough, managed until you have keys." },
+  { title: "Inspections", body: "Turned into repairs or credits." },
+  { title: "Closing", body: "Managed until you have keys." },
 ];
 
 export default function BuyersPage() {
@@ -73,7 +73,7 @@ export default function BuyersPage() {
 
       <ContactPanel
         heading="Tell us what you want"
-        intro="Area, budget, and timing. We'll reply with what's available."
+        intro="Area, budget, timing."
         defaultTopic="Buying a home"
       />
     </>

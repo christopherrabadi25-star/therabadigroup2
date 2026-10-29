@@ -37,7 +37,7 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <PageIntro
         title="About us"
-        lead="Father and son. $110M+ closed and more than 20 years in Southern California real estate."
+        lead="Father and son. $110M+ closed."
         image={PHOTOS.risingGlen}
         fallback="/images/rising-glen.jpg"
         imageAlt="A Hollywood Hills home we sold"

@@ -46,32 +46,32 @@ export const MARKHAM = {
     {
       year: "1879",
       title: "A governor comes to Pasadena",
-      body: "Civil War veteran Henry Harrison Markham moves his family to Pasadena. He later serves in Congress and, from 1891 to 1895, as Governor of California. The neighborhood around his estate still carries his name.",
+      body: "Henry Harrison Markham moves to Pasadena. He later serves as Governor of California, 1891 to 1895.",
     },
     {
       year: "1880s",
       title: "Carlisle Heights is laid out",
-      body: "Developer George Woodbury Stimson subdivides the Carlisle Heights tract and designs the layout of Markham Place, a short, quiet street just off South Orange Grove Boulevard, Pasadena's Millionaires' Row.",
+      body: "George Woodbury Stimson lays out Markham Place, just off South Orange Grove Boulevard.",
     },
     {
       year: "1901",
       title: "The house is built",
-      body: "A two-story Colonial Revival rises at 303 Markham Place, attributed to architect Herbert L. Smith. It joins Queen Anne, Shingle, and Craftsman neighbors designed by some of the most important architects working in early Pasadena.",
+      body: "A two-story Colonial Revival rises at 303 Markham Place, attributed to Herbert L. Smith.",
     },
     {
       year: "2013",
       title: "National Register of Historic Places",
-      body: "Nominated by Pasadena Heritage, the Markham Place Historic District is listed on the National Register. Nearly every house in the district was built between 1891 and 1933.",
+      body: "The Markham Place Historic District joins the National Register.",
     },
     {
       year: "2016",
       title: "Restored for a new century",
-      body: "Pasadena architect James V. Coane leads a renovation that adds a chef's kitchen and modern systems, including a retrofitted foundation, rebuilt chimney, and 200-amp service, while keeping the 1901 character intact.",
+      body: "James V. Coane renovates it, adding modern systems and keeping the 1901 character.",
     },
     {
       year: "2026",
       title: "A new chapter",
-      body: "The house lists in September for the first time in over a decade. Two days later it is under contract with our buyer, and on October 26 it closes at $4,675,000.",
+      body: "Under contract for our buyer in two days. Closed October 26 at $4,675,000.",
     },
   ],
 } as const;

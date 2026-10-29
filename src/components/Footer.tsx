@@ -11,8 +11,7 @@ export default function Footer() {
         <div className="mt-14 grid gap-12 border-t border-ivory/10 pt-12 md:grid-cols-[1.3fr_1fr_1fr]">
           <div>
             <p className="max-w-sm text-ivory/75">
-              Ramzi and Christopher Rabadi, a father and son team, with more than twenty years of Southern California
-              real estate behind them.
+              Ramzi and Christopher Rabadi. Father and son, Claremont.
             </p>
             <div className="mt-6 space-y-1.5">
               <a href={BUSINESS.phoneHref} className="block text-[1.5rem] font-semibold tracking-[-0.01em] no-underline hover:text-champagne">

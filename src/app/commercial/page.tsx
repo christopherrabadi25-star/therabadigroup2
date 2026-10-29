@@ -16,20 +16,20 @@ export const metadata: Metadata = {
 };
 
 const TYPES = [
-  { title: "Multi-family", body: "Duplexes to apartment buildings, including West Hollywood income property." },
-  { title: "Retail", body: "Strip centers and storefronts, with tenant mix and lease quality reviewed before you commit." },
-  { title: "Industrial", body: "Warehouse, flex, and distribution space, with NNN leases and cap rates underwritten." },
-  { title: "Gas stations", body: "Fee simple, leased fee, and leasebacks, including environmental and tank disclosures." },
-  { title: "Ground leases", body: "Acquisitions and dispositions from the landlord and the tenant side." },
-  { title: "Office and mixed-use", body: "Professional buildings and residential over retail." },
+  { title: "Multi-family", body: "Duplexes to apartment buildings." },
+  { title: "Retail", body: "Strip centers and storefronts." },
+  { title: "Industrial", body: "Warehouse, flex, and distribution." },
+  { title: "Gas stations", body: "Fee simple, leased fee, leasebacks." },
+  { title: "Ground leases", body: "Landlord and tenant side." },
+  { title: "Office and mixed-use", body: "Professional and residential over retail." },
 ];
 
 const STEPS = [
-  { title: "The objective", body: "Buy, sell, 1031 exchange, or reposition. We agree on strategy before any offer or listing." },
-  { title: "The value", body: "Comparable sales, cap rates, and the rent roll, distilled into a range the market will pay." },
-  { title: "The market", body: "Buyers: on and off-market sourcing. Sellers: an offering package sent to qualified buyers we know." },
-  { title: "Due diligence", body: "Inspections, environmental, leases, title, and zoning, coordinated so nothing surprises you." },
-  { title: "Negotiation and close", body: "Terms, credits, and timing, then escrow and lender coordination to a clean close." },
+  { title: "The objective", body: "Buy, sell, 1031, or reposition." },
+  { title: "The value", body: "Comps, cap rates, and the rent roll." },
+  { title: "The market", body: "On and off-market, to buyers we know." },
+  { title: "Due diligence", body: "Inspections, leases, title, zoning." },
+  { title: "Negotiation and close", body: "Terms, credits, and a clean close." },
 ];
 
 export default function CommercialPage() {
@@ -95,7 +95,7 @@ export default function CommercialPage() {
 
       <ContactPanel
         heading="Tell us about the property"
-        intro="Asset type, location, and your goal. Ramzi will call you back with an honest read."
+        intro="Asset, location, goal. Ramzi will call you back."
         defaultTopic="Commercial or investment"
       />
     </>

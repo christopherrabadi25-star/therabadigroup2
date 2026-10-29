@@ -6,6 +6,7 @@ import HeroCinema, { type Slide } from "@/components/HeroCinema";
 import SaleCard from "@/components/SaleCard";
 import ContactPanel from "@/components/ContactPanel";
 import FAQ from "@/components/FAQ";
+import CityTiles from "@/components/CityTiles";
 import { CountUp, ParallaxImage, Reveal } from "@/components/Motion";
 import { PhoneIcon } from "@/components/Icons";
 import { MARKHAM } from "@/lib/markham";
@@ -73,9 +74,9 @@ const SLIDES: Slide[] = [
 ];
 
 const SERVICES = [
-  { title: "Selling", body: "Sharp pricing, standout presentation, and hard negotiation. Our listings average 4.2% over asking.", href: "/sellers" },
-  { title: "Buying", body: "Offers that win without overpaying, from Sierra Madre to a $4.675M Pasadena estate.", href: "/buyers" },
-  { title: "Commercial", body: "Multi-family, retail, industrial, gas stations, and ground leases. Twenty years of deals.", href: "/commercial" },
+  { title: "Selling", body: "Sharp pricing, cinematic marketing, hard negotiation.", href: "/sellers" },
+  { title: "Buying", body: "Offers that win without overpaying.", href: "/buyers" },
+  { title: "Commercial", body: "Multi-family, retail, industrial, gas stations, ground leases.", href: "/commercial" },
 ];
 
 export default function HomePage() {
@@ -98,11 +99,11 @@ export default function HomePage() {
           </Link>
         </Reveal>
         <Reveal delay={0.05} y={30}>
-          <h1 className="display max-w-[12ch]">Southern California&apos;s premier real estate team.</h1>
+          <h1 className="display max-w-[12ch]">Claremont&apos;s luxury real estate team.</h1>
         </Reveal>
         <Reveal delay={0.2}>
           <p className="lead mt-6 text-ivory/90">
-            $110M+ in closed sales. More than 20 years of experience. Ramzi and Christopher Rabadi.
+            $110M+ closed. Ramzi and Christopher Rabadi.
           </p>
         </Reveal>
         <Reveal delay={0.32}>
@@ -146,8 +147,7 @@ export default function HomePage() {
             <p className="num mt-6 text-[clamp(3.4rem,12vw,8.5rem)] leading-[0.9]">{formatPrice(MARKHAM.price)}</p>
             <h2 className="mt-5 font-display text-[clamp(1.8rem,4.6vw,3rem)] leading-tight">303 Markham Place, Pasadena</h2>
             <p className="lead mt-3 text-ivory/85">
-              A 1901 Colonial Revival in the Governor Markham Landmark District, on the National Register of Historic Places. Under contract
-              for our buyer in two days.
+              1901 Colonial Revival on the National Register. Under contract in two days.
             </p>
             <Link href={`/listings/${MARKHAM.slug}`} className="btn btn-light mt-8">
               See the house and its history
@@ -218,7 +218,6 @@ export default function HomePage() {
         <div className="wrap grid gap-10 lg:grid-cols-[1fr_1.7fr] lg:gap-20">
           <Reveal>
             <h2 className="h-section">Notable sales</h2>
-            <p className="lead mt-4 text-ivory/75">Our highest closings on record.</p>
             <Link href="/listings" className="link-more mt-6">
               Full sales history
             </Link>
@@ -243,6 +242,19 @@ export default function HomePage() {
             ))}
           </ol>
         </div>
+      </section>
+
+      {/* Home cities */}
+      <section aria-label="Our home cities" className="bg-onyx">
+        <div className="wrap flex flex-wrap items-end justify-between gap-4 py-14 md:py-20">
+          <Reveal>
+            <h2 className="h-section">Our home cities</h2>
+          </Reveal>
+          <Link href="/market" className="link-more">
+            Market updates
+          </Link>
+        </div>
+        <CityTiles />
       </section>
 
       {/* Services */}
@@ -270,7 +282,7 @@ export default function HomePage() {
         <div className="wrap grid gap-14 lg:grid-cols-[1fr_1.5fr] lg:gap-20">
           <Reveal>
             <h2 className="h-section">Ramzi and Christopher</h2>
-            <p className="lead mt-5 text-ink-soft">Father and son. Two agents on every deal, and both pick up the phone.</p>
+            <p className="lead mt-5 text-ink-soft">Father and son. Both pick up the phone.</p>
             <Link href="/about" className="link-more mt-6">
               About us
             </Link>
@@ -289,7 +301,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <ContactPanel heading="What is your home worth?" intro="Send the address. We'll reply with a value range based on the closest recent sales." />
+      <ContactPanel heading="What is your home worth?" intro="Send the address. We'll send a value range." />
 
       <FAQ />
     </>

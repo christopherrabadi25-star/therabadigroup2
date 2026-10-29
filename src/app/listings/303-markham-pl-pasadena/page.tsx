@@ -88,17 +88,10 @@ export default function MarkhamPage() {
           <Reveal delay={0.1}>
             <div className="prose-body text-[1.1rem] leading-relaxed text-ivory/85">
               <p>
-                Markham Place is one block long and sits just off South Orange Grove Boulevard, the stretch of Pasadena once called
-                Millionaires&apos; Row. Homes here almost never come up for sale, and this one had not changed hands since 2015.
+                One block off South Orange Grove, Pasadena&apos;s old Millionaires&apos; Row. Homes here almost never come up.
               </p>
               <p>
-                Built in 1901 and attributed to architect Herbert L. Smith, the house was carefully renovated in 2016 by Pasadena architect
-                James V. Coane. Behind the original facade: a chef&apos;s kitchen, formal dining room, study, four bedrooms upstairs including a
-                primary suite with its own balcony, and a backyard with a pool, spa, cabana with outdoor kitchen, and a guest studio.
-              </p>
-              <p>
-                It listed in September. Two days later it was under contract with our buyer, and it closed on October 26, 2026 at{" "}
-                {formatPrice(MARKHAM.price)}.
+                Attributed to Herbert L. Smith, renovated in 2016 by James V. Coane. Under contract for our buyer in two days.
               </p>
             </div>
             <ul className="mt-8 flex flex-wrap gap-2">
@@ -149,8 +142,7 @@ export default function MarkhamPage() {
           <Reveal>
             <h2 className="h-section max-w-[16ch]">Looking for a house like this one?</h2>
             <p className="lead mt-5 text-ink-soft">
-              Historic homes in Pasadena rarely last. We know the streets, the architects, and the comps, and we move fast when the right one
-              appears.
+              Historic Pasadena homes rarely last. We move fast.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a href={BUSINESS.phoneHref} className="btn btn-dark">

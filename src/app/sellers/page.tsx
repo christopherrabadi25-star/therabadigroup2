@@ -15,12 +15,12 @@ export const metadata: Metadata = {
 };
 
 const STEPS = [
-  { title: "An honest value", body: "We price from the closest recent sales, not wishful thinking." },
-  { title: "Preparation", body: "What to fix, stage, or leave alone." },
-  { title: "Marketing", body: "Professional photos, the MLS, every major portal, and calls to agents with buyers." },
-  { title: "Showings and offers", body: "We run showings and compare every term of every offer." },
-  { title: "Negotiation", body: "Price, credits, contingencies, timing. Twenty years of experience on your side." },
-  { title: "Closing", body: "Escrow, title, and lender, managed through to close." },
+  { title: "An honest value", body: "Priced from real recent sales." },
+  { title: "Preparation", body: "What to fix, stage, or leave." },
+  { title: "Marketing", body: "Cinematic photos, every portal, and agents with buyers." },
+  { title: "Showings and offers", body: "Every term of every offer compared." },
+  { title: "Negotiation", body: "Twenty years of it, on your side." },
+  { title: "Closing", body: "Managed through to close." },
 ];
 
 export default function SellersPage() {
@@ -54,9 +54,6 @@ export default function SellersPage() {
           </Reveal>
           <Reveal delay={0.12} className="prose-body text-[1.12rem]">
             <p>On a $900,000 home, that&apos;s about $37,800 more at closing.</p>
-            <p className="text-ivory/75">
-              It comes from pricing right on day one, presenting the home well, and negotiating every term.
-            </p>
           </Reveal>
         </div>
       </section>
@@ -95,7 +92,7 @@ export default function SellersPage() {
         </div>
       </section>
 
-      <ContactPanel heading="What is your home worth?" intro="Send the address. We'll reply with a value range, usually the same day." />
+      <ContactPanel heading="What is your home worth?" intro="Send the address. We'll send a value range." />
     </>
   );
 }

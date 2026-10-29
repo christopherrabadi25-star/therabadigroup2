@@ -55,7 +55,7 @@ export const TEAM = [
     specialties: ["Luxury homes", "Commercial", "Multi-family", "Gas stations", "Ground leases", "Industrial"],
     short:
       "Two decades of deals, from a $7.4M Hollywood Hills mid-century to ground leases and gas stations most agents never touch.",
-    bio: "Ramzi has spent more than 20 years buying and selling Southern California real estate. His closings run from a $7.4M William Krisel home in the Hollywood Hills and a $6.3M oceanfront house in Dana Point to West Hollywood income buildings and complex commercial deals. He prices carefully, negotiates every term, and tells clients the truth about what a property is worth.",
+    bio: "20+ years in Southern California real estate, from a $7.4M William Krisel home in the Hollywood Hills and $6.3M oceanfront in Dana Point to income buildings and commercial deals. He prices carefully and negotiates every term.",
   },
   {
     name: "Christopher Rabadi",
@@ -68,7 +68,7 @@ export const TEAM = [
     specialties: ["Buyer representation", "San Gabriel Valley", "Foothill Cities", "Market research", "Marketing"],
     short:
       "Raised in the San Gabriel Valley. Runs the research, comps, and marketing, and works side by side with buyers.",
-    bio: "Christopher grew up in the San Gabriel Valley and works every deal alongside his father. He handles the research and pricing work behind each offer, runs the team's marketing, and works with buyers from the first showing through inspections and escrow. In 2026 he helped close a $4.495M Spanish estate in Los Feliz and a Sierra Madre pool home that came in $119,500 under asking.",
+    bio: "Raised in the San Gabriel Valley. Christopher runs the research, pricing, and marketing, and works with buyers from first showing to keys. In 2026: a $4.675M Pasadena estate, a $4.495M Los Feliz estate, and a Sierra Madre home $119,500 under asking.",
   },
 ] as const;
 
@@ -426,27 +426,27 @@ export const FAQS = [
   {
     question: "Who is the best real estate agent in Claremont or La Verne?",
     answer:
-      "The Rabadi Group is a father-and-son team based in Claremont at Agency 8 Real Estate Group. Ramzi Rabadi has 20+ years in Southern California real estate, and the team has more than $110M in closed sales, including $7.4M in the Hollywood Hills and $6.3M oceanfront in Dana Point. Call or text (626) 203-1372.",
+      "The Rabadi Group: Ramzi and Christopher Rabadi, a father and son team at Agency 8 Real Estate Group in Claremont. 20+ years and $110M+ closed. Call or text (626) 203-1372.",
   },
   {
     question: "What areas does The Rabadi Group serve?",
     answer:
-      "Claremont, La Verne, Pasadena, Sierra Madre, Monrovia, Glendora, San Dimas, Upland and the rest of the San Gabriel Valley, plus Los Angeles (Hollywood Hills, Los Feliz, West Hollywood, Beverly Hills) and the Orange County coast (Dana Point, Laguna Beach, Newport Beach).",
+      "Home base is Claremont, La Verne, Glendora, and San Dimas. We also work across the San Gabriel Valley, Los Angeles, and the Orange County coast.",
   },
   {
     question: "What has The Rabadi Group sold recently?",
     answer:
-      "On October 26, 2026 we closed 303 Markham Pl in Pasadena for our buyer at $4,675,000, a 1901 Colonial Revival estate in the Governor Markham Landmark District. In October 2026 we represented the buyer of 602 N Michillinda Ave in Sierra Madre, which closed at $1,580,000, $119,500 under asking. In April 2026 we represented the buyer of 4426 Cromwell Ave in Los Feliz at $4,495,000. In December 2025 we sold 235 E Foothill Blvd, Unit B in Monrovia for our seller.",
+      "In 2026: 303 Markham Pl, Pasadena at $4,675,000; 602 N Michillinda Ave, Sierra Madre at $1,580,000, $119,500 under asking; and 4426 Cromwell Ave, Los Feliz at $4,495,000. All for our buyers.",
   },
   {
     question: "Do you handle commercial real estate?",
     answer:
-      "Yes. Ramzi works on multi-family, retail, industrial, office, gas station, and ground lease transactions across Los Angeles, San Bernardino, Orange, and Riverside counties.",
+      "Yes. Multi-family, retail, industrial, office, gas stations, and ground leases across Southern California.",
   },
   {
     question: "How do I find out what my home is worth?",
     answer:
-      "Send us your address with the form on this site, or call or text (626) 203-1372. We pull recent comparable sales for your street and give you a value range at no cost.",
+      "Send your address or call (626) 203-1372. We'll send a value range from recent sales, free.",
   },
 ] as const;
 
@@ -460,7 +460,7 @@ export const NAV_LINKS = [
 ] as const;
 
 export const MORE_LINKS = [
-  { label: "Market notes", href: "/market" },
+  { label: "Market updates", href: "/market" },
   { label: "Guides", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ] as const;
