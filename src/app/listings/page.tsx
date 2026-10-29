@@ -48,7 +48,9 @@ export default function ListingsPage() {
         position="40% 55%"
       />
 
-      <section className="section bg-onyx">
+      <ComingSoon />
+
+      <section className="section !pt-0 bg-onyx">
         <div className="wrap">
           <h2 className="sr-only">Featured sales</h2>
           <div className="grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
@@ -60,8 +62,6 @@ export default function ListingsPage() {
           </div>
         </div>
       </section>
-
-      <ComingSoon />
 
       <section className="light section">
         <div className="wrap">
