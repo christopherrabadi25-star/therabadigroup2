@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BUSINESS, TEAM, formatDate } from "@/lib/data";
-import { GLENDORA_DUPLEX as L, listingNumbers, usd } from "@/lib/listings";
+import { GLENDORA_DUPLEX as L, cagr, listingNumbers, usd } from "@/lib/listings";
+import ProjectionCharts from "@/components/ProjectionCharts";
 import { Reveal } from "@/components/Motion";
 import ContactPanel from "@/components/ContactPanel";
 import PrintButton from "@/components/PrintButton";
@@ -9,6 +10,19 @@ import { PhoneIcon } from "@/components/Icons";
 
 const n = listingNumbers(L);
 const pct = (v: number) => `${v.toFixed(2)}%`;
+const TODAY = "2026-10-29";
+const lastSale = L.valueHistory[L.valueHistory.length - 1];
+const lastRent = L.rentHistory[L.rentHistory.length - 1];
+const projection = {
+  price: L.price,
+  startYear: 2026,
+  annualRent: n.gross,
+  valueHistory: L.valueHistory.map((h) => ({ year: Number(h.date.slice(0, 4)), value: h.value, label: h.label })),
+  rentHistory: L.rentHistory.map((h) => ({ year: Number(h.date.slice(0, 4)), annual: h.monthly * 12, label: h.label })),
+  historicAppreciation: cagr(lastSale.value, L.price, lastSale.date, TODAY),
+  historicRentGrowth: cagr(lastRent.monthly, n.monthly, lastRent.date, TODAY),
+  cpi: L.cpi,
+};
 
 export const metadata: Metadata = {
   title: `Coming Soon: ${L.address}, ${L.city} | Duplex ${usd(L.price)}`,
@@ -101,7 +115,7 @@ export default function GlendoraDuplexPage() {
       </section>
 
       {/* Rent roll + pro forma */}
-      <section className="light section">
+      <section className="light-2 section">
         <div className="wrap grid gap-14 lg:grid-cols-2 lg:gap-20">
           <Reveal>
             <h2 className="h-section">Rent roll</h2>
@@ -173,6 +187,28 @@ export default function GlendoraDuplexPage() {
               Expenses are estimates for a buyer at list price. Tenants pay their own gas and electric. Buyer to verify all figures.
             </p>
           </Reveal>
+        </div>
+      </section>
+
+      {/* Growth projections */}
+      <section className="light section">
+        <div className="wrap">
+          <Reveal>
+            <h2 className="h-section">Appreciation and rent growth</h2>
+            <p className="lead mt-5 max-w-[62ch] text-ink-soft">
+              Drag the sliders to set your own assumptions. Since the {lastSale.label.replace("Sold ", "")} sale, rents here are up{" "}
+              {Math.round((n.monthly / lastRent.monthly - 1) * 100)}%.
+            </p>
+          </Reveal>
+          <div className="mt-12">
+            <ProjectionCharts data={projection} />
+          </div>
+          <p className="mt-8 max-w-[80ch] text-[0.9rem] text-ink-soft">
+            Projections are illustrations, not forecasts. The legal maximum is California&apos;s AB 1482 cap: 5% plus regional CPI, never more than 10%
+            in a year. For increases on or after August 1, 2026 in the Los Angeles area that is 8.7%. It is a ceiling, not an expected rent, and
+            actual increases depend on the market and the lease. A duplex where the owner lives in one unit is exempt. Value history shows recorded
+            sales; 2026 uses the list price. Buyer to verify local rules with counsel.
+          </p>
         </div>
       </section>
 

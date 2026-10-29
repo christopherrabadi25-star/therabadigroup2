@@ -48,6 +48,11 @@ export interface Listing {
   disclosures: string[];
   comps: Comp[];
   compsSource: string;
+  /** Recorded sales and rents, for the appreciation and rent charts. */
+  valueHistory: { date: string; value: number; label: string }[];
+  rentHistory: { date: string; monthly: number; label: string }[];
+  /** Regional CPI behind the current AB 1482 cap (LA area, increases on or after Aug 1, 2026). */
+  cpi: number;
 }
 
 export const GLENDORA_DUPLEX: Listing = {
@@ -102,6 +107,12 @@ export const GLENDORA_DUPLEX: Listing = {
     { address: "605 W 1st St", city: "Azusa", price: 950000, closed: "2025-06-18", sqft: 2119, yearBuilt: 1951, lotSqft: 13455, gsi: 40800 },
   ],
   compsSource: "CRMLS closed duplex sales in Glendora and Azusa, May 2025 to October 2026. GRM shown where gross income was reported.",
+  valueHistory: [
+    { date: "2013-05-13", value: 465000, label: "Sold May 2013" },
+    { date: "2018-08-16", value: 720000, label: "Sold Aug 2018" },
+  ],
+  rentHistory: [{ date: "2018-08-16", monthly: 3320, label: "2018 rents, $3,320/mo (MLS)" }],
+  cpi: 3.7,
 };
 
 export const LISTINGS: Listing[] = [GLENDORA_DUPLEX];
@@ -122,6 +133,12 @@ export function listingNumbers(l: Listing) {
     perUnit: l.price / l.units.length,
     perSqft: l.price / l.buildingSqft,
   };
+}
+
+/** Compound annual growth between two dated values. */
+export function cagr(from: number, to: number, fromDate: string, toDate: string) {
+  const yrs = (new Date(toDate).getTime() - new Date(fromDate).getTime()) / (365.25 * 864e5);
+  return (Math.pow(to / from, 1 / yrs) - 1) * 100;
 }
 
 export const usd = (n: number) =>
