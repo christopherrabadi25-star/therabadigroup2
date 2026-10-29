@@ -98,7 +98,7 @@ export default function CommercialPage() {
         <div className="wrap grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-24">
           <Reveal>
             <h2 className="h-section">Commercial closed</h2>
-            <p className="lead mt-5 text-ink-soft">Gas stations and industrial, from public records.</p>
+            <p className="lead mt-5 text-ink-soft">Gas stations, retail and industrial, from public records.</p>
           </Reveal>
           <ul>
             {closed.map((s) => (
