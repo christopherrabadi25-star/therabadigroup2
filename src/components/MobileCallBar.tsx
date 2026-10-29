@@ -9,6 +9,7 @@ export default function MobileCallBar() {
   return (
     <nav
       aria-label="Quick contact"
+      data-print-hide
       className="fixed inset-x-0 bottom-0 z-30 border-t border-ivory/10 bg-onyx/95 text-ivory backdrop-blur-md md:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >

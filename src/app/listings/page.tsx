@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PHOTOS, SALES_BY_DATE, formatPrice, placeLabel, saleStatus } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import SaleCard from "@/components/SaleCard";
+import ComingSoon from "@/components/ComingSoon";
 import ContactPanel from "@/components/ContactPanel";
 import { Reveal } from "@/components/Motion";
 
@@ -59,6 +60,8 @@ export default function ListingsPage() {
           </div>
         </div>
       </section>
+
+      <ComingSoon />
 
       <section className="light section">
         <div className="wrap">

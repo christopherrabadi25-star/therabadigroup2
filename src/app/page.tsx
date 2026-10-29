@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BUSINESS, PHOTOS, formatDate, RECENT_SALES, STATS, TEAM, SALES, formatPrice } from "@/lib/data";
 import HeroCinema, { type Slide } from "@/components/HeroCinema";
 import SaleCard from "@/components/SaleCard";
+import ComingSoon from "@/components/ComingSoon";
 import ContactPanel from "@/components/ContactPanel";
 import FAQ from "@/components/FAQ";
 import CityTiles from "@/components/CityTiles";
@@ -166,6 +167,8 @@ export default function HomePage() {
           </Reveal>
         </div>
       </section>
+
+      <ComingSoon />
 
       {/* Just sold */}
       <section className="section bg-onyx">

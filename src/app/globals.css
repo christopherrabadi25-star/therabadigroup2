@@ -471,3 +471,13 @@ p {
 @media (prefers-reduced-motion: reduce) {
   .shimmer::after { animation: none; }
 }
+
+/* Printable brochure pages: drop site chrome and motion, print on white. */
+@media print {
+  header, footer, .no-print, [data-print-hide] { display: none !important; }
+  html, body, section, .bg-onyx, .light, .light-2 { background: #fff !important; color: #111 !important; }
+  .text-ivory, .text-ivory\/75, .text-ivory\/85, .text-champagne { color: #111 !important; }
+  * { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  .section { padding-top: 24px !important; padding-bottom: 24px !important; }
+  section { break-inside: avoid; }
+}

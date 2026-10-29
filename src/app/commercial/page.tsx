@@ -4,6 +4,7 @@ import { BUSINESS, SALES, SALES_BY_DATE, formatPrice, placeLabel, saleStatus } f
 import PageIntro from "@/components/PageIntro";
 import Steps from "@/components/Steps";
 import SaleCard from "@/components/SaleCard";
+import ComingSoon from "@/components/ComingSoon";
 import ContactPanel from "@/components/ContactPanel";
 import { PhoneIcon } from "@/components/Icons";
 import { Reveal } from "@/components/Motion";
@@ -94,7 +95,9 @@ export default function CommercialPage() {
         </div>
       </section>
 
-      <section className="light section">
+      <ComingSoon tone="light" />
+
+      <section className="light-2 section">
         <div className="wrap grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-24">
           <Reveal>
             <h2 className="h-section">Commercial closed</h2>

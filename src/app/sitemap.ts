@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ["", 1, "weekly"],
     ["/listings", 0.9, "weekly"],
     ["/listings/303-markham-pl-pasadena", 0.9, "monthly"],
+    ["/listings/745-w-foothill-blvd-glendora", 0.9, "weekly"],
     ["/sellers", 0.9, "monthly"],
     ["/buyers", 0.9, "monthly"],
     ["/about", 0.8, "monthly"],
