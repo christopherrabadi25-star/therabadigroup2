@@ -14,8 +14,11 @@ export default function CityShot({
   preload?: boolean;
 }) {
   const remote = photo.src.startsWith("http");
+  // Only default to `relative` when the caller hasn't positioned the figure itself.
+  // Both classes together let `relative` win, which collapses an `absolute inset-0` tile to zero height.
+  const position = /\b(absolute|fixed|sticky)\b/.test(className) ? "" : "relative";
   return (
-    <figure className={`relative overflow-hidden bg-coal ${className}`}>
+    <figure className={`${position} m-0 overflow-hidden bg-coal ${className}`}>
       <Image
         src={photo.src}
         alt={photo.alt}
