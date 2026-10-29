@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BUSINESS, TEAM } from "@/lib/data";
+import { BUSINESS, TEAM, formatDate } from "@/lib/data";
 import { GLENDORA_DUPLEX as L, listingNumbers, usd } from "@/lib/listings";
 import { Reveal } from "@/components/Motion";
 import ContactPanel from "@/components/ContactPanel";
@@ -176,8 +176,64 @@ export default function GlendoraDuplexPage() {
         </div>
       </section>
 
-      {/* Property */}
+      {/* Comparable sales */}
       <section className="light-2 section">
+        <div className="wrap">
+          <Reveal>
+            <h2 className="h-section">Comparable sales</h2>
+            <p className="lead mt-5 max-w-[60ch] text-ink-soft">
+              Duplexes sold nearby in the last 18 months. At {usd(n.gross)} a year, 745 W Foothill rents for {usd(n.gross - L.comps[0].gsi!)} more than 124 N Vista Bonita, the closest Glendora comp.
+            </p>
+          </Reveal>
+          <div className="mt-10 overflow-x-auto">
+            <table className="w-full min-w-[760px] text-left">
+              <thead>
+                <tr className="border-b border-ink/20 text-[0.9rem] text-ink-soft">
+                  <th className="py-3 pr-4 font-medium">Address</th>
+                  <th className="py-3 pr-4 text-right font-medium">Sold price</th>
+                  <th className="py-3 pr-4 font-medium">Closed</th>
+                  <th className="py-3 pr-4 text-right font-medium">Sq ft</th>
+                  <th className="py-3 pr-4 text-right font-medium">$/sq ft</th>
+                  <th className="py-3 pr-4 text-right font-medium">Built</th>
+                  <th className="py-3 text-right font-medium">GRM</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-ink/20 bg-champagne/10 font-semibold">
+                  <td className="py-4 pl-3 pr-4">
+                    {L.address}, {L.city}
+                    <span className="block text-[0.85rem] font-normal text-ink-soft">This property, at list price</span>
+                  </td>
+                  <td className="num py-4 pr-4 text-right text-[1.15rem]">{usd(L.price)}</td>
+                  <td className="py-4 pr-4">{L.status}</td>
+                  <td className="py-4 pr-4 text-right">{L.buildingSqft.toLocaleString()}</td>
+                  <td className="py-4 pr-4 text-right">{usd(n.perSqft)}</td>
+                  <td className="py-4 pr-4 text-right">{L.yearBuilt}</td>
+                  <td className="py-4 pr-3 text-right">{n.grm.toFixed(1)}</td>
+                </tr>
+                {L.comps.map((c) => (
+                  <tr key={c.address} className="border-b border-ink/10">
+                    <td className="py-4 pl-3 pr-4">
+                      {c.address}, {c.city}
+                      {c.note && <span className="block text-[0.85rem] text-ink-soft">{c.note}</span>}
+                    </td>
+                    <td className="num py-4 pr-4 text-right text-[1.15rem]">{usd(c.price)}</td>
+                    <td className="py-4 pr-4">{formatDate(c.closed)}</td>
+                    <td className="py-4 pr-4 text-right">{c.sqft.toLocaleString()}</td>
+                    <td className="py-4 pr-4 text-right">{usd(c.price / c.sqft)}</td>
+                    <td className="py-4 pr-4 text-right">{c.yearBuilt}</td>
+                    <td className="py-4 pr-3 text-right">{c.gsi ? (c.price / c.gsi).toFixed(1) : "n/a"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-[0.9rem] text-ink-soft">{L.compsSource} Deemed reliable but not guaranteed.</p>
+        </div>
+      </section>
+
+      {/* Property */}
+      <section className="light section">
         <div className="wrap grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-24">
           <Reveal>
             <h2 className="h-section">The property</h2>
@@ -209,7 +265,7 @@ export default function GlendoraDuplexPage() {
       </section>
 
       {/* Agents */}
-      <section className="light section">
+      <section className="light-2 section">
         <div className="wrap grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-end">
           <Reveal>
             <h2 className="h-section max-w-[16ch]">Get the package before it hits the market</h2>

@@ -15,6 +15,18 @@ export interface Expense {
   note: string;
 }
 
+export interface Comp {
+  address: string;
+  city: string;
+  price: number;
+  closed: string; // ISO date
+  sqft: number;
+  yearBuilt: number;
+  lotSqft: number;
+  gsi?: number; // gross scheduled income, annual, when reported
+  note?: string;
+}
+
 export interface Listing {
   slug: string;
   status: "Coming soon" | "Active";
@@ -34,6 +46,8 @@ export interface Listing {
   expenses: Expense[];
   highlights: string[];
   disclosures: string[];
+  comps: Comp[];
+  compsSource: string;
 }
 
 export const GLENDORA_DUPLEX: Listing = {
@@ -78,6 +92,16 @@ export const GLENDORA_DUPLEX: Listing = {
     "Building size is 1,806 sq ft per MLS; county records show 1,956 sq ft.",
     "One water meter, shared by both units.",
   ],
+  comps: [
+    { address: "124 N Vista Bonita Ave", city: "Glendora", price: 1030000, closed: "2026-09-15", sqft: 1815, yearBuilt: 1959, lotSqft: 6400, gsi: 55200, note: "Closest comp. Two remodeled 2-bed units" },
+    { address: "1005 N Alameda", city: "Azusa", price: 799000, closed: "2026-10-09", sqft: 1464, yearBuilt: 1928, lotSqft: 7077 },
+    { address: "1012 N Vernon Ave", city: "Azusa", price: 900000, closed: "2026-09-24", sqft: 1976, yearBuilt: 1989, lotSqft: 6577, gsi: 47424 },
+    { address: "1191 E Laxford", city: "Azusa", price: 938000, closed: "2026-05-13", sqft: 1938, yearBuilt: 2025, lotSqft: 6695, note: "New construction" },
+    { address: "302 S Aspan", city: "Azusa", price: 925000, closed: "2026-05-01", sqft: 1831, yearBuilt: 1945, lotSqft: 12695, gsi: 61930 },
+    { address: "418 N Dalton Ave", city: "Azusa", price: 1300000, closed: "2025-08-11", sqft: 3354, yearBuilt: 2019, lotSqft: 7427, gsi: 71400, note: "Built 2019" },
+    { address: "605 W 1st St", city: "Azusa", price: 950000, closed: "2025-06-18", sqft: 2119, yearBuilt: 1951, lotSqft: 13455, gsi: 40800 },
+  ],
+  compsSource: "CRMLS closed duplex sales in Glendora and Azusa, May 2025 to October 2026. GRM shown where gross income was reported.",
 };
 
 export const LISTINGS: Listing[] = [GLENDORA_DUPLEX];
