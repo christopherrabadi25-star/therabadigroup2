@@ -28,7 +28,7 @@ export default function ListingsPage() {
       "@type": "ListItem",
       position: i + 1,
       item: {
-        "@type": "Residence",
+        "@type": s.commercial ? "Place" : "Residence",
         name: `${s.address}, ${s.city}, CA`,
         address: { "@type": "PostalAddress", streetAddress: s.address, addressLocality: s.city, addressRegion: "CA" },
       },
@@ -40,7 +40,7 @@ export default function ListingsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <PageIntro
         title="Our sales"
-        lead="Every home we've closed, newest first."
+        lead="Every home and commercial property we've closed, newest first."
         image={PHOTOS.cromwellExterior}
         fallback="/images/rising-glen.jpg"
         imageAlt="A Los Feliz estate we sold in 2026"
@@ -65,7 +65,7 @@ export default function ListingsPage() {
           <Reveal>
             <h2 className="h-section">Sales history</h2>
             <p className="lead mt-5 text-ink-soft">
-              Residential sales from public records. Commercial and off-market deals are not listed.
+              Residential and commercial sales from public records. Off-market deals and leases are not listed.
             </p>
           </Reveal>
           <div className="mt-14 space-y-14">
@@ -82,7 +82,7 @@ export default function ListingsPage() {
                       <p className="num text-right text-[1.35rem] leading-none md:order-4">{formatPrice(s.price)}</p>
                       <p className="text-ink-soft md:order-2">{placeLabel(s)}</p>
                       <p className="text-right text-[0.92rem] text-ink-soft md:order-3 md:text-left">
-                        {s.side === "Buyer" ? "Buyer" : "Seller"}, {saleStatus(s, "")}
+                        {[s.commercial && s.type, s.side, saleStatus(s, "")].filter(Boolean).join(", ")}
                       </p>
                     </li>
                   ))}

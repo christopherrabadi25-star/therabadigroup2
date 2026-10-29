@@ -81,7 +81,7 @@ const SERVICES = [
 
 export default function HomePage() {
   const signature = ["1411-rising-glen-rd-hollywood-hills", "35099-beach-rd-dana-point"].map((s) => SALES.find((x) => x.slug === s)!);
-  const notable = [...SALES].sort((a, b) => b.price - a.price).slice(0, 8);
+  const notable = SALES.filter((s) => !s.commercial).sort((a, b) => b.price - a.price).slice(0, 8);
 
   return (
     <>

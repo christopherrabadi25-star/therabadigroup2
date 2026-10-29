@@ -87,7 +87,10 @@ export interface Sale {
   area: string;
   price: number;
   date: string; // ISO yyyy-mm-dd (close of escrow)
-  side: Side;
+  /** Leave unset until the side is confirmed; nothing is shown for it then. */
+  side?: Side;
+  /** Commercial or investment deal (gas station, industrial, retail). Listed on the Commercial page. */
+  commercial?: boolean;
   type?: string;
   facts?: string[];
   highlight?: string;
@@ -301,7 +304,7 @@ export const SALES: Sale[] = [
     imageAlt: "1426 Peppertree Dr, a gated estate in La Habra Heights",
     featured: true,
   },
-  { slug: "389-s-east-end-ave-pomona", address: "389 S East End Ave", city: "Pomona", area: "Pomona", price: 1140000, date: "2021-10-05", side: "Buyer" },
+  { slug: "389-n-east-end-ave-pomona", address: "389 N East End Ave", city: "Pomona", area: "Pomona", price: 1140000, date: "2021-10-05", side: "Buyer" },
   {
     slug: "35099-beach-rd-dana-point",
     address: "35099 Beach Rd",
@@ -337,6 +340,11 @@ export const SALES: Sale[] = [
   { slug: "216-half-30th-st-newport-beach", address: "216 1/2 30th St", city: "Newport Beach", area: "Newport Beach", price: 1021000, date: "2017-03-27", side: "Buyer" },
   { slug: "2060-liliano-dr-sierra-madre", address: "2060 Liliano Dr", city: "Sierra Madre", area: "Sierra Madre", price: 905000, date: "2012-12-06", side: "Buyer" },
   { slug: "1970-n-altadena-dr-pasadena", address: "1970 N Altadena Dr", city: "Pasadena", area: "Pasadena", price: 836000, date: "2012-12-03", side: "Seller" },
+  /* Commercial sales from public records (Realist / county recorder). */
+  { slug: "15701-e-valley-blvd-city-of-industry", address: "15701 E Valley Blvd", city: "City of Industry", area: "City of Industry", price: 1800000, date: "2021-11-15", type: "Gas station", commercial: true },
+  { slug: "1874-1888-arrow-hwy-la-verne", address: "1874-1888 Arrow Hwy", city: "La Verne", area: "La Verne", price: 980000, date: "2020-10-06", side: "Buyer", type: "Light industrial", commercial: true },
+  { slug: "19807-hamilton-ave-torrance", address: "19807 Hamilton Ave", city: "Torrance", area: "South Bay", price: 3460000, date: "2019-04-12", type: "Industrial warehouse", commercial: true },
+  { slug: "1450-n-benson-ave-upland", address: "1450 N Benson Ave", city: "Upland", area: "Upland", price: 4800000, date: "2016-05-17", type: "Industrial warehouse", commercial: true },
 ];
 
 /** Newest first */

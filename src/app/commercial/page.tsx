@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BUSINESS, SALES } from "@/lib/data";
+import { BUSINESS, SALES, SALES_BY_DATE, formatPrice, placeLabel, saleStatus } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import Steps from "@/components/Steps";
 import SaleCard from "@/components/SaleCard";
@@ -36,6 +36,7 @@ export default function CommercialPage() {
   const deals = ["811-n-croft-ave-west-hollywood", "8417-waring-ave-west-hollywood", "9550-w-olympic-blvd-beverly-hills"]
     .map((slug) => SALES.find((s) => s.slug === slug)!)
     .filter(Boolean);
+  const closed = SALES_BY_DATE.filter((s) => s.commercial);
 
   return (
     <>
@@ -90,6 +91,29 @@ export default function CommercialPage() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="light section">
+        <div className="wrap grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-24">
+          <Reveal>
+            <h2 className="h-section">Commercial closed</h2>
+            <p className="lead mt-5 text-ink-soft">Gas stations and industrial, from public records.</p>
+          </Reveal>
+          <ul>
+            {closed.map((s) => (
+              <li
+                key={s.slug}
+                className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 border-t border-ink/12 py-4 first:border-t-0 first:pt-1 md:grid-cols-[1.3fr_1fr_140px] md:items-baseline md:gap-x-8"
+              >
+                <p className="font-medium">{s.address}</p>
+                <p className="num text-right text-[1.35rem] leading-none md:order-3">{formatPrice(s.price)}</p>
+                <p className="text-ink-soft md:order-2">
+                  {[s.type, placeLabel(s), saleStatus(s, "")].filter(Boolean).join(", ")}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
