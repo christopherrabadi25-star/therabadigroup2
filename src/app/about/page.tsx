@@ -27,6 +27,7 @@ export default function AboutPage() {
         description: m.bio,
         telephone: "+16262031372",
         image: `${BUSINESS.url}${m.image}`,
+        ...(m.zillow ? { sameAs: [m.zillow] } : {}),
       },
     })),
   };
@@ -73,6 +74,11 @@ export default function AboutPage() {
               <p className="mt-2 text-[0.92rem] text-ink-soft">{m.dre}</p>
               <p className="mt-8 max-w-[34em] text-[1.12rem] leading-relaxed">{m.bio}</p>
               <p className="mt-8 text-ink-soft">{m.specialties.join(", ")}</p>
+              {m.zillow && (
+                <a href={m.zillow} target="_blank" rel="noopener noreferrer" className="link-more mt-6 inline-block">
+                  Reviews and sales on Zillow
+                </a>
+              )}
             </Reveal>
           </div>
         </section>

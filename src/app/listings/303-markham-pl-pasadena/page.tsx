@@ -116,7 +116,6 @@ export default function MarkhamPage() {
       <section aria-label="Photos" className="bg-onyx pb-20 md:pb-32">
         <div className="wrap">
           <PhotoGallery photos={[...MARKHAM.photos]} />
-          <p className="mt-4 text-[0.85rem] text-ivory/50">Listing photography courtesy of Coldwell Banker Realty.</p>
         </div>
       </section>
 

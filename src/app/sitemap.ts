@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ["/buyers", 0.9, "monthly"],
     ["/about", 0.8, "monthly"],
     ["/areas", 0.8, "monthly"],
+    ["/areas/claremont", 0.9, "monthly"],
     ["/commercial", 0.8, "monthly"],
     ["/market", 0.7, "monthly"],
     ["/contact", 0.7, "monthly"],

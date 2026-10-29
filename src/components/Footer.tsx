@@ -24,6 +24,11 @@ export default function Footer() {
               <a href={BUSINESS.instagram} target="_blank" rel="noopener noreferrer" className="block text-ivory/75 no-underline hover:text-ivory">
                 Instagram {BUSINESS.instagramHandle}
               </a>
+              {TEAM.filter((m) => m.zillow).map((m) => (
+                <a key={m.name} href={m.zillow} target="_blank" rel="noopener noreferrer" className="block text-ivory/75 no-underline hover:text-ivory">
+                  {m.first} on Zillow
+                </a>
+              ))}
             </div>
           </div>
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { BUSINESS, REGIONS, formatPrice, saleStatus, salesIn } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import { PHOTOS } from "@/lib/data";
@@ -52,6 +53,11 @@ export default function AreasPage() {
                       {c.name}
                     </h3>
                     <p className="mt-2 opacity-75">{c.desc}</p>
+                    {c.name === "Claremont" && (
+                      <Link href="/areas/claremont" className="link-more mt-4 inline-block">
+                        Claremont real estate
+                      </Link>
+                    )}
                     {sold.length > 0 && (
                       <ul className="mt-5 space-y-1.5 text-[0.97rem]">
                         {sold.map((s) => (

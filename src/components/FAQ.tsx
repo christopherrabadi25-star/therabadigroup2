@@ -1,11 +1,19 @@
 import { FAQS } from "@/lib/data";
 import { Reveal } from "./Motion";
 
-export default function FAQ({ heading = "Questions, answered" }: { heading?: string }) {
+type QA = { readonly question: string; readonly answer: string };
+
+export default function FAQ({
+  heading = "Questions, answered",
+  items = FAQS,
+}: {
+  heading?: string;
+  items?: readonly QA[];
+}) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: FAQS.map((f) => ({
+    mainEntity: items.map((f) => ({
       "@type": "Question",
       name: f.question,
       acceptedAnswer: { "@type": "Answer", text: f.answer },
@@ -20,7 +28,7 @@ export default function FAQ({ heading = "Questions, answered" }: { heading?: str
           <h2 className="h-section">{heading}</h2>
         </Reveal>
         <Reveal delay={0.1} className="faq">
-          {FAQS.map((f) => (
+          {items.map((f) => (
             <details key={f.question}>
               <summary>{f.question}</summary>
               <p>{f.answer}</p>

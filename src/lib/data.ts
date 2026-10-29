@@ -51,6 +51,7 @@ export const TEAM = [
     title: "Agent, 20+ years",
     dre: "CA DRE #01738777",
     image: "/images/ramzi.png",
+    zillow: "https://www.zillow.com/profile/ramzirbd",
     specialties: ["Luxury homes", "Commercial", "Multi-family", "Gas stations", "Ground leases", "Industrial"],
     short:
       "Two decades of deals, from a $7.4M Hollywood Hills mid-century to ground leases and gas stations most agents never touch.",
@@ -62,6 +63,8 @@ export const TEAM = [
     title: "Agent",
     dre: "CA DRE #02246356",
     image: "/images/christopher.png",
+    // Add Christopher's Zillow profile URL here; the link shows up on the site automatically once it's set.
+    zillow: "",
     specialties: ["Buyer representation", "San Gabriel Valley", "Foothill Cities", "Market research", "Marketing"],
     short:
       "Raised in the San Gabriel Valley. Runs the research, comps, and marketing, and works side by side with buyers.",

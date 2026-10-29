@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { BUSINESS, PHOTOS, formatDate, RECENT_SALES, STATS, TEAM, SALES, SALES_BY_DATE, formatPrice } from "@/lib/data";
+import { BUSINESS, PHOTOS, formatDate, RECENT_SALES, STATS, TEAM, SALES, formatPrice } from "@/lib/data";
 import HeroCinema, { type Slide } from "@/components/HeroCinema";
 import SaleCard from "@/components/SaleCard";
 import ContactPanel from "@/components/ContactPanel";
@@ -175,7 +175,7 @@ export default function HomePage() {
               <h2 className="h-section">Just sold</h2>
             </Reveal>
             <Link href="/listings" className="link-more">
-              All {SALES_BY_DATE.length} sales
+              Full sales history
             </Link>
           </div>
           <div className="rail">
