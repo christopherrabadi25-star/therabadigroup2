@@ -13,7 +13,7 @@ import { PhoneIcon } from "@/components/Icons";
 import { MARKHAM } from "@/lib/markham";
 
 export const metadata: Metadata = {
-  title: { absolute: "The Rabadi Group | Luxury Real Estate in Claremont & Southern California" },
+  title: { absolute: "The Rabadi Group | Luxury Real Estate in Southern California" },
   description:
     "Ramzi and Christopher Rabadi. $110M+ in closed sales and 20+ years in Southern California real estate, including $7.4M in the Hollywood Hills and $6.3M oceanfront in Dana Point. Call (626) 203-1372.",
   alternates: { canonical: BUSINESS.url },
@@ -100,7 +100,7 @@ export default function HomePage() {
           </Link>
         </Reveal>
         <Reveal delay={0.05} y={30}>
-          <h1 className="display max-w-[12ch]">Claremont&apos;s luxury real estate team.</h1>
+          <h1 className="display max-w-[14ch]">Southern California&apos;s luxury real estate team.</h1>
         </Reveal>
         <Reveal delay={0.2}>
           <p className="lead mt-6 text-ivory/90">
