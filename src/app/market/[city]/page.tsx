@@ -59,6 +59,7 @@ export default async function CityMarketPage({ params }: Props) {
             All home types, {m.month}. Source:{" "}
             <a href={m.sourceUrl} target="_blank" rel="noopener noreferrer">
               {m.source}
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
             .
           </p>
@@ -83,7 +84,7 @@ export default async function CityMarketPage({ params }: Props) {
         <div className="grid gap-1 md:grid-cols-3">
           {others.map((c) => (
             <Link key={c.slug} href={`/market/${c.slug}`} className="group relative block aspect-[4/3] no-underline">
-              <CityShot photo={c.photos[0]} sizes="(min-width: 768px) 33vw, 100vw" className="absolute inset-0" />
+              <CityShot photo={c.photos[0]} sizes="(min-width: 768px) 33vw, 100vw" className="absolute inset-0" plainCredit />
               <div className="absolute inset-0 bg-gradient-to-t from-onyx/85 via-onyx/20 to-transparent" />
               <div className="absolute bottom-6 left-6 text-ivory">
                 <p className="text-[1.6rem]">{c.name}</p>

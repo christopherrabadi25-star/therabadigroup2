@@ -77,6 +77,7 @@ export default function AboutPage() {
               {m.zillow && (
                 <a href={m.zillow} target="_blank" rel="noopener noreferrer" className="link-more mt-6 inline-block">
                   Reviews and sales on Zillow
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               )}
             </Reveal>

@@ -152,12 +152,12 @@ function ContentBlock({ block }: { block: BlockType }) {
       return <p className="border-l-2 border-champagne-deep bg-sand px-6 py-5 font-display text-[1.25rem] leading-snug">{block.text}</p>;
     case "table":
       return (
-        <div className="overflow-x-auto border border-ink/15">
+        <div className="overflow-x-auto border border-ink/15" tabIndex={0} role="region" aria-label="Data table">
           <table className="w-full min-w-[480px] border-collapse text-[0.97rem]">
             <thead className="bg-sand">
               <tr>
                 {block.head.map((h, i) => (
-                  <th key={i} className="px-4 py-3 text-left font-semibold">
+                  <th key={i} scope="col" className="px-4 py-3 text-left font-semibold">
                     {h}
                   </th>
                 ))}

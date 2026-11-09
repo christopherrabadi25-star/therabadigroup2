@@ -85,7 +85,7 @@ export default function CommercialPage() {
           <Reveal>
             <h2 className="h-section mb-12">Income property closed</h2>
           </Reveal>
-          <div className="rail">
+          <div className="rail" tabIndex={0} role="region" aria-label="Income property closed, scroll sideways for more">
             {deals.map((s, i) => (
               <Reveal key={s.slug} delay={i * 0.1}>
                 <SaleCard sale={s} />

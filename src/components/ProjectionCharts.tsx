@@ -374,14 +374,14 @@ export default function ProjectionCharts({ data }: { data: ProjectionInput }) {
           {showTable ? "Hide" : "Show"} the numbers by year
         </button>
         {showTable && (
-          <div className="mt-5 overflow-x-auto">
+          <div className="mt-5 overflow-x-auto" tabIndex={0} role="region" aria-label="Projection numbers by year">
             <table className="w-full min-w-[560px] text-left text-[0.95rem]">
               <thead>
                 <tr className="border-b border-ink/20 text-ink-soft">
-                  <th className="py-2 pr-4 font-medium">Year</th>
-                  <th className="py-2 pr-4 text-right font-medium">Value</th>
-                  <th className="py-2 pr-4 text-right font-medium">Rent, market</th>
-                  <th className="py-2 text-right font-medium">Rent, legal max</th>
+                  <th scope="col" className="py-2 pr-4 font-medium">Year</th>
+                  <th scope="col" className="py-2 pr-4 text-right font-medium">Value</th>
+                  <th scope="col" className="py-2 pr-4 text-right font-medium">Rent, market</th>
+                  <th scope="col" className="py-2 text-right font-medium">Rent, legal max</th>
                 </tr>
               </thead>
               <tbody>

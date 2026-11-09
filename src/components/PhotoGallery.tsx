@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 
 export type GalleryPhoto = {
   /** Sources in order of preference. If all fail, the photo is dropped. */
@@ -37,8 +38,8 @@ function Photo({
       className={`zoom-on-hover group relative block w-full overflow-hidden rounded-[18px] bg-coal text-left ${
         photo.wide ? "aspect-[16/10] md:col-span-2 md:aspect-[21/9]" : "aspect-[4/3]"
       }`}
-      aria-label={`Open photo: ${photo.alt}`}
     >
+      <span className="sr-only">Open photo: </span>
       <Image
         key={src}
         src={src}
@@ -66,6 +67,7 @@ function Photo({
 export default function PhotoGallery({ photos }: { photos: GalleryPhoto[] }) {
   const [dead, setDead] = useState<number[]>([]);
   const [open, setOpen] = useState<{ src: string; alt: string } | null>(null);
+  const viewerRef = useFocusTrap<HTMLDivElement>(!!open, () => setOpen(null));
 
   return (
     <>
@@ -86,6 +88,7 @@ export default function PhotoGallery({ photos }: { photos: GalleryPhoto[] }) {
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={viewerRef}
             className="fixed inset-0 z-[80] flex items-center justify-center bg-onyx/95 p-4 backdrop-blur-sm md:p-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -94,7 +97,7 @@ export default function PhotoGallery({ photos }: { photos: GalleryPhoto[] }) {
             onClick={() => setOpen(null)}
             role="dialog"
             aria-modal="true"
-            aria-label={open.alt}
+            aria-label={`Photo: ${open.alt}`}
           >
             <motion.div
               className="relative h-full w-full"
@@ -118,7 +121,7 @@ export default function PhotoGallery({ photos }: { photos: GalleryPhoto[] }) {
               onClick={() => setOpen(null)}
               className="absolute right-5 top-5 rounded-full bg-ivory/10 px-4 py-2 text-[0.95rem] text-ivory backdrop-blur-md"
             >
-              Close
+              Close<span className="sr-only"> photo</span>
             </button>
           </motion.div>
         )}

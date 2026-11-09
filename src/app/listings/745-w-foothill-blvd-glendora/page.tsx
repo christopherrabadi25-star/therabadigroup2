@@ -122,9 +122,9 @@ export default function GlendoraDuplexPage() {
             <table className="mt-8 w-full text-left">
               <thead>
                 <tr className="border-b border-ink/20 text-[0.92rem] text-ink-soft">
-                  <th className="py-3 font-medium">Unit</th>
-                  <th className="py-3 text-right font-medium">Monthly</th>
-                  <th className="py-3 text-right font-medium">Annual</th>
+                  <th scope="col" className="py-3 font-medium">Unit</th>
+                  <th scope="col" className="py-3 text-right font-medium">Monthly</th>
+                  <th scope="col" className="py-3 text-right font-medium">Annual</th>
                 </tr>
               </thead>
               <tbody>
@@ -221,17 +221,17 @@ export default function GlendoraDuplexPage() {
               Duplexes sold nearby in the last 18 months. At {usd(n.gross)} a year, 745 W Foothill rents for {usd(n.gross - L.comps[0].gsi!)} more than 124 N Vista Bonita, the closest Glendora comp.
             </p>
           </Reveal>
-          <div className="mt-10 overflow-x-auto">
+          <div className="mt-10 overflow-x-auto" tabIndex={0} role="region" aria-label="Comparable sales table">
             <table className="w-full min-w-[760px] text-left">
               <thead>
                 <tr className="border-b border-ink/20 text-[0.9rem] text-ink-soft">
-                  <th className="py-3 pr-4 font-medium">Address</th>
-                  <th className="py-3 pr-4 text-right font-medium">Sold price</th>
-                  <th className="py-3 pr-4 font-medium">Closed</th>
-                  <th className="py-3 pr-4 text-right font-medium">Sq ft</th>
-                  <th className="py-3 pr-4 text-right font-medium">$/sq ft</th>
-                  <th className="py-3 pr-4 text-right font-medium">Built</th>
-                  <th className="py-3 text-right font-medium">GRM</th>
+                  <th scope="col" className="py-3 pr-4 font-medium">Address</th>
+                  <th scope="col" className="py-3 pr-4 text-right font-medium">Sold price</th>
+                  <th scope="col" className="py-3 pr-4 font-medium">Closed</th>
+                  <th scope="col" className="py-3 pr-4 text-right font-medium">Sq ft</th>
+                  <th scope="col" className="py-3 pr-4 text-right font-medium">$/sq ft</th>
+                  <th scope="col" className="py-3 pr-4 text-right font-medium">Built</th>
+                  <th scope="col" className="py-3 text-right font-medium">GRM</th>
                 </tr>
               </thead>
               <tbody>

@@ -490,17 +490,17 @@ function RowTable({ rows, first, showLeads, showTime, empty }: { rows: Row[]; fi
   if (!rows.length) return <Empty>{empty || "No data in this range."}</Empty>;
   const max = Math.max(1, ...rows.map((r) => r.sessions));
   return (
-    <div className="-mx-2 overflow-x-auto">
+    <div className="-mx-2 overflow-x-auto" tabIndex={0} role="region" aria-label="Table">
       <table className="w-full min-w-[420px] text-sm">
         <thead>
           <tr className="text-left text-[0.7rem] uppercase tracking-[0.12em] text-ivory/45">
-            <th className="px-2 pb-2 font-medium">{first}</th>
-            <th className="px-2 pb-2 text-right font-medium">Visitors</th>
-            <th className="px-2 pb-2 text-right font-medium">{showTime ? "Views" : "Visits"}</th>
-            {showTime && <th className="px-2 pb-2 text-right font-medium">Avg time</th>}
-            {showTime && <th className="px-2 pb-2 text-right font-medium">Scroll</th>}
-            {showLeads && <th className="px-2 pb-2 text-right font-medium">Leads</th>}
-            {showLeads && <th className="px-2 pb-2 text-right font-medium">Taps</th>}
+            <th scope="col" className="px-2 pb-2 font-medium">{first}</th>
+            <th scope="col" className="px-2 pb-2 text-right font-medium">Visitors</th>
+            <th scope="col" className="px-2 pb-2 text-right font-medium">{showTime ? "Views" : "Visits"}</th>
+            {showTime && <th scope="col" className="px-2 pb-2 text-right font-medium">Avg time</th>}
+            {showTime && <th scope="col" className="px-2 pb-2 text-right font-medium">Scroll</th>}
+            {showLeads && <th scope="col" className="px-2 pb-2 text-right font-medium">Leads</th>}
+            {showLeads && <th scope="col" className="px-2 pb-2 text-right font-medium">Taps</th>}
           </tr>
         </thead>
         <tbody>

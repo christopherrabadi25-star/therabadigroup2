@@ -7,11 +7,14 @@ export default function CityShot({
   sizes = "100vw",
   className = "",
   preload = false,
+  plainCredit = false,
 }: {
   photo: CityPhoto;
   sizes?: string;
   className?: string;
   preload?: boolean;
+  /** Set when the photo sits inside a link, since a link can't contain another link. */
+  plainCredit?: boolean;
 }) {
   const remote = photo.src.startsWith("http");
   // Only default to `relative` when the caller hasn't positioned the figure itself.
@@ -30,9 +33,10 @@ export default function CityShot({
       />
       {photo.credit && (
         <figcaption className="absolute bottom-2 right-3 text-[0.7rem] text-ivory/70 [text-shadow:0_1px_2px_rgba(0,0,0,0.6)]">
-          {photo.creditUrl ? (
+          {photo.creditUrl && !plainCredit ? (
             <a href={photo.creditUrl} target="_blank" rel="noopener noreferrer" className="no-underline hover:text-ivory">
               Photo: {photo.credit}
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
           ) : (
             <>Photo: {photo.credit}</>

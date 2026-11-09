@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
@@ -40,13 +40,45 @@ export default function HeroCinema({
   const live = useMemo(() => slides.filter((s) => !failed.includes(s.src)), [slides, failed]);
   const [i, setI] = useState(0);
   const reduce = useReducedMotion();
+  // Anyone can stop the motion (WCAG 2.2.2). Reduced-motion visitors start paused.
+  const [paused, setPaused] = useState<boolean | null>(null);
+  const stopped = paused ?? !!reduce;
+  const videoRef = useRef<HTMLVideoElement>(null);
   const idx = live.length ? i % live.length : 0;
 
   useEffect(() => {
-    if (reduce || video || live.length < 2) return;
+    if (stopped || video || live.length < 2) return;
     const t = setTimeout(() => setI((n) => (n + 1) % live.length), HOLD);
     return () => clearTimeout(t);
-  }, [i, reduce, video, live.length]);
+  }, [i, stopped, video, live.length]);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (stopped) v.pause();
+    else v.play().catch(() => {});
+  }, [stopped]);
+
+  const canMove = !!video || live.length > 1;
+  const pauseButton = canMove && (
+    <button
+      type="button"
+      onClick={() => setPaused(!stopped)}
+      aria-pressed={stopped}
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-ivory/30 text-ivory hover:border-ivory/70"
+    >
+      <span className="sr-only">{video ? "Pause background video" : "Pause slideshow"}</span>
+      {stopped ? (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M7 4.5v15l13-7.5z" />
+        </svg>
+      ) : (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
+        </svg>
+      )}
+    </button>
+  );
 
   const s = live[idx];
   const shownSrc = s && swapped.includes(s.src) && s.fallback ? s.fallback : s?.src;
@@ -61,10 +93,13 @@ export default function HeroCinema({
       <div className="absolute inset-0 -z-10">
         {video ? (
           <video
+            ref={videoRef}
             className="h-full w-full object-cover"
             src={video.src}
             poster={video.poster}
-            autoPlay
+            aria-hidden="true"
+            tabIndex={-1}
+            autoPlay={!reduce}
             muted
             loop
             playsInline
@@ -82,7 +117,7 @@ export default function HeroCinema({
                 transition={{ duration: 1.8, ease: "easeInOut" }}
               >
                 <div
-                  className={`absolute inset-0 ${reduce ? "" : "kenburns"}`}
+                  className={`absolute inset-0 ${stopped ? "" : "kenburns"}`}
                   style={{ ["--kb-origin" as string]: s.origin ?? "50% 50%" }}
                 >
                   <Image
@@ -110,6 +145,8 @@ export default function HeroCinema({
       <div className="wrap pb-8 pt-[calc(var(--header-h)+40px)] md:pb-10">
         {children}
 
+        {video && <div className="mt-10 flex justify-end">{pauseButton}</div>}
+
         {!video && s && (
           <div className="mt-12 flex items-end justify-between gap-6 border-t border-ivory/20 pt-5 md:mt-14">
             <AnimatePresence mode="wait">
@@ -125,14 +162,14 @@ export default function HeroCinema({
                 {s.detail && <span className="block text-[0.95rem] text-ivory/75">{s.detail}</span>}
               </motion.p>
             </AnimatePresence>
-            <div className="flex shrink-0 gap-1.5" role="tablist" aria-label="Photos">
+            <div className="flex shrink-0 items-center gap-1.5" role="group" aria-label="Featured homes">
+              {pauseButton}
               {live.map((sl, n) => (
                 <button
                   key={sl.src}
                   type="button"
-                  role="tab"
-                  aria-selected={n === idx}
-                  aria-label={`Show ${sl.title}`}
+                  aria-current={n === idx ? "true" : undefined}
+                  aria-label={`Show ${sl.title}, ${n + 1} of ${live.length}`}
                   onClick={() => setI(n)}
                   className="relative h-8 w-8 md:w-12"
                 >
@@ -141,9 +178,9 @@ export default function HeroCinema({
                     <motion.span
                       key={`bar-${i}`}
                       className="absolute left-0 top-1/2 h-[2px] rounded-full bg-ivory"
-                      initial={{ width: reduce ? "100%" : "0%" }}
+                      initial={{ width: stopped ? "100%" : "0%" }}
                       animate={{ width: "100%" }}
-                      transition={{ duration: reduce ? 0 : HOLD / 1000, ease: "linear" }}
+                      transition={{ duration: stopped ? 0 : HOLD / 1000, ease: "linear" }}
                     />
                   )}
                 </button>

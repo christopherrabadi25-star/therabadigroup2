@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ["/market", 0.7, "monthly"],
     ["/contact", 0.7, "monthly"],
     ["/blog", 0.6, "monthly"],
+    ["/accessibility", 0.3, "monthly"],
   ];
   return [
     ...pages.map(([path, priority, changeFrequency]) => ({ url: `${base}${path}`, lastModified: now, changeFrequency, priority })),

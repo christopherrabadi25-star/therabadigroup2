@@ -181,7 +181,7 @@ export default function HomePage() {
               Full sales history
             </Link>
           </div>
-          <div className="rail">
+          <div className="rail" tabIndex={0} role="region" aria-label="Just sold homes, scroll sideways for more">
             {RECENT_SALES.map((s, i) => (
               <Reveal key={s.slug} delay={i * 0.08}>
                 <SaleCard sale={s} />

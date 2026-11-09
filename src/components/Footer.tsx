@@ -22,20 +22,22 @@ export default function Footer() {
               </a>
               <a href={BUSINESS.instagram} target="_blank" rel="noopener noreferrer" className="block text-ivory/75 no-underline hover:text-ivory">
                 Instagram {BUSINESS.instagramHandle}
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
               {TEAM.filter((m) => m.zillow).map((m) => (
                 <a key={m.name} href={m.zillow} target="_blank" rel="noopener noreferrer" className="block text-ivory/75 no-underline hover:text-ivory">
                   {m.first} on Zillow
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               ))}
             </div>
           </div>
 
           <nav aria-label="Footer">
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-1">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-1 md:grid-cols-1">
               {[...NAV_LINKS, ...MORE_LINKS].map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-ivory/75 no-underline hover:text-ivory">
+                  <Link href={l.href} className="inline-block py-1 text-ivory/75 no-underline hover:text-ivory">
                     {l.label}
                   </Link>
                 </li>
@@ -59,7 +61,10 @@ export default function Footer() {
         <p className="mt-16 text-[0.8rem] leading-relaxed text-ivory/65">
           © {new Date().getFullYear()} The Rabadi Group at {BUSINESS.brokerage}. Sales shown include transactions where
           we represented the buyer or the seller. Information is deemed reliable but not guaranteed. Equal Housing
-          Opportunity.
+          Opportunity.{" "}
+          <Link href="/accessibility" className="underline underline-offset-4 hover:text-ivory">
+            Accessibility
+          </Link>
         </p>
       </div>
     </footer>

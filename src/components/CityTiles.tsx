@@ -13,6 +13,7 @@ export default function CityTiles({ to = "areas" }: { to?: "areas" | "market" })
             photo={c.photos[0]}
             sizes="(min-width: 640px) 50vw, 100vw"
             preload={i < 2}
+            plainCredit
             className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.03]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-onyx/85 via-onyx/15 to-transparent" />

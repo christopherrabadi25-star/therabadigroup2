@@ -20,7 +20,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     return (
       <div className={shell} data-lenis-prevent>
         <div className="mx-auto max-w-md px-6 py-24">
-          <p className="font-display text-3xl">Dashboard not set up yet</p>
+          <h1 className="font-display text-3xl">Dashboard not set up yet</h1>
           <p className="mt-4 text-ivory/70">
             Add an <code className="text-champagne">ADMIN_PASSWORD</code> environment variable in Vercel, then redeploy.
           </p>
@@ -33,7 +33,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     return (
       <div className={shell} data-lenis-prevent>
         <form action="/api/admin/login" method="post" className="mx-auto mt-[18vh] grid max-w-sm gap-6 px-6">
-          <p className="font-display text-4xl">The Rabadi Group</p>
+          <h1 className="font-display text-4xl">The Rabadi Group</h1>
           <p className="-mt-3 text-sm uppercase tracking-[0.2em] text-champagne">Private dashboard</p>
           <input
             type="password"
@@ -41,6 +41,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             autoFocus
             required
             placeholder="Password"
+            aria-label="Dashboard password"
             className="rounded-xl border border-ivory/15 bg-coal px-4 py-3 text-ivory outline-none focus:border-champagne"
           />
           {sp.error && <p className="text-sm text-[#e4876f]">That password didn&apos;t match.</p>}

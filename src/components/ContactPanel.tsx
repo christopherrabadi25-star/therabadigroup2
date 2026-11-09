@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import { BUSINESS, TEAM } from "@/lib/data";
 import { MailIcon, TextIcon } from "./Icons";
@@ -25,6 +25,16 @@ export default function ContactPanel({
   as?: "h1" | "h2";
 }) {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
+  const [missing, setMissing] = useState<string[]>([]);
+  const resultRef = useRef<HTMLParagraphElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const uid = useId();
+  const errId = `${uid}-err`;
+
+  // When the form is replaced by a result, move focus to it so screen reader users hear it.
+  useEffect(() => {
+    if (status.kind === "sent" || status.kind === "fallback") resultRef.current?.focus();
+  }, [status.kind]);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -44,8 +54,11 @@ export default function ContactPanel({
       })(),
       page: location.pathname,
     };
-    if (!data.name || !data.phone) {
+    const empty = [!data.name && "name", !data.phone && "phone"].filter(Boolean) as string[];
+    setMissing(empty);
+    if (empty.length) {
       setStatus({ kind: "error", msg: "Add your name and phone number so we can reach you." });
+      formRef.current?.querySelector<HTMLInputElement>(`[name="${empty[0]}"]`)?.focus();
       return;
     }
     const details = data.message ? ` ${data.message.replace(/[.\s]+$/, "")}.` : "";
@@ -108,14 +121,14 @@ export default function ContactPanel({
           <div className="rounded-[24px] border border-ivory/10 bg-onyx/60 p-6 md:p-10">
             {status.kind === "sent" ? (
               <div role="status" className="py-12">
-                <p className="font-display text-[2.2rem] leading-tight">Message sent.</p>
+                <p ref={resultRef} tabIndex={-1} className="font-display text-[2.2rem] leading-tight outline-none">Message sent.</p>
                 <p className="mt-4 text-ivory/75">
                   Your message is with Ramzi and Christopher. If it&apos;s urgent, call {BUSINESS.phone}.
                 </p>
               </div>
             ) : status.kind === "fallback" ? (
               <div role="status" className="py-6">
-                <p className="font-display text-[2rem] leading-tight">One more step</p>
+                <p ref={resultRef} tabIndex={-1} className="font-display text-[2rem] leading-tight outline-none">One more step</p>
                 <p className="mt-4 text-ivory/75">Send your note as a text or email and it goes straight to Ramzi&apos;s phone.</p>
                 <div className="mt-8 grid gap-3">
                   <a href={`${BUSINESS.smsHref}?&body=${encodeURIComponent(status.body)}`} className="btn btn-light">
@@ -130,7 +143,7 @@ export default function ContactPanel({
                 </div>
               </div>
             ) : (
-              <form onSubmit={onSubmit} noValidate className="grid min-w-0 gap-8 [&>*]:min-w-0">
+              <form ref={formRef} onSubmit={onSubmit} noValidate className="grid min-w-0 gap-8 [&>*]:min-w-0">
                 <label className="field">
                   <span>What can we help with?</span>
                   <select name="type" defaultValue={defaultTopic}>
@@ -141,12 +154,26 @@ export default function ContactPanel({
                 </label>
                 <div className="grid gap-8 sm:grid-cols-2 [&>*]:min-w-0">
                   <label className="field">
-                    <span>Name</span>
-                    <input name="name" autoComplete="name" required />
+                    <span>Name (required)</span>
+                    <input
+                      name="name"
+                      autoComplete="name"
+                      required
+                      aria-invalid={missing.includes("name") || undefined}
+                      aria-describedby={missing.includes("name") ? errId : undefined}
+                    />
                   </label>
                   <label className="field">
-                    <span>Phone</span>
-                    <input name="phone" type="tel" autoComplete="tel" inputMode="tel" required />
+                    <span>Phone (required)</span>
+                    <input
+                      name="phone"
+                      type="tel"
+                      autoComplete="tel"
+                      inputMode="tel"
+                      required
+                      aria-invalid={missing.includes("phone") || undefined}
+                      aria-describedby={missing.includes("phone") ? errId : undefined}
+                    />
                   </label>
                 </div>
                 <label className="field">
@@ -158,7 +185,7 @@ export default function ContactPanel({
                   <textarea name="message" rows={2} />
                 </label>
                 {status.kind === "error" && (
-                  <p role="alert" className="text-[#e3a28f]">
+                  <p id={errId} role="alert" className="text-[#e3a28f]">
                     {status.msg}
                   </p>
                 )}

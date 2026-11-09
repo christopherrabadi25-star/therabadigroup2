@@ -15,7 +15,7 @@
   --color-ink-soft: #5c554d;
   --color-taupe: #b0a698;
   --color-champagne: #c9b07f;
-  --color-champagne-deep: #85693a;
+  --color-champagne-deep: #735a30; /* 4.9:1 on sand, 5.7:1 on ivory */
 
   --font-display: var(--font-dmserif), "Didot", Georgia, serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter), "Helvetica Neue", Arial, sans-serif;
@@ -98,6 +98,11 @@ p {
 :focus-visible {
   outline: 2px solid var(--color-champagne);
   outline-offset: 3px;
+}
+/* Champagne is too pale to see on the ivory and sand sections; use ink there. */
+.light :focus-visible,
+.light-2 :focus-visible {
+  outline-color: var(--color-ink);
 }
 
 /* ---------- Layout ---------- */
@@ -286,7 +291,7 @@ p {
   color: var(--color-ivory);
   background: transparent;
   border: 0;
-  border-bottom: 1px solid #4a443d;
+  border-bottom: 1px solid #7a7168; /* 3.6:1 against the panel, so the field edge is visible */
   border-radius: 0;
   appearance: none;
   transition: border-color 0.3s;
@@ -310,6 +315,12 @@ p {
 .field select:focus {
   outline: none;
   border-bottom-color: var(--color-champagne);
+  box-shadow: 0 2px 0 0 var(--color-champagne);
+}
+.field input[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-bottom-color: #e3a28f;
+  box-shadow: 0 2px 0 0 #e3a28f;
 }
 
 /* ---------- Cinematic image treatment ---------- */
@@ -329,7 +340,7 @@ p {
   pointer-events: none;
   opacity: 0.07;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain 1.2s steps(6) infinite;
+  animation: grain 1.2s steps(6) 4;
 }
 @keyframes grain {
   0% { transform: translate(0, 0); }
@@ -462,7 +473,8 @@ p {
   inset: 0;
   background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
   transform: translateX(-120%);
-  animation: shimmer 3.6s var(--ease-lux) infinite;
+  /* A few passes, then it rests: no motion that runs forever (WCAG 2.2.2). */
+  animation: shimmer 3.6s var(--ease-lux) 3;
 }
 @keyframes shimmer {
   0%, 55% { transform: translateX(-120%); }

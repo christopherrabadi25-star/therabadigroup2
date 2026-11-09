@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { BUSINESS, NAV_LINKS, MORE_LINKS } from "@/lib/data";
 import { PhoneIcon } from "./Icons";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -27,13 +28,18 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  // Escape closes, Tab stays between the Close button and the menu, focus returns on close.
+  const menuRef = useFocusTrap<HTMLDivElement>(open, () => setOpen(false), () => [toggleRef.current]);
+
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", onKey);
+    // Hide the page behind the open menu from screen readers and the keyboard.
+    const behind = [document.getElementById("main"), document.querySelector("footer"), document.querySelector('nav[aria-label="Quick contact"]')];
+    behind.forEach((el) => el && (open ? el.setAttribute("inert", "") : el.removeAttribute("inert")));
     return () => {
       document.documentElement.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
+      behind.forEach((el) => el?.removeAttribute("inert"));
     };
   }, [open]);
 
@@ -77,6 +83,7 @@ export default function Header() {
               <PhoneIcon size={15} /> {BUSINESS.phone}
             </a>
             <button
+              ref={toggleRef}
               type="button"
               onClick={() => setOpen((v) => !v)}
               className="flex h-11 items-center gap-3 pl-2 text-[0.95rem] font-medium lg:hidden"
@@ -84,6 +91,7 @@ export default function Header() {
               aria-controls="mobile-menu"
             >
               {open ? "Close" : "Menu"}
+              <span className="sr-only"> navigation</span>
               <span className="relative block h-3 w-6" aria-hidden>
                 <span className={`absolute left-0 h-px w-6 bg-current transition-all duration-500 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
                 <span className={`absolute left-0 h-px w-6 bg-current transition-all duration-500 ${open ? "top-1.5 -rotate-45" : "top-3"}`} />
@@ -96,7 +104,12 @@ export default function Header() {
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={menuRef}
             id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
+            tabIndex={-1}
             className="fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-onyx pt-[var(--header-h)] text-ivory lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -115,6 +128,7 @@ export default function Header() {
                     <Link
                       href={l.href}
                       onClick={() => setOpen(false)}
+                      aria-current={(l.href === "/" ? pathname === "/" : isActive(l.href)) ? "page" : undefined}
                       className={`block py-2.5 font-display text-[2.3rem] leading-tight no-underline ${
                         (l.href === "/" ? pathname === "/" : isActive(l.href)) ? "text-champagne" : ""
                       }`}

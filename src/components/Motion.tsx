@@ -64,7 +64,8 @@ export function CountUp({ value, className }: { value: string; className?: strin
   // Bodoni's "+" is a hairline; set it in the sans so it reads at a glance.
   const plus = text.endsWith("+");
   return (
-    <span ref={ref} className={className} aria-label={value}>
+    <span ref={ref} className={className}>
+      <span className="sr-only">{value}</span>
       <span aria-hidden>{plus ? text.slice(0, -1) : text}</span>
       {plus && (
         <span aria-hidden className="ml-1 align-[0.35em] font-sans text-[0.5em] font-light">
