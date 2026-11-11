@@ -10,7 +10,7 @@ import { PhoneIcon } from "@/components/Icons";
 
 const n = listingNumbers(L);
 const pct = (v: number) => `${v.toFixed(2)}%`;
-const TODAY = "2026-10-29";
+const TODAY = "2026-11-10";
 const lastSale = L.valueHistory[L.valueHistory.length - 1];
 const lastRent = L.rentHistory[L.rentHistory.length - 1];
 const projection = {
@@ -218,7 +218,7 @@ export default function GlendoraDuplexPage() {
           <Reveal>
             <h2 className="h-section">Comparable sales</h2>
             <p className="lead mt-5 max-w-[60ch] text-ink-soft">
-              Duplexes sold nearby in the last 18 months. At {usd(n.gross)} a year, 745 W Foothill rents for {usd(n.gross - L.comps[0].gsi!)} more than 124 N Vista Bonita, the closest Glendora comp.
+              Duplexes sold nearby in the last 18 months. At {usd(n.gross)} a year, {L.address.replace(" Blvd", "")} rents for {usd(n.gross - L.comps[0].gsi!)} more than 124 N Vista Bonita, the closest Glendora comp.
             </p>
           </Reveal>
           <div className="mt-10 overflow-x-auto" tabIndex={0} role="region" aria-label="Comparable sales table">
@@ -305,7 +305,7 @@ export default function GlendoraDuplexPage() {
         <div className="wrap grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-end">
           <Reveal>
             <h2 className="h-section max-w-[16ch]">Get the package before it hits the market</h2>
-            <p className="lead mt-5 text-ink-soft">Leases, showing times, and the full offering. Call or text.</p>
+            <p className="lead mt-5 text-ink-soft">Leases, rent roll, and the full offering. Call or text.</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a href={BUSINESS.phoneHref} className="btn btn-dark no-print">
                 <PhoneIcon size={17} /> {BUSINESS.phone}

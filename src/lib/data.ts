@@ -335,7 +335,7 @@ export const SALES: Sale[] = [
     imageAlt: "9550 W Olympic Blvd, Beverly Hills",
     featured: true,
   },
-  { slug: "745-w-foothill-blvd-glendora", address: "745 W Foothill Blvd", city: "Glendora", area: "Glendora", price: 720000, date: "2018-08-18", side: "Buyer" },
+  { slug: "745-w-foothill-blvd-glendora", address: "745 W Foothill Blvd", city: "Glendora", area: "Glendora", price: 720000, date: "2018-08-16", side: "Buyer" },
   { slug: "1546-steinhart-ave-redondo-beach", address: "1546 Steinhart Ave", city: "Redondo Beach", area: "South Bay", price: 1075000, date: "2017-09-01", side: "Buyer" },
   { slug: "216-half-30th-st-newport-beach", address: "216 1/2 30th St", city: "Newport Beach", area: "Newport Beach", price: 1021000, date: "2017-03-27", side: "Buyer" },
   { slug: "2060-liliano-dr-sierra-madre", address: "2060 Liliano Dr", city: "Sierra Madre", area: "Sierra Madre", price: 905000, date: "2012-12-06", side: "Buyer" },
