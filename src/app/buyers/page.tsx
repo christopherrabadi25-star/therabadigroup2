@@ -35,7 +35,7 @@ export default function BuyersPage() {
         title="Buy smarter"
         lead="Our latest buyer closed $119,500 under asking."
         image={PHOTOS.markham}
-        fallback="/images/rising-glen.jpg"
+        fallback="/images/sgv.jpg"
         imageAlt="A 1901 Colonial Revival estate in Pasadena, sold to our buyer for $4,675,000"
         position="50% 60%"
       >

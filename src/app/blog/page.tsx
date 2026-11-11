@@ -22,7 +22,7 @@ export default function BlogPage() {
         title="Guides"
         lead="Buying and selling in Claremont, La Verne, and the San Gabriel Valley."
         image={PHOTOS.saintAnns}
-        fallback="/images/rising-glen.jpg"
+        fallback="/images/sgv.jpg"
         imageAlt="A Laguna Beach home we sold"
         position="50% 50%"
       />

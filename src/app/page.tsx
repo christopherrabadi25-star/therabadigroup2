@@ -45,7 +45,7 @@ const SLIDES: Slide[] = [
   },
   {
     src: PHOTOS.risingGlen,
-    fallback: "/images/rising-glen.jpg",
+    fallback: "/images/sgv.jpg",
     alt: "A William Krisel mid-century home in the Hollywood Hills",
     title: "Hollywood Hills",
     detail: "William Krisel mid-century, sold for $7.4M",
@@ -197,7 +197,7 @@ export default function HomePage() {
           <article key={s.slug} className="relative flex min-h-[72svh] items-end overflow-hidden md:min-h-[88svh]">
             <ParallaxImage
               src={s.images![0]}
-              fallback={i === 0 ? "/images/rising-glen.jpg" : undefined}
+              fallback={i === 0 ? "/images/sgv.jpg" : undefined}
               alt={s.neighborhood ?? s.city}
               strength={10}
               position={i === 0 ? "40% 55%" : "50% 55%"}

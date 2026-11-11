@@ -39,7 +39,7 @@ export default function AboutPage() {
         title="About us"
         lead="Father and son. $110M+ closed."
         image={PHOTOS.risingGlen}
-        fallback="/images/rising-glen.jpg"
+        fallback="/images/sgv.jpg"
         imageAlt="A Hollywood Hills home we sold"
         position="40% 55%"
       />

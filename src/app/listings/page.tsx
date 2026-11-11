@@ -43,7 +43,7 @@ export default function ListingsPage() {
         title="Our sales"
         lead="Every home and commercial property we've closed, newest first."
         image={PHOTOS.cromwellExterior}
-        fallback="/images/rising-glen.jpg"
+        fallback="/images/sgv.jpg"
         imageAlt="A Los Feliz estate we sold in 2026"
         position="40% 55%"
       />

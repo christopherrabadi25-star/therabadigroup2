@@ -34,6 +34,7 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
       { protocol: "https", hostname: "ssl.cdn-redfin.com", pathname: "/**" },
+      { protocol: "https", hostname: "d36xftgacqn2p.cloudfront.net", pathname: "/listingphotos25/**" },
       { protocol: "https", hostname: "tracydo.com", pathname: "/wp-content/**" },
       {
         protocol: "https",

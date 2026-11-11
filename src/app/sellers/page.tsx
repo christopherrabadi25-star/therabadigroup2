@@ -32,7 +32,7 @@ export default function SellersPage() {
         title="Sell for more"
         lead="Our seller listings average 4.2% above asking."
         image={PHOTOS.peppertree}
-        fallback="/images/rising-glen.jpg"
+        fallback="/images/sgv.jpg"
         imageAlt="A La Habra Heights estate we sold for our seller"
         position="50% 50%"
       >

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BUSINESS, SALES, SALES_BY_DATE, formatPrice, placeLabel, saleStatus } from "@/lib/data";
+import { BUSINESS, PHOTOS, SALES, SALES_BY_DATE, formatPrice, placeLabel, saleStatus } from "@/lib/data";
 import PageIntro from "@/components/PageIntro";
 import Steps from "@/components/Steps";
 import SaleCard from "@/components/SaleCard";
@@ -44,7 +44,8 @@ export default function CommercialPage() {
       <PageIntro
         title="Commercial"
         lead="Twenty years of multi-family, retail, gas station, and ground lease deals."
-        image="/images/waring-ave.jpg"
+        image={PHOTOS.waring}
+        fallback="/images/sgv.jpg"
         imageAlt="A West Hollywood multi-unit building we sold"
       >
         <a href={BUSINESS.phoneHref} className="btn btn-light">

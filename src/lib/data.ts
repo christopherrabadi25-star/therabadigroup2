@@ -30,8 +30,9 @@ export const STATS = [
   { value: "$7.4M", label: "Highest single sale" },
 ] as const;
 
-/** Real photos from homes we sold (listing photography). Remote, so always paired with a local fallback. */
+/** Real photos from homes we sold (listing photography). Loaded from their original hosts, never stored on this site. Fallbacks are our own area photos. */
 export const PHOTOS = {
+  waring: "https://d36xftgacqn2p.cloudfront.net/listingphotos25/24385329-1.jpg",
   cromwellExterior: "https://tracydo.com/wp-content/uploads/2026/03/0_78-copy.jpg",
   cromwellRedfin: "https://ssl.cdn-redfin.com/photo/40/bigphoto/811/26659811_1.jpg",
   markham: "https://ssl.cdn-redfin.com/photo/45/bigphoto/840/P1-28840_1.jpg",
@@ -233,7 +234,10 @@ export const SALES: Sale[] = [
     side: "Buyer",
     type: "1939 multi-unit",
     facts: ["7 beds", "5 baths", "4,167 sq ft", "4-car garage"],
-    images: ["/images/waring-ave.jpg"],
+    images: [
+      "https://d36xftgacqn2p.cloudfront.net/listingphotos25/24385329-1.jpg",
+      "https://d36xftgacqn2p.cloudfront.net/listingphotos25/24385329-2.jpg",
+    ],
     imageAlt: "8417 Waring Ave, West Hollywood",
     featured: true,
   },
@@ -263,7 +267,10 @@ export const SALES: Sale[] = [
     side: "Buyer",
     type: "Fourplex",
     highlight: "Half a block from Melrose Place, with large private patios.",
-    images: ["/images/croft-ave.jpg"],
+    images: [
+      "https://dlajgvw9htjpb.cloudfront.net/cms/5aaa9488-9739-436e-a856-f098468e0a5f/23-254109/7108976295704662576.jpg",
+      "https://dlajgvw9htjpb.cloudfront.net/cms/5aaa9488-9739-436e-a856-f098468e0a5f/23-254109/4770655088177945258.jpg",
+    ],
     imageAlt: "811 N Croft Ave, West Hollywood",
     featured: true,
   },
@@ -281,7 +288,6 @@ export const SALES: Sale[] = [
       "Butterfly-roofed Krisel design, once home to Bobby Darin and Sandra Dee and featured in Architectural Digest.",
     images: [
       "https://www.compass.com/m/243102dcc22db564159e038057b107dc4d1f4df0_img_0/origin.webp",
-      "/images/rising-glen.jpg",
     ],
     imageAlt: "1411 Rising Glen Rd, Hollywood Hills",
     featured: true,
@@ -331,7 +337,6 @@ export const SALES: Sale[] = [
     date: "2019-04-09",
     side: "Buyer",
     highlight: "On the Olympic Boulevard corridor in the 90212.",
-    images: ["/images/olympic-blvd.jpg"],
     imageAlt: "9550 W Olympic Blvd, Beverly Hills",
     featured: true,
   },
